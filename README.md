@@ -5,7 +5,7 @@
 [![Downloads](https://img.shields.io/npm/dm/iobroker.alexa-shoppinglist.svg)](https://www.npmjs.com/package/iobroker.alexa-shoppinglist)
 ![Number of Installations](https://iobroker.live/badges/alexa-shoppinglist-installed.svg)
 ![Current version in stable repository](https://iobroker.live/badges/alexa-shoppinglist-stable.svg)
-[![Dependency Status](https://img.shields.io/david/MiRo1310/iobroker.alexa-shoppinglist.svg)](https://david-dm.org/MiRo1310/iobroker.alexa-shoppinglist)
+
 
 [![NPM](https://nodei.co/npm/iobroker.alexa-shoppinglist.png?downloads=true)](https://nodei.co/npm/iobroker.alexa-shoppinglist/)
 
