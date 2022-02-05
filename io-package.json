@@ -1,0 +1,115 @@
+{
+	"common": {
+		"name": "alexa-shoppinglist",
+		"version": "0.0.1",
+		"news": {
+			"0.0.1": {
+				"en": "initial release",
+				"de": "Erstveröffentlichung",
+				"ru": "Начальная версия",
+				"pt": "lançamento inicial",
+				"nl": "Eerste uitgave",
+				"fr": "Première version",
+				"it": "Versione iniziale",
+				"es": "Versión inicial",
+				"pl": "Pierwsze wydanie",
+				"zh-cn": "首次出版"
+			}
+		},
+		"title": "Alexa Shoppinglist",
+		"titleLang": {
+			"en": "Alexa Shoppinglist",
+			"de": "Alexa Einkaufsliste",
+			"ru": "Алекса список покупок",
+			"pt": "Lista de compras Alexa",
+			"nl": "Alexa-boodschappenlijst",
+			"fr": "Liste de courses Alexa",
+			"it": "Lista della spesa di Alexa",
+			"es": "Lista de la compra de Alexa",
+			"pl": "Lista zakupów Alexa",
+			"zh-cn": "Alexa购物清单"
+		},
+		"desc": {
+			"en": "Generates the Shoppinglist from Alexa",
+			"de": "Erzeugt die Einkaufsliste von Alexa",
+			"ru": "Генерирует список покупок из Alexa",
+			"pt": "Gera a lista de compras do Alexa",
+			"nl": "Genereert de boodschappenlijst van Alexa",
+			"fr": "Génère la liste de courses d'Alexa",
+			"it": "Genera la lista della spesa da Alexa",
+			"es": "Genera la lista de la compra desde Alexa",
+			"pl": "Generuje listę zakupów z Alexa",
+			"zh-cn": "从 Alexa 生成购物清单"
+		},
+		"authors": [
+			"MiRo1310 <michael.roling@gmx.de>"
+		],
+		"keywords": [
+			"Iobroker"
+		],
+		"license": "MIT",
+		"platform": "Javascript/Node.js",
+		"main": "main.js",
+		"icon": "alexa-shoppinglist.png",
+		"enabled": true,
+		"extIcon": "https://raw.githubusercontent.com/MiRo1310/ioBroker.alexa-shoppinglist/main/admin/alexa-shoppinglist.png",
+		"readme": "https://github.com/MiRo1310/ioBroker.alexa-shoppinglist/blob/main/README.md",
+		"loglevel": "info",
+		"mode": "daemon",
+		"type": "logic",
+		"compact": true,
+		"connectionType": "local",
+		"dataSource": "poll",
+		"materialize": true,
+		"materializeTab": true,
+		"adminTab": {
+			"singleton": true,
+			"name": {
+				"en": "Alexa Shoppinglist",
+				"de": "Alexa Einkaufsliste",
+				"ru": "Алекса список покупок",
+				"pt": "Lista de compras Alexa",
+				"nl": "Alexa-boodschappenlijst",
+				"fr": "Liste de courses Alexa",
+				"it": "Lista della spesa di Alexa",
+				"es": "Lista de la compra de Alexa",
+				"pl": "Lista zakupów Alexa",
+				"zh-cn": "Alexa购物清单"
+			},
+			"link": "",
+			"fa-icon": "info"
+		},
+		"dependencies": [
+			{
+				"js-controller": ">=2.0.0"
+			}
+		]
+	},
+	"native": {
+		"alexastate": "alexa2.0.Lists.SHOPPING_LIST.json"
+	},
+	"objects": [],
+	"instanceObjects": [
+		{
+			"_id": "info",
+			"type": "channel",
+			"common": {
+				"name": "Information"
+			},
+			"native": {}
+		},
+		{
+			"_id": "info.connection",
+			"type": "state",
+			"common": {
+				"role": "indicator.connected",
+				"name": "Device or service connected",
+				"type": "boolean",
+				"read": true,
+				"write": false,
+				"def": false
+			},
+			"native": {}
+		}
+	]
+}
