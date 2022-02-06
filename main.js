@@ -43,18 +43,13 @@ class AlexaShoppinglist extends utils.Adapter {
 		// States auslesen, damit beim ersten Start richtig sortiert wird
 		this.getState(idSortActiv,function(err, state){
 			
-			if (state && state.val && typeof(state.val) == "string"){
-				
-				
+			if (state && state.val && typeof(state.val) == "string"){				
 				sortListActiv = state.val
 			}		
 		})
 
-		this.getState(idSortInActiv,(err, state)=>{
-			
-			if (state && state.val && typeof(state.val) == "string"){
-				
-				
+		this.getState(idSortInActiv,(err, state)=>{			
+			if (state && state.val && typeof(state.val) == "string"){				
 				sortListInActiv = state.val
 			}		
 		})
@@ -71,9 +66,10 @@ class AlexaShoppinglist extends utils.Adapter {
 			let alexaListJson
 			try {
 				alexaListJson = await this.getForeignStateAsync(alexaState);
-			}catch(e){
-
-			}
+				
+				
+			
+				if (alexaListJson && alexaListJson.val && typeof(alexaListJson.val == "string") ){
 				// @ts-ignore
 				let alexaList = JSON.parse(alexaListJson.val);
 				
@@ -93,15 +89,18 @@ class AlexaShoppinglist extends utils.Adapter {
 				 		});
 				 	}
 				}
-		this.log.info("Funktionen werden ausgeführt")
-		this.log.info(sortListActiv)
-		this.log.info(sortListInActiv)
-	sortList(jsonActiv, sortListActiv);
-	sortList(jsonInactiv, sortListInActiv);
-	addPos(jsonActiv);
-	addPos(jsonInactiv);
-	writeState(jsonActiv, jsonInactiv);	
-	}
+		
+		
+				sortList(jsonActiv, sortListActiv);
+				sortList(jsonInactiv, sortListInActiv);
+				addPos(jsonActiv);
+				addPos(jsonInactiv);
+				writeState(jsonActiv, jsonInactiv);	
+			}	
+			}catch(e){
+
+			}
+			}
 	
 		/**
 		 * Ersetzt den ersten Buchstaben des eingegebenen Wortes durch den selbigen Großbuchstaben
@@ -181,8 +180,7 @@ class AlexaShoppinglist extends utils.Adapter {
 			// Auf Sortierungs Datenpunkt reagieren
 			}
 			
-			if (state && id == idSortActiv && state.ack == false){
-				// @ts-ignore
+			if (state && id == idSortActiv && state.ack == false && typeof(state.val) == "string"){
 				sortListActiv = state.val;
 				this.log.info(sortListActiv);
 				runfunction(sortListActiv, sortListInActiv)
@@ -190,8 +188,8 @@ class AlexaShoppinglist extends utils.Adapter {
 				await this.setStateAsync(id, {ack:true});
 			}
 			
-			if (state && id == idSortInActiv && state.ack == false){
-				// @ts-ignore
+			if (state && id == idSortInActiv && state.ack == false && typeof(state.val) == "string"){
+				
 				sortListInActiv = state.val;
 				this.log.info(sortListInActiv);
 				
