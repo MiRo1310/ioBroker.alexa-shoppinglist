@@ -43,7 +43,7 @@ class AlexaShoppinglist extends utils.Adapter {
 		// States auslesen, damit beim ersten Start richtig sortiert wird
 		this.getState(idSortActiv,(err, state)=>{
 			// @ts-ignore
-			if (state.val){
+			if (state.val != null && state.val != "" && state.val != undefined ){
 				// @ts-ignore
 				sortListActiv = state.val
 			}		
@@ -51,7 +51,7 @@ class AlexaShoppinglist extends utils.Adapter {
 
 		this.getState(idSortInActiv,(err, state)=>{
 			// @ts-ignore
-			if (state.val){
+			if (state.val != null && state.val != "" && state.val != undefined ){
 				// @ts-ignore
 				sortListInActiv = state.val
 			}		
