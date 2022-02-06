@@ -110,6 +110,65 @@
 				"def": false
 			},
 			"native": {}
+		},
+		{
+			"_id": "shoppingliste_activ",
+			"type": "state",
+			"common": {
+				"role": "json",
+				"name": "Shopping List activ",
+				"type": "string",
+				"read": true,
+				"write": false,
+				"def": ""
+			},
+			"native": {}
+		},
+		{
+			"_id": "shoppingliste_inactiv",
+			"type": "state",
+			"common": {
+				"role": "json",
+				"name": "Shopping List inactiv",
+				"type": "string",
+				"read": true,
+				"write": false,
+				"def": ""
+			},
+			"native": {}
+		},
+		{
+			"_id": "shoppingliste_activ_sort",
+			"type": "state",
+			"common": {
+				"role": "switch",
+				"name": "Sorting of List Activ",
+				"type": "string",
+				"read": true,
+				"write": true,
+				"states":{
+					"time": "Time",
+					"alphabeth": "Alphabetical"
+				} 
+			},
+			"native": {}
+		},
+		{
+			"_id": "shoppingliste_inactiv_sort",
+			"type": "state",
+			"common": {
+				"role": "switch",
+				"name": "Sorting of List Inactiv",
+				"type": "string",
+				"read": true,
+				"write": true,
+				"states":{
+					"time": "Time",
+					"alphabeth": "Alphabetical"
+				} 
+			},
+			"native": {}
 		}
+
 	]
 }
