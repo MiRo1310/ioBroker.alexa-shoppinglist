@@ -66,8 +66,12 @@ class AlexaShoppinglist extends utils.Adapter {
 		 * @param {string} sortListInActiv 
 		 */
 		const runfunction = async (sortListActiv,sortListInActiv)=>{
-			let alexaListJson = await this.getForeignStateAsync(alexaState);
-				
+			let alexaListJson
+			try {
+				alexaListJson = await this.getForeignStateAsync(alexaState);
+			}catch(e){
+
+			}
 				// @ts-ignore
 				let alexaList = JSON.parse(alexaListJson.val);
 				
