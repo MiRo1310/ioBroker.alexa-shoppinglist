@@ -76,14 +76,14 @@ class AlexaShoppinglist extends utils.Adapter {
 				for(let element of alexaList){
 				 	if (element.completed == false){
 				 		jsonActiv.push({
-				 		"name":element.value,
+				 		"name": firstLetterToUpperCase(element.value),
 				 		"time": new Date(element.createdDateTime).toLocaleString(),
-				 		"id":element.id});
+				 		"id": element.id});
 				 	}else{
 				 		jsonInactiv.push({
-				 		"name":element.value,
-				 		"time":new Date(element.createdDateTime).toLocaleString(),
-				 		"id":element.id
+				 		"name": firstLetterToUpperCase(element.value),
+				 		"time": new Date(element.createdDateTime).toLocaleString(),
+				 		"id": element.id
 				 		});
 				 	}
 				}
@@ -97,6 +97,18 @@ class AlexaShoppinglist extends utils.Adapter {
 	writeState(jsonActiv, jsonInactiv);	
 	}
 	
+		/**
+		 * Ersetzt den ersten Buchstaben des eingegebenen Wortes durch den selbigen Großbuchstaben
+		 * @param {string} name "w"ort wo der erste Buchstabe groß geschrieben werden soll
+		 * @return {string} Rückgabewert mit "W"ort
+		 */
+		 const firstLetterToUpperCase = (name) => {
+			const firstLetter = name.slice(0, 1); // Ersten Buchstaben selektieren
+			const leftoverLetters = name.slice(1); // Restliche Buchstaben selektieren
+			name = firstLetter.toUpperCase() + leftoverLetters; // Erster Buchstabe in Groß + Rest
+
+			return name;
+		};
 
 		/**
 		 * Sort List 
