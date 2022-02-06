@@ -86,7 +86,8 @@
 		]
 	},
 	"native": {
-		"alexastate": "alexa2.0.Lists.SHOPPING_LIST.json"
+		"alexastate": "alexa2.0.Lists.SHOPPING_LIST.json",
+		"alexaIdTextToCommand": ""
 	},
 	"objects": [],
 	"instanceObjects": [
@@ -148,8 +149,9 @@
 				"write": true,
 				"states":{
 					"time": "Time",
-					"alphabeth": "Alphabetical"
-				} 
+					"alphabeth": "Alphabetical"		
+				} ,
+				"def" : "Time"		
 			},
 			"native": {}
 		},
@@ -164,8 +166,87 @@
 				"write": true,
 				"states":{
 					"time": "Time",
-					"alphabeth": "Alphabetical"
-				} 
+					"alphabeth": "Alphabetical"						
+				},
+				"def" : "Time"		
+			},
+			"native": {}
+		},
+		{
+			"_id": "add_position",
+			"type": "state",
+			"common": {
+				"role": "text",
+				"name": "Add new Articel",
+				"type": "string",
+				"read": true,
+				"write": true,
+				"def": ""
+			},
+			"native": {}
+		},
+		{
+			"_id": "to_inactiv_list",
+			"type": "state",
+			"common": {
+				"role": "button",
+				"name": "Move to inactiv",
+				"type": "boolean",
+				"read": true,
+				"write": true,
+				"def" :true				
+			},
+			"native": {}
+		},
+		{
+			"_id": "to_activ_list",
+			"type": "state",
+			"common": {
+				"role": "button",
+				"name": "Move to activ",
+				"type": "boolean",
+				"read": true,
+				"write": true,
+				"def" :true						
+			},
+			"native": {}
+		},
+		{
+			"_id": "delete_inactiv_list",
+			"type": "state",
+			"common": {
+				"role": "button",
+				"name": "Delete inactiv",
+				"type": "boolean",
+				"read": true,
+				"write": true,
+				"def" :true						
+			},
+			"native": {}
+		},
+		{
+			"_id": "delete_activ_list",
+			"type": "state",
+			"common": {
+				"role": "button",
+				"name": "Move to inactiv",
+				"type": "boolean",
+				"read": true,
+				"write": true,
+				"def" :true						
+			},
+			"native": {}
+		},
+		{
+			"_id": "position_to_shift",
+			"type": "state",
+			"common": {
+				"role": "value",
+				"name": "Position to shift",
+				"type": "number",
+				"read": true,
+				"write": true,
+				"def" : 0						
 			},
 			"native": {}
 		}

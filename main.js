@@ -11,6 +11,10 @@ const utils = require("@iobroker/adapter-core");
 // Load your modules here, e.g.:
 // const fs = require("fs");
 let alexaState;
+let idTexttoCommand;
+let timeout_1;
+let timeout_2;
+let timeout_3;
 
 class AlexaShoppinglist extends utils.Adapter {
 
@@ -34,11 +38,19 @@ class AlexaShoppinglist extends utils.Adapter {
 
 		// Variablen
 		alexaState = this.config.alexastate;
+		idTexttoCommand = this.config.alexaIdTextToCommand;
+		
+		let idAddapter = alexaState.slice(0, (alexaState.length - 5))
+		
 		let idSortActiv ="alexa-shoppinglist.0.shoppingliste_activ_sort";
 		let idSortInActiv ="alexa-shoppinglist.0.shoppingliste_inactiv_sort";
 		
 		let sortListActiv ="time";
 		let sortListInActiv ="time";
+		let positionToShift = 0;
+		let jsonActiv;
+		let jsonInactiv;
+		
 		
 		// States auslesen, damit beim ersten Start richtig sortiert wird
 		this.getState(idSortActiv,function(err, state){
@@ -65,16 +77,15 @@ class AlexaShoppinglist extends utils.Adapter {
 		const runfunction = async (sortListActiv,sortListInActiv)=>{
 			let alexaListJson
 			try {
-				alexaListJson = await this.getForeignStateAsync(alexaState);
-				
+				alexaListJson = await this.getForeignStateAsync(alexaState);	
 				
 			
-				if (alexaListJson && alexaListJson.val && typeof(alexaListJson.val == "string") ){
-				// @ts-ignore
+				if (alexaListJson && alexaListJson.val && typeof(alexaListJson.val) == "string"){
+				
 				let alexaList = JSON.parse(alexaListJson.val);
 				
-				let jsonActiv = [];
-				let jsonInactiv = [];
+				jsonActiv = [];
+				jsonInactiv = [];
 				for(let element of alexaList){
 				 	if (element.completed == false){
 				 		jsonActiv.push({
@@ -114,6 +125,77 @@ class AlexaShoppinglist extends utils.Adapter {
 
 			return name;
 		};
+		/**
+		 * Einzelne Elemente verschieben
+		 * 
+		 * @param {number} pos Die Position die verschoben werden soll
+		 * @param {any} array Array, in welchem der Artikel sich befindet
+		 * @param {string} direction In welche Richtung soll verschoben werden
+		 */
+		const shiftPosition = (pos, array, direction) =>{
+			for(let element of array){
+				if (pos == element.pos){
+					if(direction == "toActiv"){
+						
+						this.setForeignStateAsync(idAddapter + ".items." + element.id + ".completed", false, false)
+						timeout_2 =	setTimeout(() => {
+							this.setState("alexa-shoppinglist.0.position_to_shift", 0 ,true)
+						}, 1000);
+						
+					}else{
+						
+						this.setForeignStateAsync(idAddapter + ".items." + element.id + ".completed", true, false)
+						timeout_3 =	setTimeout(() => {
+							this.setState("alexa-shoppinglist.0.position_to_shift", 0 ,true)
+						}, 1000);
+					}
+				}
+			}
+		}
+
+
+		/**
+		 * Komplette Listen leeren
+		 * 
+		 * @param {any} array Array, welches bearbeitet werden soll
+		 * @param {*} direction Soll zu Inaktiv geschoben werden "toInActiv", oder komplett löschen "delete"
+		 */
+		const deleteList = (array, direction)=>{
+			for (let element of array){
+				if (direction == "toInActiv"){
+					
+					this.setForeignStateAsync(idAddapter + ".items." + element.id + ".completed", true, false)
+				}else if (direction == "delete"){
+					
+					this.setForeignStateAsync(idAddapter + ".items." + element.id + ".#delete", true, false)
+				}
+			}
+			
+		};
+		/**
+		 * 
+		 * @param {string} element 
+		 */
+		const addPosition = (element) =>{
+			this.getForeignStateAsync(idTexttoCommand, (err, obj)=>{
+				if (err || obj == ""){
+					this.log.info("State not found! Please check the ID!")
+				}else {
+					try{
+					this.setForeignStateAsync(idTexttoCommand,`${element} zur Einkaufsliste` , false)
+					timeout_1 =setTimeout(() => {
+						this.setStateAsync("alexa-shoppinglist.0.add_position", "", false)	
+					}, 2000);
+					
+					}catch (e){
+
+					}
+
+				}
+			})
+			
+			
+		}
 
 		/**
 		 * Sort List 
@@ -123,11 +205,12 @@ class AlexaShoppinglist extends utils.Adapter {
 		const sortList = (array, kindOfSort)=>{
 			let arraySort
 			if (kindOfSort == "time"){
-				this.log.info("Nach Zeit sortiert")
+				
 				arraySort = array.sort((a ,b) =>{a.time - b.time})
 			} else {
+			
 			arraySort = array.sort((a, b)=> {
-				this.log.info("Nach Name sortiert")
+				
 			if (a.name > b.name ){
 			return 1}
 			else if(a.name < b.name){
@@ -158,12 +241,14 @@ class AlexaShoppinglist extends utils.Adapter {
 			if (err || obj == null){
 				this.log.error(`The State ${alexaState} was not found!`);
 
-				// Hauptfunktion wird ausgeführt, wenn der State gefunden wird
-				runfunction(sortListActiv, sortListInActiv)
+				
 			}else {
 				// Datenpunkt wurde gefunden
 				this.log.info("Alexa State was found");
 				this.setState("info.connection", true, true);
+				// Hauptfunktion wird ausgeführt, wenn der State gefunden wird
+				runfunction(sortListActiv, sortListInActiv)
+				
 			}
 
 			// --------------------------------------------------------------------------------------------
@@ -172,32 +257,67 @@ class AlexaShoppinglist extends utils.Adapter {
 
 		this.on("stateChange",async (id,state)=>{			
 			try{
-			if(id == alexaState){
-				
-				runfunction(sortListActiv, sortListInActiv)
-				
+				if(id == alexaState){
+					runfunction(sortListActiv, sortListInActiv)
+					
 
-			// Auf Sortierungs Datenpunkt reagieren
+				// Auf Sortierungs Datenpunkt reagieren
+				}
+				
+				if (state && id == idSortActiv && state.ack == false && typeof(state.val) == "string"){
+					sortListActiv = state.val;
+					this.log.info(sortListActiv);
+					runfunction(sortListActiv, sortListInActiv)
+					
+					await this.setStateAsync(id, {ack:true});
+				}
+				
+				if (state && id == idSortInActiv && state.ack == false && typeof(state.val) == "string"){
+					
+					sortListInActiv = state.val;
+					this.log.info(sortListInActiv);
+					
+					runfunction(sortListActiv, sortListInActiv)
+
+					await this.setStateAsync(id, {ack:true});
+
+				}
+
+				// Position hinzufügen
+				if (state && state.val && typeof(state.val) == "string" && id == "alexa-shoppinglist.0.add_position" && state.ack == false){
+					addPosition(state.val)
+				}
+
+				// Inactiv Liste leeren
+				if (state && state.val && typeof(state.val) == "boolean" && id == "alexa-shoppinglist.0.delete_inactiv_list"){
+					this.log.info("Inactive List deleted")
+					deleteList(jsonInactiv, "delete")
+				}
+				// Activ Liste leeren
+				if (state && state.val && typeof(state.val) == "boolean" && id == "alexa-shoppinglist.0.delete_activ_list"){
+					this.log.info("Active List deleted")
+					deleteList(jsonActiv, "toInActiv")
+				}
+
+				// Zu Inactiv Liste verschieben
+				if (state && state.val && id == "alexa-shoppinglist.0.to_inactiv_list"){
+					this.log.info("Position to Inactive")
+					shiftPosition(positionToShift, jsonActiv, "toInActiv")
+				}
+
+				// Zu Activ Liste verschieben
+				if (state && state.val && typeof(state.val) == "boolean" && id == "alexa-shoppinglist.0.to_activ_list"){
+					this.log.info("Position to Active")
+					shiftPosition(positionToShift, jsonInactiv, "toActiv")
+				}
+				// Position die verschoben werden soll
+				if (state && state.val && typeof(state.val) == "number" && id == "alexa-shoppinglist.0.position_to_shift"){
+					this.log.info("Position")
+					positionToShift = state.val;
+				}
+
+				
 			}
-			
-			if (state && id == idSortActiv && state.ack == false && typeof(state.val) == "string"){
-				sortListActiv = state.val;
-				this.log.info(sortListActiv);
-				runfunction(sortListActiv, sortListInActiv)
-
-				await this.setStateAsync(id, {ack:true});
-			}
-			
-			if (state && id == idSortInActiv && state.ack == false && typeof(state.val) == "string"){
-				
-				sortListInActiv = state.val;
-				this.log.info(sortListInActiv);
-				
-				runfunction(sortListActiv, sortListInActiv)
-
-				await this.setStateAsync(id, {ack:true});
-
-			}}
 			catch (e){
 
 			}
@@ -243,8 +363,15 @@ const writeState =(arrayActiv, arrayInactiv)=>{
 		// In order to get state updates, you need to subscribe to them. The following line adds a subscription for our variable we have created above.
 		try {
 		this.subscribeForeignStatesAsync(alexaState);
-		this.subscribeForeignStatesAsync(idSortActiv);
-		this.subscribeForeignStatesAsync(idSortInActiv);
+		this.subscribeStatesAsync(idSortActiv);
+		this.subscribeStatesAsync(idSortInActiv);
+		this.subscribeStatesAsync("alexa-shoppinglist.0.add_position");
+		this.subscribeStatesAsync("alexa-shoppinglist.0.to_activ_list");
+		this.subscribeStatesAsync("alexa-shoppinglist.0.to_inactiv_list");
+		this.subscribeStatesAsync("alexa-shoppinglist.0.delete_inactiv_list");
+		this.subscribeStatesAsync("alexa-shoppinglist.0.delete_activ_list");
+		this.subscribeStatesAsync("alexa-shoppinglist.0.position_to_shift");
+
 		}
 		catch (e){
 
@@ -278,7 +405,9 @@ const writeState =(arrayActiv, arrayInactiv)=>{
 	onUnload(callback) {
 		try {
 			// Here you must clear all timeouts or intervals that may still be active
-			// clearTimeout(timeout1);
+			clearTimeout(timeout_1);
+			clearTimeout(timeout_2);
+			clearTimeout(timeout_3);
 			// clearTimeout(timeout2);
 			// ...
 			// clearInterval(interval1);
