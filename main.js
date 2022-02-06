@@ -170,7 +170,7 @@ class AlexaShoppinglist extends utils.Adapter {
 			
 
 		this.on("stateChange",async (id,state)=>{			
-
+			try{
 			if(id == alexaState){
 				
 				runfunction(sortListActiv, sortListInActiv)
@@ -197,6 +197,9 @@ class AlexaShoppinglist extends utils.Adapter {
 
 				await this.setStateAsync(id, {ack:true});
 
+			}}
+			catch (e){
+				
 			}
 		})
 
