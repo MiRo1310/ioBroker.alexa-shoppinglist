@@ -41,17 +41,19 @@ class AlexaShoppinglist extends utils.Adapter {
 		let sortListInActiv ="time";
 		
 		// States auslesen, damit beim ersten Start richtig sortiert wird
-		this.getState(idSortActiv,(err, state)=>{
-			// @ts-ignore
-			if (state.val != null && state.val != "" && state.val != undefined && !err ){
+		this.getState(idSortActiv,function(err, state){
+			
+			if (state && state.val){
+				
 				// @ts-ignore
 				sortListActiv = state.val
 			}		
 		})
 
 		this.getState(idSortInActiv,(err, state)=>{
-			// @ts-ignore
-			if (state.val != null && state.val != "" && state.val != undefined && !err){
+			
+			if (state && state.val){
+				
 				// @ts-ignore
 				sortListInActiv = state.val
 			}		
