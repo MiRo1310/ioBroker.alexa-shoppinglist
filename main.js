@@ -15,6 +15,7 @@ let idTexttoCommand;
 let timeout_1;
 let timeout_2;
 let timeout_3;
+let idInstanze;
 
 class AlexaShoppinglist extends utils.Adapter {
 
@@ -38,12 +39,21 @@ class AlexaShoppinglist extends utils.Adapter {
 
 		// Variablen
 		alexaState = this.config.alexastate;
+		const alexaStateArray = alexaState.split(".");
+		idInstanze = {
+			"adapter" : alexaStateArray[0],
+			"instanz": alexaStateArray[1],
+			"channel_history": alexaStateArray[2],
+			"list": alexaStateArray[3]
+		};
+		let list = idInstanze.list.replace("_", " ").toLowerCase().replace("list", " ")
+		this.log.info(list);
 		idTexttoCommand = this.config.alexaIdTextToCommand;
 		
 		let idAddapter = alexaState.slice(0, (alexaState.length - 5))
 		
-		let idSortActiv ="alexa-shoppinglist.0.shoppingliste_activ_sort";
-		let idSortInActiv ="alexa-shoppinglist.0.shoppingliste_inactiv_sort";
+		let idSortActiv =`alexa-shoppinglist.${this.instance}.shoppingliste_activ_sort`;
+		let idSortInActiv =`alexa-shoppinglist.${this.instance}.shoppingliste_inactiv_sort`;
 		
 		let sortListActiv ="time";
 		let sortListInActiv ="time";
@@ -139,14 +149,14 @@ class AlexaShoppinglist extends utils.Adapter {
 						
 						this.setForeignStateAsync(idAddapter + ".items." + element.id + ".completed", false, false)
 						timeout_2 =	setTimeout(() => {
-							this.setState("alexa-shoppinglist.0.position_to_shift", 0 ,true)
+							this.setState(`alexa-shoppinglist.${this.instance}.position_to_shift`, 0 ,true)
 						}, 1000);
 						
 					}else{
 						
 						this.setForeignStateAsync(idAddapter + ".items." + element.id + ".completed", true, false)
 						timeout_3 =	setTimeout(() => {
-							this.setState("alexa-shoppinglist.0.position_to_shift", 0 ,true)
+							this.setState(`alexa-shoppinglist.${this.instance}.position_to_shift`, 0 ,true)
 						}, 1000);
 					}
 				}
@@ -182,9 +192,9 @@ class AlexaShoppinglist extends utils.Adapter {
 					this.log.info("State not found! Please check the ID!")
 				}else {
 					try{
-					this.setForeignStateAsync(idTexttoCommand,`${element} zur Einkaufsliste` , false)
+					this.setForeignStateAsync(idTexttoCommand,`${element} zur ${list} liste` , false)
 					timeout_1 =setTimeout(() => {
-						this.setStateAsync("alexa-shoppinglist.0.add_position", "", false)	
+						this.setStateAsync(`alexa-shoppinglist.${this.instance}.add_position`, "", false)	
 					}, 2000);
 					
 					}catch (e){
@@ -284,34 +294,34 @@ class AlexaShoppinglist extends utils.Adapter {
 				}
 
 				// Position hinzufügen
-				if (state && state.val && typeof(state.val) == "string" && id == "alexa-shoppinglist.0.add_position" && state.ack == false){
+				if (state && state.val && typeof(state.val) == "string" && id == `alexa-shoppinglist.${this.instance}.add_position` && state.ack == false){
 					addPosition(state.val)
 				}
 
 				// Inactiv Liste leeren
-				if (state && state.val && typeof(state.val) == "boolean" && id == "alexa-shoppinglist.0.delete_inactiv_list"){
+				if (state && state.val && typeof(state.val) == "boolean" && id == `alexa-shoppinglist.${this.instance}.delete_inactiv_list`){
 					this.log.info("Inactive List deleted")
 					deleteList(jsonInactiv, "delete")
 				}
 				// Activ Liste leeren
-				if (state && state.val && typeof(state.val) == "boolean" && id == "alexa-shoppinglist.0.delete_activ_list"){
+				if (state && state.val && typeof(state.val) == "boolean" && id == `alexa-shoppinglist.${this.instance}.delete_activ_list`){
 					this.log.info("Active List deleted")
 					deleteList(jsonActiv, "toInActiv")
 				}
 
 				// Zu Inactiv Liste verschieben
-				if (state && state.val && id == "alexa-shoppinglist.0.to_inactiv_list"){
+				if (state && state.val && id == `alexa-shoppinglist.${this.instance}.to_inactiv_list`){
 					this.log.info("Position to Inactive")
 					shiftPosition(positionToShift, jsonActiv, "toInActiv")
 				}
 
 				// Zu Activ Liste verschieben
-				if (state && state.val && typeof(state.val) == "boolean" && id == "alexa-shoppinglist.0.to_activ_list"){
+				if (state && state.val && typeof(state.val) == "boolean" && id == `alexa-shoppinglist.${this.instance}.to_activ_list`){
 					this.log.info("Position to Active")
 					shiftPosition(positionToShift, jsonInactiv, "toActiv")
 				}
 				// Position die verschoben werden soll
-				if (state && state.val && typeof(state.val) == "number" && id == "alexa-shoppinglist.0.position_to_shift"){
+				if (state && state.val && typeof(state.val) == "number" && id == `alexa-shoppinglist.${this.instance}.position_to_shift`){
 					this.log.info("Position")
 					positionToShift = state.val;
 				}
@@ -329,8 +339,8 @@ class AlexaShoppinglist extends utils.Adapter {
 
 
 const writeState =(arrayActiv, arrayInactiv)=>{
-	this.setStateChanged("alexa-shoppinglist.0.shoppingliste_activ", JSON.stringify(arrayActiv),true )
-	this.setStateChanged("alexa-shoppinglist.0.shoppingliste_inactiv", JSON.stringify(arrayInactiv),true)
+	this.setStateChanged(`alexa-shoppinglist.${this.instance}.shoppingliste_activ`, JSON.stringify(arrayActiv),true )
+	this.setStateChanged(`alexa-shoppinglist.${this.instance}.shoppingliste_inactiv`, JSON.stringify(arrayInactiv),true)
 }
 			
 		// this.on("stateChange", (id,state)=>{
@@ -365,12 +375,12 @@ const writeState =(arrayActiv, arrayInactiv)=>{
 		this.subscribeForeignStatesAsync(alexaState);
 		this.subscribeStatesAsync(idSortActiv);
 		this.subscribeStatesAsync(idSortInActiv);
-		this.subscribeStatesAsync("alexa-shoppinglist.0.add_position");
-		this.subscribeStatesAsync("alexa-shoppinglist.0.to_activ_list");
-		this.subscribeStatesAsync("alexa-shoppinglist.0.to_inactiv_list");
-		this.subscribeStatesAsync("alexa-shoppinglist.0.delete_inactiv_list");
-		this.subscribeStatesAsync("alexa-shoppinglist.0.delete_activ_list");
-		this.subscribeStatesAsync("alexa-shoppinglist.0.position_to_shift");
+		this.subscribeStatesAsync(`alexa-shoppinglist.${this.instance}.add_position`);
+		this.subscribeStatesAsync(`alexa-shoppinglist.${this.instance}.to_activ_list`);
+		this.subscribeStatesAsync(`alexa-shoppinglist.${this.instance}.to_inactiv_list`);
+		this.subscribeStatesAsync(`alexa-shoppinglist.${this.instance}.delete_inactiv_list`);
+		this.subscribeStatesAsync(`alexa-shoppinglist.${this.instance}.delete_activ_list`);
+		this.subscribeStatesAsync(`alexa-shoppinglist.${this.instance}.position_to_shift`);
 
 		}
 		catch (e){

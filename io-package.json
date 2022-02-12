@@ -1,8 +1,11 @@
 {
 	"common": {
 		"name": "alexa-shoppinglist",
-		"version": "0.0.1",
+		"version": "0.0.2",
 		"news": {
+			"0.0.2" :{
+				"en": "Adjustment of Ids"
+			},
 			"0.0.1": {
 				"en": "initial release",
 				"de": "Erstveröffentlichung",
@@ -60,29 +63,17 @@
 		"compact": true,
 		"connectionType": "local",
 		"dataSource": "poll",
-		"materialize": true,
-		"materializeTab": true,
-		"adminTab": {
-			"singleton": true,
-			"name": {
-				"en": "Alexa Shoppinglist",
-				"de": "Alexa Einkaufsliste",
-				"ru": "Алекса список покупок",
-				"pt": "Lista de compras Alexa",
-				"nl": "Alexa-boodschappenlijst",
-				"fr": "Liste de courses Alexa",
-				"it": "Lista della spesa di Alexa",
-				"es": "Lista de la compra de Alexa",
-				"pl": "Lista zakupów Alexa",
-				"zh-cn": "Alexa购物清单"
-			},
-			"link": "",
-			"fa-icon": "info"
-		},
+        "materialize": true,
+        "supportCustoms": false,
 		"dependencies": [
 			{
 				"js-controller": ">=2.0.0"
-			}
+			}            
+		],
+		"globalDependencies": [
+			{
+                "alexa2": ">=3.11.2"
+            }
 		]
 	},
 	"native": {
