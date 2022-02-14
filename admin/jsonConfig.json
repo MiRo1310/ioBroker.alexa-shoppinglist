@@ -1,0 +1,45 @@
+{
+  "i18n": true,
+  "type": "tabs",
+  "items": {
+      "_options": {
+          "type": "panel",
+          "label": "Shopping List",
+          "items": {
+              "shoppinglist": {
+                  "newLine": true,
+                  "type": "text",
+                  "sm": 12,
+                  "md": 6,
+                  "lg": 6,
+                  "label": "state from Alexa list *.json",
+                  "help": "shopping list"
+              },
+              "alexa": {
+                  "newLine": true,
+                  "type": "instance",
+                  "adapter": "alexa2",
+                  "sm": 6,
+                  "md": 6,
+                  "lg": 6,
+                  "label": "alexa2 instance",
+                  "help": "device for output"
+                  },
+              "device": {
+                    "newLine": true,
+                    "type": "selectSendTo",
+                    "label": "Device",
+                    "sm": 2,
+                    "command": "getDevices",
+                    "onChange":{
+                        "alsoDependsOn": ["alexa"],
+                        "calculateFunc": "data.alexa",
+                        "ignoreOwnChanges": true
+                    },
+                    "hidden": "!data.alexa",
+                    "jsonData": "{\"alexa\":  \"${data.alexa}\"}"
+                  }                
+          }
+      }
+  }
+}

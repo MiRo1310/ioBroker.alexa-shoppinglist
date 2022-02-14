@@ -1,3 +1,4 @@
+/* eslint-disable no-empty */
 "use strict";
 
 /*
@@ -16,6 +17,7 @@ let timeout_1;
 let timeout_2;
 let timeout_3;
 let idInstanze;
+let processMessage;
 
 class AlexaShoppinglist extends utils.Adapter {
 
@@ -30,11 +32,17 @@ class AlexaShoppinglist extends utils.Adapter {
 		this.on("ready", this.onReady.bind(this));
 		this.on("stateChange", this.onStateChange.bind(this));
 		// this.on("objectChange", this.onObjectChange.bind(this));
-		// this.on("message", this.onMessage.bind(this));
+		//this.on("message", this.onMessage.bind(this));
 		this.on("unload", this.onUnload.bind(this));
+		this.on("message", obj => processMessage(obj));
+
 	}
+
 	async onReady() {
-		
+
+
+
+
 		this.setState("info.connection", false, true);
 
 		// Variablen
@@ -46,89 +54,125 @@ class AlexaShoppinglist extends utils.Adapter {
 			"channel_history": alexaStateArray[2],
 			"list": alexaStateArray[3]
 		};
-		let list = idInstanze.list.replace("_", " ").toLowerCase().replace("list", " ")
-		this.log.info(list);
+		const list = idInstanze.list.replace("_", " ").toLowerCase().replace("list", " ");
 		idTexttoCommand = this.config.alexaIdTextToCommand;
-		
-		let idAddapter = alexaState.slice(0, (alexaState.length - 5))
-		
-		let idSortActiv =`alexa-shoppinglist.${this.instance}.shoppingliste_activ_sort`;
-		let idSortInActiv =`alexa-shoppinglist.${this.instance}.shoppingliste_inactiv_sort`;
-		
+
+
+
+		const idAddapter = alexaState.slice(0, (alexaState.length - 5));
+
+		const idSortActiv =`alexa-shoppinglist.${this.instance}.shoppingliste_activ_sort`;
+		const idSortInActiv =`alexa-shoppinglist.${this.instance}.shoppingliste_inactiv_sort`;
+
 		let sortListActiv ="time";
 		let sortListInActiv ="time";
 		let positionToShift = 0;
 		let jsonActiv;
 		let jsonInactiv;
-		
-		
-		// States auslesen, damit beim ersten Start richtig sortiert wird
-		this.getState(idSortActiv,function(err, state){
-			
-			if (state && state.val && typeof(state.val) == "string"){				
-				sortListActiv = state.val
-			}		
-		})
 
-		this.getState(idSortInActiv,(err, state)=>{			
-			if (state && state.val && typeof(state.val) == "string"){				
-				sortListInActiv = state.val
-			}		
-		})
-		
-		
-		
-		
+
+		// States auslesen, damit beim ersten Start richtig sortiert wird
+		// @ts-ignore
+		this.getState(idSortActiv,function(err, state){
+
+			if (state && state.val && typeof(state.val) == "string"){
+				sortListActiv = state.val;
+			}
+		});
+
+		// @ts-ignore
+		this.getState(idSortInActiv,(err, state)=>{
+			if (state && state.val && typeof(state.val) == "string"){
+				sortListInActiv = state.val;
+			}
+		});
+
+
+
+
 		//Funktionen -----------
+
+		processMessage = async (obj)=>{
+			if (obj){
+				this.log.info("Test " + JSON.stringify(obj));
+				switch (obj.command){
+					case "getDevices" : {
+						this.log.info(`${obj.message.alexa}.Echo-Devices.`);
+						const devices = await this.getObjectViewAsync("system", "device", {
+							startkey: `${obj.message.alexa}.Echo-Devices.`,
+							endkey: `${obj.message.alexa}.Echo-Devices.\u9999`
+						});
+						let n;
+						let v;
+						const result = [{"label": `Test`, "value": "none"}];
+						for (let i = 0; i < devices.rows.length; i++) {
+							const a = devices.rows[i];
+							if (a.value && a.value.common.name != "Timer" && a.value.common.name != "Reminder"&& a.value.common.name != "Alarm" ){
+								n = a.value.common.name;
+								v = a.id;
+								// @ts-ignore
+								result.push({"label": n, "value": v});
+							}
+
+						}
+						obj.callback && this.sendTo(obj.from, obj.command, result, obj.callback);
+						break;
+					}
+				}
+			}
+		};
+
+
 		/**General Function
-		 * @param {string} sortListActiv 
-		 * @param {string} sortListInActiv 
+		 * @param {string} sortListActiv
+		 * @param {string} sortListInActiv
 		 */
 		const runfunction = async (sortListActiv,sortListInActiv)=>{
-			let alexaListJson
+			let alexaListJson;
 			try {
-				alexaListJson = await this.getForeignStateAsync(alexaState);	
-				
-			
-				if (alexaListJson && alexaListJson.val && typeof(alexaListJson.val) == "string"){
-				
-				let alexaList = JSON.parse(alexaListJson.val);
-				
-				jsonActiv = [];
-				jsonInactiv = [];
-				for(let element of alexaList){
-				 	if (element.completed == false){
-				 		jsonActiv.push({
-				 		"name": firstLetterToUpperCase(element.value),
-				 		"time": new Date(element.createdDateTime).toLocaleString(),
-				 		"id": element.id});
-				 	}else{
-				 		jsonInactiv.push({
-				 		"name": firstLetterToUpperCase(element.value),
-				 		"time": new Date(element.createdDateTime).toLocaleString(),
-				 		"id": element.id
-				 		});
-				 	}
-				}
-		
-		
-				sortList(jsonActiv, sortListActiv);
-				sortList(jsonInactiv, sortListInActiv);
-				addPos(jsonActiv);
-				addPos(jsonInactiv);
-				writeState(jsonActiv, jsonInactiv);	
-			}	
-			}catch(e){
+				alexaListJson = await this.getForeignStateAsync(alexaState);
 
+
+				if (alexaListJson && alexaListJson.val && typeof(alexaListJson.val) == "string"){
+
+					const alexaList = JSON.parse(alexaListJson.val);
+
+					jsonActiv = [];
+					jsonInactiv = [];
+					for(const element of alexaList){
+						if (element.completed == false){
+							jsonActiv.push({
+								"name": firstLetterToUpperCase(element.value),
+								"time": new Date(element.createdDateTime).toLocaleString(),
+								"id": element.id});
+						}else{
+							jsonInactiv.push({
+								"name": firstLetterToUpperCase(element.value),
+								"time": new Date(element.createdDateTime).toLocaleString(),
+								"id": element.id
+							});
+						}
+					}
+
+
+					sortList(jsonActiv, sortListActiv);
+					sortList(jsonInactiv, sortListInActiv);
+					addPos(jsonActiv);
+					addPos(jsonInactiv);
+					writeState(jsonActiv, jsonInactiv);
+				}
+			}catch(e){
 			}
-			}
-	
+		};
+
+
+
 		/**
 		 * Ersetzt den ersten Buchstaben des eingegebenen Wortes durch den selbigen Großbuchstaben
 		 * @param {string} name "w"ort wo der erste Buchstabe groß geschrieben werden soll
 		 * @return {string} Rückgabewert mit "W"ort
 		 */
-		 const firstLetterToUpperCase = (name) => {
+		const firstLetterToUpperCase = (name) => {
 			const firstLetter = name.slice(0, 1); // Ersten Buchstaben selektieren
 			const leftoverLetters = name.slice(1); // Restliche Buchstaben selektieren
 			name = firstLetter.toUpperCase() + leftoverLetters; // Erster Buchstabe in Groß + Rest
@@ -137,100 +181,102 @@ class AlexaShoppinglist extends utils.Adapter {
 		};
 		/**
 		 * Einzelne Elemente verschieben
-		 * 
+		 *
 		 * @param {number} pos Die Position die verschoben werden soll
 		 * @param {any} array Array, in welchem der Artikel sich befindet
 		 * @param {string} direction In welche Richtung soll verschoben werden
 		 */
 		const shiftPosition = (pos, array, direction) =>{
-			for(let element of array){
+			for(const element of array){
 				if (pos == element.pos){
 					if(direction == "toActiv"){
-						
-						this.setForeignStateAsync(idAddapter + ".items." + element.id + ".completed", false, false)
+
+						this.setForeignStateAsync(idAddapter + ".items." + element.id + ".completed", false, false);
 						timeout_2 =	setTimeout(() => {
-							this.setState(`alexa-shoppinglist.${this.instance}.position_to_shift`, 0 ,true)
+							this.setState(`alexa-shoppinglist.${this.instance}.position_to_shift`, 0 ,true);
 						}, 1000);
-						
+
 					}else{
-						
-						this.setForeignStateAsync(idAddapter + ".items." + element.id + ".completed", true, false)
+
+						this.setForeignStateAsync(idAddapter + ".items." + element.id + ".completed", true, false);
 						timeout_3 =	setTimeout(() => {
-							this.setState(`alexa-shoppinglist.${this.instance}.position_to_shift`, 0 ,true)
+							this.setState(`alexa-shoppinglist.${this.instance}.position_to_shift`, 0 ,true);
 						}, 1000);
 					}
 				}
 			}
-		}
+		};
 
 
 		/**
 		 * Komplette Listen leeren
-		 * 
+		 *
 		 * @param {any} array Array, welches bearbeitet werden soll
 		 * @param {*} direction Soll zu Inaktiv geschoben werden "toInActiv", oder komplett löschen "delete"
 		 */
 		const deleteList = (array, direction)=>{
-			for (let element of array){
+			for (const element of array){
 				if (direction == "toInActiv"){
-					
-					this.setForeignStateAsync(idAddapter + ".items." + element.id + ".completed", true, false)
+
+					this.setForeignStateAsync(idAddapter + ".items." + element.id + ".completed", true, false);
 				}else if (direction == "delete"){
-					
-					this.setForeignStateAsync(idAddapter + ".items." + element.id + ".#delete", true, false)
+
+					this.setForeignStateAsync(idAddapter + ".items." + element.id + ".#delete", true, false);
 				}
 			}
-			
+
 		};
 		/**
-		 * 
-		 * @param {string} element 
+		 *
+		 * @param {string} element
 		 */
 		const addPosition = (element) =>{
 			this.getForeignStateAsync(idTexttoCommand, (err, obj)=>{
 				if (err || obj == ""){
-					this.log.info("State not found! Please check the ID!")
+					this.log.info("State not found! Please check the ID!");
 				}else {
 					try{
-					this.setForeignStateAsync(idTexttoCommand,`${element} zur ${list} liste` , false)
-					timeout_1 =setTimeout(() => {
-						this.setStateAsync(`alexa-shoppinglist.${this.instance}.add_position`, "", false)	
-					}, 2000);
-					
+						this.setForeignStateAsync(idTexttoCommand,`${element} zur ${list} liste` , false);
+						timeout_1 =setTimeout(() => {
+							this.setStateAsync(`alexa-shoppinglist.${this.instance}.add_position`, "", false);
+						}, 2000);
+
 					}catch (e){
 
 					}
 
 				}
-			})
-			
-			
-		}
+			});
+
+
+		};
 
 		/**
-		 * Sort List 
-		 * @param {string} kindOfSort 
-		 * 
+		 * Sort List
+		 * @param {string} kindOfSort
+		 *
 		 */
 		const sortList = (array, kindOfSort)=>{
-			let arraySort
+			// @ts-ignore
+			let arraySort;
 			if (kindOfSort == "time"){
-				
-				arraySort = array.sort((a ,b) =>{a.time - b.time})
+
+				arraySort = array.sort((a ,b) =>{a.time - b.time;});
 			} else {
-			
-			arraySort = array.sort((a, b)=> {
-				
-			if (a.name > b.name ){
-			return 1}
-			else if(a.name < b.name){
-				return -1
+
+				// eslint-disable-next-line no-unused-vars
+				arraySort = array.sort((a, b)=> {
+
+					if (a.name > b.name ){
+						return 1;}
+					else if(a.name < b.name){
+						return -1;
+					}
+					return 0;
+				});
 			}
-			return 0
-			})
-			}
-			
-		}
+
+		};
 
 		/**
 		 * Jeder Artikelposition eine Positionsnummer hinzufügen
@@ -238,113 +284,113 @@ class AlexaShoppinglist extends utils.Adapter {
 		 */
 		const addPos = (array) => {
 			let num = 0;
-			for(let element of array){
+			for(const element of array){
 				num++;
 				element.pos = num;
 			}
-		}
+		};
 
-		
+
 
 
 		this.getForeignState(alexaState, (err, obj)=>{
 			if (err || obj == null){
 				this.log.error(`The State ${alexaState} was not found!`);
 
-				
+
 			}else {
 				// Datenpunkt wurde gefunden
 				this.log.info("Alexa State was found");
 				this.setState("info.connection", true, true);
 				// Hauptfunktion wird ausgeführt, wenn der State gefunden wird
-				runfunction(sortListActiv, sortListInActiv)
-				
+				runfunction(sortListActiv, sortListInActiv);
+
 			}
 
 			// --------------------------------------------------------------------------------------------
 
-			
 
-		this.on("stateChange",async (id,state)=>{			
-			try{
-				if(id == alexaState){
-					runfunction(sortListActiv, sortListInActiv)
-					
 
-				// Auf Sortierungs Datenpunkt reagieren
+			this.on("stateChange",async (id,state)=>{
+				try{
+					if(id == alexaState){
+						runfunction(sortListActiv, sortListInActiv);
+
+
+						// Auf Sortierungs Datenpunkt reagieren
+					}
+
+					if (state && id == idSortActiv && state.ack == false && typeof(state.val) == "string"){
+						sortListActiv = state.val;
+						this.log.info(sortListActiv);
+						runfunction(sortListActiv, sortListInActiv);
+
+						await this.setStateAsync(id, {ack:true});
+					}
+
+					if (state && id == idSortInActiv && state.ack == false && typeof(state.val) == "string"){
+
+						sortListInActiv = state.val;
+						this.log.info(sortListInActiv);
+
+						runfunction(sortListActiv, sortListInActiv);
+
+						await this.setStateAsync(id, {ack:true});
+
+					}
+
+					// Position hinzufügen
+					if (state && state.val && typeof(state.val) == "string" && id == `alexa-shoppinglist.${this.instance}.add_position` && state.ack == false){
+						addPosition(state.val);
+					}
+
+					// Inactiv Liste leeren
+					if (state && state.val && typeof(state.val) == "boolean" && id == `alexa-shoppinglist.${this.instance}.delete_inactiv_list`){
+						this.log.info("Inactive List deleted");
+						deleteList(jsonInactiv, "delete");
+					}
+					// Activ Liste leeren
+					if (state && state.val && typeof(state.val) == "boolean" && id == `alexa-shoppinglist.${this.instance}.delete_activ_list`){
+						this.log.info("Active List deleted");
+						deleteList(jsonActiv, "toInActiv");
+					}
+
+					// Zu Inactiv Liste verschieben
+					if (state && state.val && id == `alexa-shoppinglist.${this.instance}.to_inactiv_list`){
+						this.log.info("Position to Inactive");
+						shiftPosition(positionToShift, jsonActiv, "toInActiv");
+					}
+
+					// Zu Activ Liste verschieben
+					if (state && state.val && typeof(state.val) == "boolean" && id == `alexa-shoppinglist.${this.instance}.to_activ_list`){
+						this.log.info("Position to Active");
+						shiftPosition(positionToShift, jsonInactiv, "toActiv");
+					}
+					// Position die verschoben werden soll
+					if (state && state.val && typeof(state.val) == "number" && id == `alexa-shoppinglist.${this.instance}.position_to_shift`){
+						this.log.info("Position");
+						positionToShift = state.val;
+					}
+
+
 				}
-				
-				if (state && id == idSortActiv && state.ack == false && typeof(state.val) == "string"){
-					sortListActiv = state.val;
-					this.log.info(sortListActiv);
-					runfunction(sortListActiv, sortListInActiv)
-					
-					await this.setStateAsync(id, {ack:true});
-				}
-				
-				if (state && id == idSortInActiv && state.ack == false && typeof(state.val) == "string"){
-					
-					sortListInActiv = state.val;
-					this.log.info(sortListInActiv);
-					
-					runfunction(sortListActiv, sortListInActiv)
-
-					await this.setStateAsync(id, {ack:true});
+				catch (e){
 
 				}
+			});
 
-				// Position hinzufügen
-				if (state && state.val && typeof(state.val) == "string" && id == `alexa-shoppinglist.${this.instance}.add_position` && state.ack == false){
-					addPosition(state.val)
-				}
-
-				// Inactiv Liste leeren
-				if (state && state.val && typeof(state.val) == "boolean" && id == `alexa-shoppinglist.${this.instance}.delete_inactiv_list`){
-					this.log.info("Inactive List deleted")
-					deleteList(jsonInactiv, "delete")
-				}
-				// Activ Liste leeren
-				if (state && state.val && typeof(state.val) == "boolean" && id == `alexa-shoppinglist.${this.instance}.delete_activ_list`){
-					this.log.info("Active List deleted")
-					deleteList(jsonActiv, "toInActiv")
-				}
-
-				// Zu Inactiv Liste verschieben
-				if (state && state.val && id == `alexa-shoppinglist.${this.instance}.to_inactiv_list`){
-					this.log.info("Position to Inactive")
-					shiftPosition(positionToShift, jsonActiv, "toInActiv")
-				}
-
-				// Zu Activ Liste verschieben
-				if (state && state.val && typeof(state.val) == "boolean" && id == `alexa-shoppinglist.${this.instance}.to_activ_list`){
-					this.log.info("Position to Active")
-					shiftPosition(positionToShift, jsonInactiv, "toActiv")
-				}
-				// Position die verschoben werden soll
-				if (state && state.val && typeof(state.val) == "number" && id == `alexa-shoppinglist.${this.instance}.position_to_shift`){
-					this.log.info("Position")
-					positionToShift = state.val;
-				}
-
-				
-			}
-			catch (e){
-
-			}
-		})
-
-	})
+		});
 
 
 
 
-const writeState =(arrayActiv, arrayInactiv)=>{
-	this.setStateChanged(`alexa-shoppinglist.${this.instance}.shoppingliste_activ`, JSON.stringify(arrayActiv),true )
-	this.setStateChanged(`alexa-shoppinglist.${this.instance}.shoppingliste_inactiv`, JSON.stringify(arrayInactiv),true)
-}
-			
+		const writeState =(arrayActiv, arrayInactiv)=>{
+			this.setStateChanged(`alexa-shoppinglist.${this.instance}.shoppingliste_activ`, JSON.stringify(arrayActiv),true );
+			this.setStateChanged(`alexa-shoppinglist.${this.instance}.shoppingliste_inactiv`, JSON.stringify(arrayInactiv),true);
+		};
+
 		// this.on("stateChange", (id,state)=>{
-			
+
 
 		// });
 
@@ -372,15 +418,17 @@ const writeState =(arrayActiv, arrayInactiv)=>{
 
 		// In order to get state updates, you need to subscribe to them. The following line adds a subscription for our variable we have created above.
 		try {
-		this.subscribeForeignStatesAsync(alexaState);
-		this.subscribeStatesAsync(idSortActiv);
-		this.subscribeStatesAsync(idSortInActiv);
-		this.subscribeStatesAsync(`alexa-shoppinglist.${this.instance}.add_position`);
-		this.subscribeStatesAsync(`alexa-shoppinglist.${this.instance}.to_activ_list`);
-		this.subscribeStatesAsync(`alexa-shoppinglist.${this.instance}.to_inactiv_list`);
-		this.subscribeStatesAsync(`alexa-shoppinglist.${this.instance}.delete_inactiv_list`);
-		this.subscribeStatesAsync(`alexa-shoppinglist.${this.instance}.delete_activ_list`);
-		this.subscribeStatesAsync(`alexa-shoppinglist.${this.instance}.position_to_shift`);
+			this.subscribeForeignStatesAsync(alexaState);
+			this.subscribeStatesAsync(idSortActiv);
+			this.subscribeStatesAsync(idSortInActiv);
+			this.subscribeStatesAsync(`alexa-shoppinglist.${this.instance}.add_position`);
+			this.subscribeStatesAsync(`alexa-shoppinglist.${this.instance}.to_activ_list`);
+			this.subscribeStatesAsync(`alexa-shoppinglist.${this.instance}.to_inactiv_list`);
+			this.subscribeStatesAsync(`alexa-shoppinglist.${this.instance}.delete_inactiv_list`);
+			this.subscribeStatesAsync(`alexa-shoppinglist.${this.instance}.delete_activ_list`);
+			this.subscribeStatesAsync(`alexa-shoppinglist.${this.instance}.position_to_shift`);
+
+
 
 		}
 		catch (e){
@@ -405,7 +453,7 @@ const writeState =(arrayActiv, arrayInactiv)=>{
 		// // same thing, but the state is deleted after 30s (getState will return null afterwards)
 		// await this.setStateAsync("testVariable", { val: true, ack: true, expire: 30 });
 
-		
+
 	}
 
 	/**
@@ -450,33 +498,34 @@ const writeState =(arrayActiv, arrayInactiv)=>{
 	 * @param {string} id
 	 * @param {ioBroker.State | null | undefined} state
 	 */
+	// eslint-disable-next-line no-unused-vars
 	onStateChange(id, state) {
-		// if (state) {
-		// 	// The state was changed
-		// 	this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
-		// } else {
-		// 	// The state was deleted
-		// 	this.log.info(`state ${id} deleted`);
+	// if (state) {
+	// 	// The state was changed
+	// 	this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
+	// } else {
+	// 	// The state was deleted
+	// 	this.log.info(`state ${id} deleted`);
+	// }
+	// }
+
+		// If you need to accept messages in your adapter, uncomment the following block and the corresponding line in the constructor.
+		// /**
+		//  * Some message was sent to this instance over message box. Used by email, pushover, text2speech, ...
+		//  * Using this method requires "common.messagebox" property to be set to true in io-package.json
+		//  * @param {ioBroker.Message} obj
+		//  */
+		// this.onMessage(obj) {
+		//  	if (typeof obj === "object" && obj.message) {
+		//  		if (obj.command === "send") {
+		//  			// e.g. send email or pushover or whatever
+		//  			this.log.info("send command");
+
+		// 		// Send response in callback if required
+		// 		if (obj.callback) this.sendTo(obj.from, obj.command, "Message received", obj.callback);
+		// 	}
 		// }
 	}
-
-	// If you need to accept messages in your adapter, uncomment the following block and the corresponding line in the constructor.
-	// /**
-	//  * Some message was sent to this instance over message box. Used by email, pushover, text2speech, ...
-	//  * Using this method requires "common.messagebox" property to be set to true in io-package.json
-	//  * @param {ioBroker.Message} obj
-	//  */
-	// onMessage(obj) {
-	// 	if (typeof obj === "object" && obj.message) {
-	// 		if (obj.command === "send") {
-	// 			// e.g. send email or pushover or whatever
-	// 			this.log.info("send command");
-
-	// 			// Send response in callback if required
-	// 			if (obj.callback) this.sendTo(obj.from, obj.command, "Message received", obj.callback);
-	// 		}
-	// 	}
-	// }
 
 }
 

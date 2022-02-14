@@ -1,246 +1,258 @@
 {
-	"common": {
-		"name": "alexa-shoppinglist",
-		"version": "0.0.2",
-		"news": {
-			"0.0.2" :{
-				"en": "Adjustment of Ids"
-			},
-			"0.0.1": {
-				"en": "initial release",
-				"de": "Erstveröffentlichung",
-				"ru": "Начальная версия",
-				"pt": "lançamento inicial",
-				"nl": "Eerste uitgave",
-				"fr": "Première version",
-				"it": "Versione iniziale",
-				"es": "Versión inicial",
-				"pl": "Pierwsze wydanie",
-				"zh-cn": "首次出版"
-			}
-		},
-		"title": "Alexa Shoppinglist",
-		"titleLang": {
-			"en": "Alexa Shoppinglist",
-			"de": "Alexa Einkaufsliste",
-			"ru": "Алекса список покупок",
-			"pt": "Lista de compras Alexa",
-			"nl": "Alexa-boodschappenlijst",
-			"fr": "Liste de courses Alexa",
-			"it": "Lista della spesa di Alexa",
-			"es": "Lista de la compra de Alexa",
-			"pl": "Lista zakupów Alexa",
-			"zh-cn": "Alexa购物清单"
-		},
-		"desc": {
-			"en": "Generates the Shoppinglist from Alexa",
-			"de": "Erzeugt die Einkaufsliste von Alexa",
-			"ru": "Генерирует список покупок из Alexa",
-			"pt": "Gera a lista de compras do Alexa",
-			"nl": "Genereert de boodschappenlijst van Alexa",
-			"fr": "Génère la liste de courses d'Alexa",
-			"it": "Genera la lista della spesa da Alexa",
-			"es": "Genera la lista de la compra desde Alexa",
-			"pl": "Generuje listę zakupów z Alexa",
-			"zh-cn": "从 Alexa 生成购物清单"
-		},
-		"authors": [
-			"MiRo1310 <michael.roling@gmx.de>"
-		],
-		"keywords": [
-			"Iobroker"
-		],
-		"license": "MIT",
-		"platform": "Javascript/Node.js",
-		"main": "main.js",
-		"icon": "alexa-shoppinglist.png",
-		"enabled": true,
-		"extIcon": "https://raw.githubusercontent.com/MiRo1310/ioBroker.alexa-shoppinglist/main/admin/alexa-shoppinglist.png",
-		"readme": "https://github.com/MiRo1310/ioBroker.alexa-shoppinglist/blob/main/README.md",
-		"loglevel": "info",
-		"mode": "daemon",
-		"type": "logic",
-		"compact": true,
-		"connectionType": "local",
-		"dataSource": "poll",
+    "common": {
+        "name": "alexa-shoppinglist",
+        "version": "0.0.2",
+        "news": {
+            "0.0.2": {
+                "en": "Adjustment of Ids",
+                "de": "Anpassung der IDs",
+                "ru": "Настройка идентификаторов",
+                "pt": "Ajuste de IDs",
+                "nl": "Aanpassing van ID's",
+                "fr": "Ajustement des identifiants",
+                "it": "Adeguamento degli ID",
+                "es": "Ajuste de identificaciones",
+                "pl": "Dostosowanie identyfikatorów",
+                "zh-cn": "ID的调整"
+            },
+            "0.0.1": {
+                "en": "initial release",
+                "de": "Erstveröffentlichung",
+                "ru": "Начальная версия",
+                "pt": "lançamento inicial",
+                "nl": "Eerste uitgave",
+                "fr": "Première version",
+                "it": "Versione iniziale",
+                "es": "Versión inicial",
+                "pl": "Pierwsze wydanie",
+                "zh-cn": "首次出版"
+            }
+        },
+        "title": "Alexa Shoppinglist",
+        "titleLang": {
+            "en": "Alexa Shoppinglist",
+            "de": "Alexa Einkaufsliste",
+            "ru": "Алекса список покупок",
+            "pt": "Lista de compras Alexa",
+            "nl": "Alexa-boodschappenlijst",
+            "fr": "Liste de courses Alexa",
+            "it": "Lista della spesa di Alexa",
+            "es": "Lista de la compra de Alexa",
+            "pl": "Lista zakupów Alexa",
+            "zh-cn": "Alexa购物清单"
+        },
+        "desc": {
+            "en": "Generates the Shoppinglist from Alexa",
+            "de": "Erzeugt die Einkaufsliste von Alexa",
+            "ru": "Генерирует список покупок из Alexa",
+            "pt": "Gera a lista de compras do Alexa",
+            "nl": "Genereert de boodschappenlijst van Alexa",
+            "fr": "Génère la liste de courses d'Alexa",
+            "it": "Genera la lista della spesa da Alexa",
+            "es": "Genera la lista de la compra desde Alexa",
+            "pl": "Generuje listę zakupów z Alexa",
+            "zh-cn": "从 Alexa 生成购物清单"
+        },
+        "authors": [
+            "MiRo1310 <michael.roling@gmx.de>"
+        ],
+        "keywords": [
+            "Iobroker"
+        ],
+        "license": "MIT",
+        "platform": "Javascript/Node.js",
+        "main": "main.js",
+        "icon": "alexa-shoppinglist.png",
+        "enabled": true,
+        "extIcon": "https://raw.githubusercontent.com/MiRo1310/ioBroker.alexa-shoppinglist/main/admin/alexa-shoppinglist.png",
+        "readme": "https://github.com/MiRo1310/ioBroker.alexa-shoppinglist/blob/main/README.md",
+        "loglevel": "info",
+		"messagebox": true,
+        "mode": "daemon",
+        "type": "logic",
+        "compact": true,
+        "connectionType": "local",
+        "dataSource": "poll",
         "materialize": true,
         "supportCustoms": false,
-		"dependencies": [
-			{
-				"js-controller": ">=2.0.0"
-			}            
-		],
-		"globalDependencies": [
-			{
+        "adminUI": {
+            "config": "json"
+        },
+        "dependencies": [
+            {
+                "js-controller": ">=2.0.0"
+            }
+        ],
+        "globalDependencies": [
+            {
                 "alexa2": ">=3.11.2"
             }
-		]
-	},
-	"native": {
-		"alexastate": "alexa2.0.Lists.SHOPPING_LIST.json",
-		"alexaIdTextToCommand": ""
-	},
-	"objects": [],
-	"instanceObjects": [
-		{
-			"_id": "info",
-			"type": "channel",
-			"common": {
-				"name": "Information"
-			},
-			"native": {}
-		},
-		{
-			"_id": "info.connection",
-			"type": "state",
-			"common": {
-				"role": "indicator.connected",
-				"name": "Device or service connected",
-				"type": "boolean",
-				"read": true,
-				"write": false,
-				"def": false
-			},
-			"native": {}
-		},
-		{
-			"_id": "shoppingliste_activ",
-			"type": "state",
-			"common": {
-				"role": "json",
-				"name": "Shopping List activ",
-				"type": "string",
-				"read": true,
-				"write": false,
-				"def": ""
-			},
-			"native": {}
-		},
-		{
-			"_id": "shoppingliste_inactiv",
-			"type": "state",
-			"common": {
-				"role": "json",
-				"name": "Shopping List inactiv",
-				"type": "string",
-				"read": true,
-				"write": false,
-				"def": ""
-			},
-			"native": {}
-		},
-		{
-			"_id": "shoppingliste_activ_sort",
-			"type": "state",
-			"common": {
-				"role": "switch",
-				"name": "Sorting of List Activ",
-				"type": "string",
-				"read": true,
-				"write": true,
-				"states":{
-					"time": "Time",
-					"alphabeth": "Alphabetical"		
-				} ,
-				"def" : "Time"		
-			},
-			"native": {}
-		},
-		{
-			"_id": "shoppingliste_inactiv_sort",
-			"type": "state",
-			"common": {
-				"role": "switch",
-				"name": "Sorting of List Inactiv",
-				"type": "string",
-				"read": true,
-				"write": true,
-				"states":{
-					"time": "Time",
-					"alphabeth": "Alphabetical"						
-				},
-				"def" : "Time"		
-			},
-			"native": {}
-		},
-		{
-			"_id": "add_position",
-			"type": "state",
-			"common": {
-				"role": "text",
-				"name": "Add new Articel",
-				"type": "string",
-				"read": true,
-				"write": true,
-				"def": ""
-			},
-			"native": {}
-		},
-		{
-			"_id": "to_inactiv_list",
-			"type": "state",
-			"common": {
-				"role": "button",
-				"name": "Move to inactiv",
-				"type": "boolean",
-				"read": true,
-				"write": true,
-				"def" :true				
-			},
-			"native": {}
-		},
-		{
-			"_id": "to_activ_list",
-			"type": "state",
-			"common": {
-				"role": "button",
-				"name": "Move to activ",
-				"type": "boolean",
-				"read": true,
-				"write": true,
-				"def" :true						
-			},
-			"native": {}
-		},
-		{
-			"_id": "delete_inactiv_list",
-			"type": "state",
-			"common": {
-				"role": "button",
-				"name": "Delete inactiv",
-				"type": "boolean",
-				"read": true,
-				"write": true,
-				"def" :true						
-			},
-			"native": {}
-		},
-		{
-			"_id": "delete_activ_list",
-			"type": "state",
-			"common": {
-				"role": "button",
-				"name": "Move to inactiv",
-				"type": "boolean",
-				"read": true,
-				"write": true,
-				"def" :true						
-			},
-			"native": {}
-		},
-		{
-			"_id": "position_to_shift",
-			"type": "state",
-			"common": {
-				"role": "value",
-				"name": "Position to shift",
-				"type": "number",
-				"read": true,
-				"write": true,
-				"def" : 0						
-			},
-			"native": {}
-		}
-
-	]
+        ]
+    },
+    "native": {
+        "alexastate": "alexa2.0.Lists.SHOPPING_LIST.json",
+        "alexaIdTextToCommand": ""
+    },
+    "objects": [],
+    "instanceObjects": [
+        {
+            "_id": "info",
+            "type": "channel",
+            "common": {
+                "name": "Information"
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.connection",
+            "type": "state",
+            "common": {
+                "role": "indicator.connected",
+                "name": "Device or service connected",
+                "type": "boolean",
+                "read": true,
+                "write": false,
+                "def": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "shoppingliste_activ",
+            "type": "state",
+            "common": {
+                "role": "json",
+                "name": "Shopping List activ",
+                "type": "string",
+                "read": true,
+                "write": false,
+                "def": ""
+            },
+            "native": {}
+        },
+        {
+            "_id": "shoppingliste_inactiv",
+            "type": "state",
+            "common": {
+                "role": "json",
+                "name": "Shopping List inactiv",
+                "type": "string",
+                "read": true,
+                "write": false,
+                "def": ""
+            },
+            "native": {}
+        },
+        {
+            "_id": "shoppingliste_activ_sort",
+            "type": "state",
+            "common": {
+                "role": "switch",
+                "name": "Sorting of List Activ",
+                "type": "string",
+                "read": true,
+                "write": true,
+                "states": {
+                    "time": "Time",
+                    "alphabeth": "Alphabetical"
+                },
+                "def": "Time"
+            },
+            "native": {}
+        },
+        {
+            "_id": "shoppingliste_inactiv_sort",
+            "type": "state",
+            "common": {
+                "role": "switch",
+                "name": "Sorting of List Inactiv",
+                "type": "string",
+                "read": true,
+                "write": true,
+                "states": {
+                    "time": "Time",
+                    "alphabeth": "Alphabetical"
+                },
+                "def": "Time"
+            },
+            "native": {}
+        },
+        {
+            "_id": "add_position",
+            "type": "state",
+            "common": {
+                "role": "text",
+                "name": "Add new Articel",
+                "type": "string",
+                "read": true,
+                "write": true,
+                "def": ""
+            },
+            "native": {}
+        },
+        {
+            "_id": "to_inactiv_list",
+            "type": "state",
+            "common": {
+                "role": "button",
+                "name": "Move to inactiv",
+                "type": "boolean",
+                "read": true,
+                "write": true,
+                "def": true
+            },
+            "native": {}
+        },
+        {
+            "_id": "to_activ_list",
+            "type": "state",
+            "common": {
+                "role": "button",
+                "name": "Move to activ",
+                "type": "boolean",
+                "read": true,
+                "write": true,
+                "def": true
+            },
+            "native": {}
+        },
+        {
+            "_id": "delete_inactiv_list",
+            "type": "state",
+            "common": {
+                "role": "button",
+                "name": "Delete inactiv",
+                "type": "boolean",
+                "read": true,
+                "write": true,
+                "def": true
+            },
+            "native": {}
+        },
+        {
+            "_id": "delete_activ_list",
+            "type": "state",
+            "common": {
+                "role": "button",
+                "name": "Move to inactiv",
+                "type": "boolean",
+                "read": true,
+                "write": true,
+                "def": true
+            },
+            "native": {}
+        },
+        {
+            "_id": "position_to_shift",
+            "type": "state",
+            "common": {
+                "role": "value",
+                "name": "Position to shift",
+                "type": "number",
+                "read": true,
+                "write": true,
+                "def": 0
+            },
+            "native": {}
+        }
+    ]
 }
