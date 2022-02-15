@@ -91,7 +91,10 @@
     },
     "native": {
         "alexastate": "alexa2.0.Lists.SHOPPING_LIST.json",
-        "alexaIdTextToCommand": ""
+        "alexaIdTextToCommand": "",
+        "alexa": "",
+        "device": "",
+        "shoppinglist": ""
     },
     "objects": [],
     "instanceObjects": [
