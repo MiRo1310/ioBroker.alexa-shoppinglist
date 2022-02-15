@@ -17,7 +17,6 @@ let timeout_1;
 let timeout_2;
 let timeout_3;
 let idInstanze;
-let processMessage;
 
 class AlexaShoppinglist extends utils.Adapter {
 
@@ -32,16 +31,11 @@ class AlexaShoppinglist extends utils.Adapter {
 		this.on("ready", this.onReady.bind(this));
 		this.on("stateChange", this.onStateChange.bind(this));
 		// this.on("objectChange", this.onObjectChange.bind(this));
-		//this.on("message", this.onMessage.bind(this));
+		this.on("message", this.onMessage.bind(this));
 		this.on("unload", this.onUnload.bind(this));
-		this.on("message", obj => processMessage(obj));
-
 	}
 
 	async onReady() {
-
-
-
 
 		this.setState("info.connection", false, true);
 
@@ -91,36 +85,6 @@ class AlexaShoppinglist extends utils.Adapter {
 
 
 		//Funktionen -----------
-
-		processMessage = async (obj)=>{
-			if (obj){
-				this.log.info("Test " + JSON.stringify(obj));
-				switch (obj.command){
-					case "getDevices" : {
-						this.log.info(`${obj.message.alexa}.Echo-Devices.`);
-						const devices = await this.getObjectViewAsync("system", "device", {
-							startkey: `${obj.message.alexa}.Echo-Devices.`,
-							endkey: `${obj.message.alexa}.Echo-Devices.\u9999`
-						});
-						let n;
-						let v;
-						const result = [{"label": `Test`, "value": "none"}];
-						for (let i = 0; i < devices.rows.length; i++) {
-							const a = devices.rows[i];
-							if (a.value && a.value.common.name != "Timer" && a.value.common.name != "Reminder"&& a.value.common.name != "Alarm" ){
-								n = a.value.common.name;
-								v = a.id;
-								// @ts-ignore
-								result.push({"label": n, "value": v});
-							}
-
-						}
-						obj.callback && this.sendTo(obj.from, obj.command, result, obj.callback);
-						break;
-					}
-				}
-			}
-		};
 
 
 		/**General Function
@@ -525,6 +489,50 @@ class AlexaShoppinglist extends utils.Adapter {
 		// 		if (obj.callback) this.sendTo(obj.from, obj.command, "Message received", obj.callback);
 		// 	}
 		// }
+	}
+
+	async onMessage(obj) {
+		this.log.info("Test " + JSON.stringify(obj));
+		if (obj){
+			this.log.info("Test " + JSON.stringify(obj));
+			switch (obj.command){
+				case "getDevices" : {
+					const devices = await this.getObjectViewAsync("system", "device", {
+						startkey: `${obj.message.alexa}.Echo-Devices.`,
+						endkey: `${obj.message.alexa}.Echo-Devices.\u9999`
+					});
+					let n;
+					let v;
+					const result = [];
+					for (let i = 0; i < devices.rows.length; i++) {
+						const a = devices.rows[i];
+						if (a.value && a.value.common.name !== "Timer" && a.value.common.name !== "Reminder"&& a.value.common.name !== "Alarm" ){
+							n = a.value.common.name;
+							v = a.id;
+							// @ts-ignore
+							result.push({"label": n, "value": v});
+						}
+					}
+					obj.callback && this.sendTo(obj.from, obj.command, result, obj.callback);
+					break;
+				}
+				case "getShoppinglist" : {
+					const result = [];
+					const lists = await this.getObjectViewAsync("system", "channel", {
+						startkey: `${obj.message.alexa}.Lists.`,
+						endkey: `${obj.message.alexa}.Lists.\u9999`
+					});
+					for (let i = 0; i < lists.rows.length; i++) {
+						const a = lists.rows[i];
+						if(a.value && a.id.split(".").length === 4) {
+							result.push({"label": a.value.common.name, "value": a.id});
+						}
+					}
+					obj.callback && this.sendTo(obj.from, obj.command, result, obj.callback);
+					break;
+				}
+			}
+		}
 	}
 
 }
