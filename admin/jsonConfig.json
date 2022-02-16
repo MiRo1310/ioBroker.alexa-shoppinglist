@@ -1,50 +1,50 @@
 {
-  "i18n": true,
-  "type": "tabs",
-  "items": {
-      "_options": {
-          "type": "panel",
-          "label": "Shopping List",
-          "items": {
-              "alexa": {
-                  "newLine": true,
-                  "type": "instance",
-                  "adapter": "alexa2",
-                  "sm": 12,
-                  "md": 6,
-                  "lg": 6,
-                  "label": "alexa2 instance",
-                  "help": "device for output",
-                  "disabled": "!alive"
-                  },
-              "shoppinglist": {
-                  "newLine": true,
-                  "type": "selectSendTo",
-                  "label": "shopping list",
-                  "sm": 12,
-                  "md": 6,
-                  "lg": 6,
-                  "command": "getShoppinglist",
-                  "noTranslation":  true,
-                  "alsoDependsOn": ["alexa"],
-                  "hidden": "!data.alexa",
-                  "jsonData": "{\"alexa\":  \"${data.alexa}\"}",
-                  "disabled": "!alive"
-              },
-              "device": {
-                  "type": "selectSendTo",
-                  "label": "Device",
-                  "sm": 12,
-                  "md": 6,
-                  "lg": 6,
-                  "command": "getDevices",
-                  "noTranslation":  true,
-                  "alsoDependsOn": ["alexa"],
-                  "hidden": "!data.alexa",
-                  "jsonData": "{\"alexa\":  \"${data.alexa}\"}",
-                  "disabled": "!alive"
-              }
-          }
-      }
-  }
+    "i18n": true,
+    "type": "tabs",
+    "items": {
+        "_options": {
+            "type": "panel",
+            "label": "Shopping List",
+            "items": {
+                "alexa": {
+                    "newLine": true,
+                    "type": "instance",
+                    "adapter": "alexa2",
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 6,
+                    "label": "alexa2 instance",
+                    "help": "device for output",
+                    "disabled": "!alive"
+                },
+                "device": {
+                    "newLine": true,
+                    "type": "selectSendTo",
+                    "label": "Device",
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 6,
+                    "command": "getDevices",
+                    "noTranslation": true,
+                    "alsoDependsOn": ["alexa"],                    
+                    "hidden": "!data.alexa",
+                    "jsonData": "{\"alexa\":  \"${data.alexa}\"}",
+                    "disabled": "!alive"
+                },
+                "shoppinglist": {
+                    "type": "selectSendTo",
+                    "label": "shopping list",
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 6,
+                    "command": "getShoppinglist",
+                    "noTranslation": true,
+                    "alsoDependsOn": ["alexa"],
+                    "hidden": "!data.alexa",
+                    "jsonData": "{\"alexa\":  \"${data.alexa}\"}",
+                    "disabled": "!alive"
+                }
+            }
+        }
+    }
 }

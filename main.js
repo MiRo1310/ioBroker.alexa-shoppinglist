@@ -501,16 +501,12 @@ class AlexaShoppinglist extends utils.Adapter {
 						startkey: `${obj.message.alexa}.Echo-Devices.`,
 						endkey: `${obj.message.alexa}.Echo-Devices.\u9999`
 					});
-					let n;
-					let v;
 					const result = [];
 					for (let i = 0; i < devices.rows.length; i++) {
 						const a = devices.rows[i];
 						if (a.value && a.value.common.name !== "Timer" && a.value.common.name !== "Reminder"&& a.value.common.name !== "Alarm" ){
-							n = a.value.common.name;
-							v = a.id;
-							// @ts-ignore
-							result.push({"label": n, "value": v});
+
+							result.push({"label": a.value.common.name, "value": a.id});
 						}
 					}
 					obj.callback && this.sendTo(obj.from, obj.command, result, obj.callback);
