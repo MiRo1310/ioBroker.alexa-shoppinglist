@@ -40,7 +40,7 @@ class AlexaShoppinglist extends utils.Adapter {
 		this.setState("info.connection", false, true);
 
 		// Variablen
-		alexaState = this.config.alexastate;
+		alexaState = this.config.shoppinglist;
 		const alexaStateArray = alexaState.split(".");
 		idInstanze = {
 			"adapter" : alexaStateArray[0],
@@ -49,7 +49,14 @@ class AlexaShoppinglist extends utils.Adapter {
 			"list": alexaStateArray[3]
 		};
 		const list = idInstanze.list.replace("_", " ").toLowerCase().replace("list", " ");
-		idTexttoCommand = this.config.alexaIdTextToCommand;
+		idTexttoCommand = this.config.device;
+		const alexaJsonConfigList = this.config.shoppinglist;
+		const alexaJsonConfigDevice = this.config.device;
+		this.log.info(alexaJsonConfigDevice);
+		this.log.info(alexaJsonConfigList);
+		this.log.info(idTexttoCommand);
+		this.log.info(alexaState);
+
 
 
 
@@ -506,7 +513,7 @@ class AlexaShoppinglist extends utils.Adapter {
 						const a = devices.rows[i];
 						if (a.value && a.value.common.name !== "Timer" && a.value.common.name !== "Reminder"&& a.value.common.name !== "Alarm" ){
 
-							result.push({"label": a.value.common.name, "value": a.id});
+							result.push({"label": a.value.common.name, "value": `${a.id}.Commands.textCommand`});
 						}
 					}
 					obj.callback && this.sendTo(obj.from, obj.command, result, obj.callback);
@@ -521,7 +528,7 @@ class AlexaShoppinglist extends utils.Adapter {
 					for (let i = 0; i < lists.rows.length; i++) {
 						const a = lists.rows[i];
 						if(a.value && a.id.split(".").length === 4) {
-							result.push({"label": a.value.common.name, "value": a.id});
+							result.push({"label": `${a.value.common.name}`, "value": `${a.id}.json`});
 						}
 					}
 					obj.callback && this.sendTo(obj.from, obj.command, result, obj.callback);
