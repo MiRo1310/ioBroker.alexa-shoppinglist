@@ -50,8 +50,10 @@ class AlexaShoppinglist extends utils.Adapter {
 			"channel_history": alexaStateArray[2],
 			"list": alexaStateArray[3]
 		};
-		const list = idInstanze.list.replace("_", " ").toLowerCase().replace("list", " ");
-
+		let list;
+		if (alexaState != ""){
+			list = idInstanze.list.replace("_", " ").toLowerCase().replace("list", " ");
+		}
 
 		this.log.info(idTexttoCommand);
 		this.log.info(alexaState);
