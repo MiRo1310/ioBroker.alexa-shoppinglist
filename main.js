@@ -41,6 +41,8 @@ class AlexaShoppinglist extends utils.Adapter {
 
 		// Variablen
 		alexaState = this.config.shoppinglist;
+		idTexttoCommand = this.config.device;
+
 		const alexaStateArray = alexaState.split(".");
 		idInstanze = {
 			"adapter" : alexaStateArray[0],
@@ -49,15 +51,10 @@ class AlexaShoppinglist extends utils.Adapter {
 			"list": alexaStateArray[3]
 		};
 		const list = idInstanze.list.replace("_", " ").toLowerCase().replace("list", " ");
-		idTexttoCommand = this.config.device;
-		const alexaJsonConfigList = this.config.shoppinglist;
-		const alexaJsonConfigDevice = this.config.device;
-		this.log.info(alexaJsonConfigDevice);
-		this.log.info(alexaJsonConfigList);
+
+
 		this.log.info(idTexttoCommand);
 		this.log.info(alexaState);
-
-
 
 
 		const idAddapter = alexaState.slice(0, (alexaState.length - 5));

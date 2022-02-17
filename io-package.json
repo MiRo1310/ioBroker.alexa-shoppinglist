@@ -92,7 +92,7 @@
     "native": {
         "alexa": "",
         "device": "",
-        "shoppinglist": ""
+        "shoppinglist": "alexa2.0.Lists.SHOPPING_LIST.json"
     },
     "objects": [],
     "instanceObjects": [
