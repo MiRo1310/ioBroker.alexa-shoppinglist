@@ -6,27 +6,29 @@
             "type": "panel",
             "label": "Shopping List",
             "items": {
-                "Text": {
+                "status": {
+                    "type":"alive", 
+                    "instance": "`alexa.shoppinglist.${data.number}`",                   
                     "newLine": true,
-                    "type": "staticText",
                     "sm": 12,
                     "md": 6,
-                    "lg": 6,
-                    "hidden": "alive",
-                    "label": "You habe to start the Adapter befor you can configure!",
-                    "readOnly": true
-                    
+                    "lg": 6,                    
+                    "textNotAlive": "You habe to start the Adapter befor you can configure!",
+                    "textAlive":""                                     
+                                                    
                 },
                 "alexa": {
                     "newLine": true,
                     "type": "instance",
+                    "alive": "instance", 
                     "adapter": "alexa2",
                     "sm": 12,
                     "md": 6,
                     "lg": 6,
+                    "hidden":"data.status",
                     "label": "alexa2 instance",
                     "help": "device for output",
-                    "disabled": "!alive"
+                    "disabled": "!data.status"
                 },
                 "device": {
                     "newLine": true,
@@ -40,7 +42,7 @@
                     "alsoDependsOn": ["alexa"],                    
                     "hidden": "!data.alexa",
                     "jsonData": "{\"alexa\":  \"${data.alexa}\"}",
-                    "disabled": "!alive"
+                    "disabled": "!data.alexa"
                 },
                 "shoppinglist": {
                     "type": "selectSendTo",
@@ -53,7 +55,7 @@
                     "alsoDependsOn": ["alexa"],
                     "hidden": "!data.alexa",
                     "jsonData": "{\"alexa\":  \"${data.alexa}\"}",
-                    "disabled": "!alive"
+                    "disabled": "!data.alexa"
                 }
             }
         }

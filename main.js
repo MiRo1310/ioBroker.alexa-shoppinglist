@@ -18,6 +18,7 @@ let timeout_2;
 let timeout_3;
 let idInstanze;
 
+
 class AlexaShoppinglist extends utils.Adapter {
 
 	/**
@@ -37,11 +38,14 @@ class AlexaShoppinglist extends utils.Adapter {
 
 	async onReady() {
 
+
+
 		this.setState("info.connection", false, true);
 
 		// Variablen
 		alexaState = this.config.shoppinglist;
 		idTexttoCommand = this.config.device;
+
 
 		const alexaStateArray = alexaState.split(".");
 		idInstanze = {
