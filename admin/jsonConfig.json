@@ -7,28 +7,25 @@
             "label": "Shopping List",
             "items": {
                 "status": {
-                    "type":"alive", 
-                    "instance": "`alexa.shoppinglist.${data.number}`",                   
-                    "newLine": true,
+                    "type":"alive",                                                            
+                    "newLine": true,                    
                     "sm": 12,
                     "md": 6,
                     "lg": 6,                    
                     "textNotAlive": "You habe to start the Adapter befor you can configure!",
-                    "textAlive":""                                     
-                                                    
+                    "textAlive":""    
                 },
                 "alexa": {
                     "newLine": true,
-                    "type": "instance",
-                    "alive": "instance", 
+                    "type": "instance",                     
                     "adapter": "alexa2",
                     "sm": 12,
                     "md": 6,
                     "lg": 6,
-                    "hidden":"data.status",
+                    "hidden":"",
                     "label": "alexa2 instance",
                     "help": "device for output",
-                    "disabled": "!data.status"
+                    "disabled": "!_alive"
                 },
                 "device": {
                     "newLine": true,
@@ -40,9 +37,9 @@
                     "command": "getDevices",
                     "noTranslation": true,
                     "alsoDependsOn": ["alexa"],                    
-                    "hidden": "!data.alexa",
+                    "hidden": "",
                     "jsonData": "{\"alexa\":  \"${data.alexa}\"}",
-                    "disabled": "!data.alexa"
+                    "disabled": "!_alive"
                 },
                 "shoppinglist": {
                     "type": "selectSendTo",
@@ -53,9 +50,9 @@
                     "command": "getShoppinglist",
                     "noTranslation": true,
                     "alsoDependsOn": ["alexa"],
-                    "hidden": "!data.alexa",
+                    "hidden": "",
                     "jsonData": "{\"alexa\":  \"${data.alexa}\"}",
-                    "disabled": "!data.alexa"
+                    "disabled": "!_alive"
                 }
             }
         }

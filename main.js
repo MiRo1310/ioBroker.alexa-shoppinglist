@@ -38,8 +38,6 @@ class AlexaShoppinglist extends utils.Adapter {
 
 	async onReady() {
 
-
-
 		this.setState("info.connection", false, true);
 
 		// Variablen
