@@ -6,6 +6,17 @@
             "type": "panel",
             "label": "Shopping List",
             "items": {
+                "Text": {
+                    "newLine": true,
+                    "type": "staticText",
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 6,
+                    "hidden": "alive",
+                    "label": "You habe to start the Adapter befor you can configure!",
+                    "readOnly": true
+                    
+                },
                 "alexa": {
                     "newLine": true,
                     "type": "instance",
