@@ -38,7 +38,7 @@
                     "noTranslation": true,
                     "onChange":{
                         "alsoDependsOn": ["alexa"],
-                        "calculateFunc": "", 
+                        "calculateFunc": "1", 
                         "ignoreOwnChanges": true
                      },
                     "hidden": "!data.alexa",
