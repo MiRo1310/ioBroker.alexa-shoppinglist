@@ -36,8 +36,12 @@
                     "lg": 6,
                     "command": "getDevices",
                     "noTranslation": true,
-                    "alsoDependsOn": ["alexa"],                    
-                    "hidden": "",
+                    "onChange":{
+                        "alsoDependsOn": ["alexa"],
+                        "calculateFunc": "", 
+                        "ignoreOwnChanges": true
+                     },
+                    "hidden": "!data.alexa",
                     "jsonData": "{\"alexa\":  \"${data.alexa}\"}",
                     "disabled": "!_alive"
                 },
@@ -50,7 +54,7 @@
                     "command": "getShoppinglist",
                     "noTranslation": true,
                     "alsoDependsOn": ["alexa"],
-                    "hidden": "",
+                    "hidden": "!data.alexa",
                     "jsonData": "{\"alexa\":  \"${data.alexa}\"}",
                     "disabled": "!_alive"
                 }
