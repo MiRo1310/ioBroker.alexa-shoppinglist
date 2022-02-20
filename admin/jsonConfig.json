@@ -12,7 +12,9 @@
                     "sm": 12,
                     "md": 6,
                     "lg": 6,                    
-                    "textNotAlive": "You have to start the Adapter before you can configure!",
+                    "textNotAlive": {
+                        "en" : "You have to start the Adapter before you can configure!",
+                        "de" : "Du musst erst den Adapter starten bevor du ihn konfigurieren kannst"},
                     "textAlive":""    
                 },
                 "alexa": {
@@ -23,19 +25,28 @@
                     "md": 6,
                     "lg": 6,
                     "hidden":"",
-                    "label": "Alexa2 Instance",                    
+                    "label": {
+                        "en" : "Alexa2 Instance",
+                        "de" : "Alexa2 Instanz"
+                    },                    
                     "disabled": "!_alive"
                 },
                 "device": {
                     "newLine": true,
                     "type": "selectSendTo",
-                    "label": "Device",
-                    "help": "Device for output",
+                    "label": {
+                        "en":"Device",
+                        "de": "Gerät zur Ausgabe"
+                    },
+                    "help": {
+                        "en": "Device for output",
+                        "de": "Gerät zur Ausgabe"
+                    },
                     "sm": 12,
                     "md": 6,
                     "lg": 6,
                     "command": "getDevices",
-                    "noTranslation": false,
+                    "noTranslation": true,
                     "alsoDependsOn": ["alexa"],
                     "hidden": "!data.alexa",
                     "jsonData": "{\"alexa\":  \"${data.alexa}\"}",
@@ -43,7 +54,10 @@
                 },
                 "shoppinglist": {
                     "type": "selectSendTo",
-                    "label": "Shopping List",
+                    "label": {
+                        "en" : "List to use",
+                        "de" : "Liste die genutzt werden soll"
+                    },
                     "sm": 12,
                     "md": 6,
                     "lg": 6,
