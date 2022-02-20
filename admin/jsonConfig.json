@@ -4,7 +4,10 @@
     "items": {
         "_options": {
             "type": "panel",
-            "label": "Shopping List",
+            "label": {
+                "en": "Alexa Lists",
+                "de": "Alexa Listen"
+            },
             "items": {
                 "status": {
                     "type":"alive",                                                            
@@ -12,9 +15,7 @@
                     "sm": 12,
                     "md": 6,
                     "lg": 6,                    
-                    "textNotAlive": {
-                        "en" : "You have to start the Adapter before you can configure!",
-                        "de" : "Du musst erst den Adapter starten bevor du ihn konfigurieren kannst"},
+                    "textNotAlive": "You have to start the Adapter before you can configure!",
                     "textAlive":""    
                 },
                 "alexa": {
