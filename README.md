@@ -27,6 +27,9 @@ I hope you enjoy
 
 ## Changelog
 
+### 0.1.1 ( 20.02.2022)
+* Error fixed in jsonConfig
+
 ### 0.1.0 ( 20.02.2022)
 * First complete working Release
 
