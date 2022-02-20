@@ -127,8 +127,8 @@ class AlexaShoppinglist extends utils.Adapter {
 					}
 
 
-					sortList(jsonActiv, sortListActiv);
-					sortList(jsonInactiv, sortListInActiv);
+					jsonActiv = sortList(jsonActiv, sortListActiv);
+					jsonInactiv = sortList(jsonInactiv, sortListInActiv);
 					addPos(jsonActiv);
 					addPos(jsonInactiv);
 					writeState(jsonActiv, jsonInactiv);
@@ -247,6 +247,7 @@ class AlexaShoppinglist extends utils.Adapter {
 					return 0;
 				});
 			}
+			return arraySort;
 
 		};
 
