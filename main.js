@@ -236,7 +236,7 @@ class AlexaShoppinglist extends utils.Adapter {
 				arraySort = array.sort((a ,b) =>{a.time - b.time;});
 			} else {
 
-				// eslint-disable-next-line no-unused-vars
+
 				arraySort = array.sort((a, b)=> {
 
 					if (a.name > b.name ){

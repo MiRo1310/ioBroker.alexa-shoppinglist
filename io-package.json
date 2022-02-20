@@ -1,7 +1,7 @@
 {
     "common": {
         "name": "alexa-shoppinglist",
-        "version": "0.0.2",
+        "version": "0.0.3",
         "news": {
             "0.0.2": {
                 "en": "Adjustment of Ids",
@@ -87,7 +87,8 @@
             {
                 "alexa2": ">=3.11.2"
             }
-        ]
+        ],
+        "installedFrom": "MiRo1310/ioBroker.alexa-shoppinglist#0029bd0640cc958546df6fc1d9e071b0ddabad18"
     },
     "native": {
         "alexa": "",
