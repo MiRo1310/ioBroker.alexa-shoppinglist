@@ -15,8 +15,22 @@
 
 Generates the Shoppinglist from Alexa
 
+You can also use other Lists from Alexa. Configure it in Admin. 
+When you use the new Admin UI, it will be much easier for you.
 
-### **WORK IN PROGRESS**
+There is a State to insert new Items. Just write the Text and Enter.
+You can delete activ and inactiv Lists.
+You can akso move only one Item, to both directions.
+
+I hope you enjoy
+
+
+## Changelog
+
+### 0.0.3 ( 20.02.2022)
+* First complete working Release
+
+### 0.0.1 
 * (MiRo1310) initial release
 
 ## License
