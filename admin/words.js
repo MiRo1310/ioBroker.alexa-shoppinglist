@@ -1,29 +1,12 @@
 /*global systemDictionary:true */
-"use strict";
+'use strict';
 
 systemDictionary = {
-	"alexa-shoppinglist adapter settings": {
-		"en": "Adapter settings for alexa-shoppinglist",
-		"de": "Adaptereinstellungen für alexa-shoppinglist",
-		"ru": "Настройки адаптера для alexa-shoppinglist",
-		"pt": "Configurações do adaptador para alexa-shoppinglist",
-		"nl": "Adapterinstellingen voor alexa-shoppinglist",
-		"fr": "Paramètres d'adaptateur pour alexa-shoppinglist",
-		"it": "Impostazioni dell'adattatore per alexa-shoppinglist",
-		"es": "Ajustes del adaptador para alexa-shoppinglist",
-		"pl": "Ustawienia adaptera dla alexa-shoppinglist",
-		"zh-cn": "alexa-shoppinglist的适配器设置"
-	},
-	"alexastate": {
-		"en": "Alexa State",
-		"de": "Alexa-Zustand",
-		"ru": "Алекса Стэйт",
-		"pt": "Estado Alexa",
-		"nl": "Alexa staat",
-		"fr": "État Alexa",
-		"it": "Stato Alexa",
-		"es": "estado de alexa",
-		"pl": "Stan Alexa",
-		"zh-cn": "亚历克萨州"
-	}
+    "Alexa State": {                                 "en": "Alexa State of the List",                         "de": "Alexa Status der Liste",                          "ru": "Alexa Состояние списка",                          "pt": "Alexa Estado da Lista",                           "nl": "Alexa Staat van de lijst",                        "fr": "Alexa État de la liste",                          "it": "Stato dell'elenco di Alexa",                      "es": "Estado de la lista de Alexa",                     "pl": "Alexa Stan listy",                                "zh-cn": "列表中的 Alexa 状态"},
+    "ID": {                                          "en": "ID of Alexa Device, state textCommand",           "de": "ID des Alexa-Geräts, Zustand textCommand",        "ru": "ID Alexa Device, состояние textCommand",          "pt": "ID do dispositivo Alexa, estado textCommand",     "nl": "ID van Alexa-apparaat, geef tekstopdracht aan",   "fr": "ID de l'appareil Alexa, indiquez textCommand",    "it": "ID del dispositivo Alexa, stato textCommand",     "es": "ID del dispositivo Alexa, comando de texto de estado", "pl": "ID urządzenia Alexa, stan textCommand",           "zh-cn": "Alexa 设备的 ID，状态 textCommand"},
+    "Text": {                                        "en": "Is required to insert articles, the entry is also confirmed on this device.", "de": "Ist das Eingeben von Artikeln erforderlich, wird die Eingabe auch auf diesem Gerät bestätigt.", "ru": "Требуется для вставки статей, запись также подтверждается на этом устройстве.", "pt": "É necessário inserir artigos, a entrada também é confirmada neste dispositivo.", "nl": "Is vereist om artikelen in te voeren, de invoer wordt ook bevestigd op dit apparaat.", "fr": "Est nécessaire pour insérer des articles, l'entrée est également confirmée sur cet appareil.", "it": "E' obbligatorio inserire gli articoli, l'inserimento è confermato anche su questo dispositivo.", "es": "Es obligatorio insertar artículos, la entrada también se confirma en este dispositivo.", "pl": "Wymagane jest wstawienie artykułów, wpis jest również potwierdzany na tym urządzeniu.", "zh-cn": "需要插入文章，在此设备上也确认条目。"},
+    "Notification": {                                "en": "You have to start the Adapter before you can configure!", "de": "Sie müssen den Adapter starten, bevor Sie konfigurieren können!", "ru": "Перед настройкой необходимо запустить адаптер!",  "pt": "Você precisa iniciar o Adaptador antes de poder configurar!", "nl": "U moet de Adapter starten voordat u kunt configureren!", "fr": "Vous devez démarrer l'adaptateur avant de pouvoir configurer !", "it": "Devi avviare l'adattatore prima di poter configurare!", "es": "¡Tiene que iniciar el adaptador antes de poder configurarlo!", "pl": "Musisz uruchomić Adapter zanim będziesz mógł konfigurować!", "zh-cn": "您必须先启动适配器，然后才能进行配置！"},
+    "List": {                                        "en": "Shopping List",                                   "de": "Einkaufsliste",                                   "ru": "Список покупок",                                  "pt": "Lista de compras",                                "nl": "Boodschappenlijst",                               "fr": "Liste de courses",                                "it": "Lista della spesa",                               "es": "Lista de la compra",                              "pl": "Lista zakupów",                                   "zh-cn": "购物清单"},
+    "alexa": {                                       "en": "Alexa2 Instance",                                 "de": "Alexa2-Instanz",                                  "ru": "Экземпляр Alexa2",                                "pt": "Instância Alexa2",                                "nl": "Alexa2-instantie",                                "fr": "Instance Alexa2",                                 "it": "Istanza Alexa2",                                  "es": "Instancia Alexa2",                                "pl": "Instancja Alexa2",                                "zh-cn": "Alexa2 实例"},
+    "alexahelp": {                                   "en": "device for output",                               "de": "Gerät zur Ausgabe",                               "ru": "устройство для вывода",                           "pt": "dispositivo de saída",                            "nl": "apparaat voor uitvoer",                           "fr": "appareil de sortie",                              "it": "dispositivo per l'uscita",                        "es": "dispositivo de salida",                           "pl": "urządzenie do wyjścia",                           "zh-cn": "输出装置"},
 };

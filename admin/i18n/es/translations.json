@@ -1,0 +1,9 @@
+{
+    "Alexa State": "Estado de la lista de Alexa",
+    "ID": "ID del dispositivo Alexa, comando de texto de estado",
+    "List": "Lista de la compra",
+    "Notification": "¡Tiene que iniciar el adaptador antes de poder configurarlo!",
+    "Text": "Es obligatorio insertar artículos, la entrada también se confirma en este dispositivo.",
+    "alexa": "Instancia Alexa2",
+    "alexahelp": "dispositivo de salida"
+}

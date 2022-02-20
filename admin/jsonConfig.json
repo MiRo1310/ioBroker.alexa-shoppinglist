@@ -12,7 +12,7 @@
                     "sm": 12,
                     "md": 6,
                     "lg": 6,                    
-                    "textNotAlive": "You habe to start the Adapter befor you can configure!",
+                    "textNotAlive": "You have to start the Adapter before you can configure!",
                     "textAlive":""    
                 },
                 "alexa": {
@@ -23,31 +23,27 @@
                     "md": 6,
                     "lg": 6,
                     "hidden":"",
-                    "label": "alexa2 instance",
-                    "help": "device for output",
+                    "label": "Alexa2 Instance",                    
                     "disabled": "!_alive"
                 },
                 "device": {
                     "newLine": true,
                     "type": "selectSendTo",
                     "label": "Device",
+                    "help": "Device for output",
                     "sm": 12,
                     "md": 6,
                     "lg": 6,
                     "command": "getDevices",
-                    "noTranslation": true,
-                    "onChange":{
-                        "alsoDependsOn": ["alexa"],
-                        "calculateFunc": "1", 
-                        "ignoreOwnChanges": true
-                     },
+                    "noTranslation": false,
+                    "alsoDependsOn": ["alexa"],
                     "hidden": "!data.alexa",
                     "jsonData": "{\"alexa\":  \"${data.alexa}\"}",
                     "disabled": "!_alive"
                 },
                 "shoppinglist": {
                     "type": "selectSendTo",
-                    "label": "shopping list",
+                    "label": "Shopping List",
                     "sm": 12,
                     "md": 6,
                     "lg": 6,

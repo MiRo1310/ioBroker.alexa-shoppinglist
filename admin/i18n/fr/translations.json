@@ -1,0 +1,9 @@
+{
+    "Alexa State": "Alexa État de la liste",
+    "ID": "ID de l'appareil Alexa, indiquez textCommand",
+    "List": "Liste de courses",
+    "Notification": "Vous devez démarrer l'adaptateur avant de pouvoir configurer !",
+    "Text": "Est nécessaire pour insérer des articles, l'entrée est également confirmée sur cet appareil.",
+    "alexa": "Instance Alexa2",
+    "alexahelp": "appareil de sortie"
+}

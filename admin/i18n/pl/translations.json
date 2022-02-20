@@ -1,0 +1,9 @@
+{
+    "Alexa State": "Alexa Stan listy",
+    "ID": "ID urządzenia Alexa, stan textCommand",
+    "List": "Lista zakupów",
+    "Notification": "Musisz uruchomić Adapter zanim będziesz mógł konfigurować!",
+    "Text": "Wymagane jest wstawienie artykułów, wpis jest również potwierdzany na tym urządzeniu.",
+    "alexa": "Instancja Alexa2",
+    "alexahelp": "urządzenie do wyjścia"
+}

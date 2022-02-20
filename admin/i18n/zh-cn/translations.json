@@ -1,0 +1,9 @@
+{
+    "Alexa State": "列表中的 Alexa 状态",
+    "ID": "Alexa 设备的 ID，状态 textCommand",
+    "List": "购物清单",
+    "Notification": "您必须先启动适配器，然后才能进行配置！",
+    "Text": "需要插入文章，在此设备上也确认条目。",
+    "alexa": "Alexa2 实例",
+    "alexahelp": "输出装置"
+}

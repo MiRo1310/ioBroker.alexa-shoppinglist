@@ -1,0 +1,9 @@
+{
+    "Alexa State": "Alexa Staat van de lijst",
+    "ID": "ID van Alexa-apparaat, geef tekstopdracht aan",
+    "List": "Boodschappenlijst",
+    "Notification": "U moet de Adapter starten voordat u kunt configureren!",
+    "Text": "Is vereist om artikelen in te voeren, de invoer wordt ook bevestigd op dit apparaat.",
+    "alexa": "Alexa2-instantie",
+    "alexahelp": "apparaat voor uitvoer"
+}

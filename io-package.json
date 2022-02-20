@@ -67,7 +67,7 @@
         "extIcon": "https://raw.githubusercontent.com/MiRo1310/ioBroker.alexa-shoppinglist/main/admin/alexa-shoppinglist.png",
         "readme": "https://github.com/MiRo1310/ioBroker.alexa-shoppinglist/blob/main/README.md",
         "loglevel": "info",
-		"messagebox": true,
+        "messagebox": true,
         "mode": "daemon",
         "type": "logic",
         "compact": true,
@@ -93,7 +93,6 @@
         "alexa": "",
         "device": "",
         "shoppinglist": ""
-        
     },
     "objects": [],
     "instanceObjects": [
