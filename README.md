@@ -27,7 +27,7 @@ I hope you enjoy
 
 ## Changelog
 
-### 0.0.3 ( 20.02.2022)
+### 0.0.4 ( 20.02.2022)
 * First complete working Release
 
 ### 0.0.1 
