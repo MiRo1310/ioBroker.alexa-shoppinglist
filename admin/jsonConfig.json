@@ -36,11 +36,11 @@
                     "type": "selectSendTo",
                     "label": {
                         "en":"Device",
-                        "de": "Gerät zur Ausgabe"
+                        "de": "Gerät"
                     },
                     "help": {
-                        "en": "Device for output",
-                        "de": "Gerät zur Ausgabe"
+                        "en": "Device for the acoustic output of inserted articles",
+                        "de": "Gerät zur akustischen Ausgabe von eingefügten Artikeln"
                     },
                     "sm": 12,
                     "md": 6,

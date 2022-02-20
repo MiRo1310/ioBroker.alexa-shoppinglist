@@ -1,9 +1,4 @@
 {
     "Alexa State": "Alexa Status der Liste",
-    "ID": "ID des Alexa-Geräts, Zustand textCommand",
-    "List": "Einkaufsliste",
-    "Notification": "Sie müssen den Adapter starten, bevor Sie konfigurieren können!",
-    "Text": "Ist das Eingeben von Artikeln erforderlich, wird die Eingabe auch auf diesem Gerät bestätigt.",
-    "alexa": "Alexa2-Instanz",
-    "alexahelp": "Gerät zur Ausgabe"
+    "ID": "ID des Alexa-Geräts, Zustand textCommand"
 }
