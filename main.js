@@ -63,8 +63,8 @@ class AlexaShoppinglist extends utils.Adapter {
 
 		const idAddapter = alexaState.slice(0, (alexaState.length - 5));
 
-		const idSortActiv =`alexa-shoppinglist.${this.instance}.shoppingliste_activ_sort`;
-		const idSortInActiv =`alexa-shoppinglist.${this.instance}.shoppingliste_inactiv_sort`;
+		const idSortActiv =`alexa-shoppinglist.${this.instance}.list_activ_sort`;
+		const idSortInActiv =`alexa-shoppinglist.${this.instance}.list_inactiv_sort`;
 
 		let sortListActiv ="time";
 		let sortListInActiv ="time";
@@ -358,8 +358,8 @@ class AlexaShoppinglist extends utils.Adapter {
 
 
 		const writeState =(arrayActiv, arrayInactiv)=>{
-			this.setStateChanged(`alexa-shoppinglist.${this.instance}.shoppingliste_activ`, JSON.stringify(arrayActiv),true );
-			this.setStateChanged(`alexa-shoppinglist.${this.instance}.shoppingliste_inactiv`, JSON.stringify(arrayInactiv),true);
+			this.setStateChanged(`alexa-shoppinglist.${this.instance}.list_activ`, JSON.stringify(arrayActiv),true );
+			this.setStateChanged(`alexa-shoppinglist.${this.instance}.list_inactiv`, JSON.stringify(arrayInactiv),true);
 		};
 
 		// this.on("stateChange", (id,state)=>{

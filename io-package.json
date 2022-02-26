@@ -133,11 +133,11 @@
             "native": {}
         },
         {
-            "_id": "shoppingliste_activ",
+            "_id": "list_activ",
             "type": "state",
             "common": {
                 "role": "json",
-                "name": "Shopping List activ",
+                "name": "List activ",
                 "type": "string",
                 "read": true,
                 "write": false,
@@ -146,11 +146,11 @@
             "native": {}
         },
         {
-            "_id": "shoppingliste_inactiv",
+            "_id": "list_inactiv",
             "type": "state",
             "common": {
                 "role": "json",
-                "name": "Shopping List inactiv",
+                "name": "List inactiv",
                 "type": "string",
                 "read": true,
                 "write": false,
@@ -159,7 +159,7 @@
             "native": {}
         },
         {
-            "_id": "shoppingliste_activ_sort",
+            "_id": "list_activ_sort",
             "type": "state",
             "common": {
                 "role": "switch",
@@ -176,7 +176,7 @@
             "native": {}
         },
         {
-            "_id": "shoppingliste_inactiv_sort",
+            "_id": "list_inactiv_sort",
             "type": "state",
             "common": {
                 "role": "switch",
