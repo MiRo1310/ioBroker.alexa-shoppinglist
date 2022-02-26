@@ -24,6 +24,22 @@ You can akso move only one Item, to both directions.
 
 I hope you enjoy
 
+## Datapoints
+
+| DP Name                   | Type          | Description                       
+|---------------------------|---------------|-----------------------------------
+| add_position              | String        | Type Text to insert in the list                    
+| delete_activ_list         | Button        | Clears the active list and moves it to the inactive list
+| delete_inactiv_list       | Button        | Clears the inactive list
+| position_to_shift         | Number        | You can insert the position number of the item move, than button to_active_list or to_inactive list   
+| list_active               | JSON          | The activ list as JSON
+| list_active_sort          | Switch        | You can sort the active list by name or by insert time
+| list_inactive             | JSON          | The inactive list as JSON
+| list_inactive_sort        | Switch        | You can sort the inactive list by name or by insert time
+| to_activ_list             | Button        | First insert position_to_shift and than press the button to move to activ_list
+| to_inactive_list          | Button        | First insert position_to_shift and than press the button to move to inactiv_list
+
+
 
 ## Changelog
 
