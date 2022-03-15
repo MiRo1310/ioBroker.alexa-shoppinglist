@@ -30,7 +30,7 @@ class AlexaShoppinglist extends utils.Adapter {
 			name: "alexa-shoppinglist",
 		});
 		this.on("ready", this.onReady.bind(this));
-		this.on("stateChange", this.onStateChange.bind(this));
+		// this.on("stateChange", this.onStateChange.bind(this));
 		// this.on("objectChange", this.onObjectChange.bind(this));
 		this.on("message", this.onMessage.bind(this));
 		this.on("unload", this.onUnload.bind(this));
@@ -66,8 +66,8 @@ class AlexaShoppinglist extends utils.Adapter {
 		const idSortActiv =`alexa-shoppinglist.${this.instance}.list_activ_sort`;
 		const idSortInActiv =`alexa-shoppinglist.${this.instance}.list_inactiv_sort`;
 
-		let sortListActiv ="time";
-		let sortListInActiv ="time";
+		let sortListActiv ="1";
+		let sortListInActiv ="1";
 		let positionToShift = 0;
 		let jsonActiv;
 		let jsonInactiv;
@@ -134,7 +134,9 @@ class AlexaShoppinglist extends utils.Adapter {
 					writeState(jsonActiv, jsonInactiv);
 				}
 			}catch(e){
+				this.log.error(e);
 			}
+
 		};
 
 
@@ -214,7 +216,7 @@ class AlexaShoppinglist extends utils.Adapter {
 						}, 2000);
 
 					}catch (e){
-
+						this.log.error(e);
 					}
 
 				}
@@ -229,9 +231,9 @@ class AlexaShoppinglist extends utils.Adapter {
 		 *
 		 */
 		const sortList = (array, kindOfSort)=>{
-			// @ts-ignore
+
 			let arraySort;
-			if (kindOfSort == "time"){
+			if (kindOfSort == "1"){
 
 				arraySort = array.sort((a ,b) =>{a.time - b.time;});
 			} else {
@@ -315,40 +317,52 @@ class AlexaShoppinglist extends utils.Adapter {
 					// Position hinzufügen
 					if (state && state.val && typeof(state.val) == "string" && id == `alexa-shoppinglist.${this.instance}.add_position` && state.ack == false){
 						addPosition(state.val);
+						
+						await this.setStateAsync(id, {ack:true});
 					}
 
 					// Inactiv Liste leeren
-					if (state && state.val && typeof(state.val) == "boolean" && id == `alexa-shoppinglist.${this.instance}.delete_inactiv_list`){
+					if (state && state.val && typeof(state.val) == "boolean" && id == `alexa-shoppinglist.${this.instance}.delete_inactiv_list` && state.ack == false){
 						this.log.info("Inactive List deleted");
 						deleteList(jsonInactiv, "delete");
+
+						await this.setStateAsync(id, {ack:true});
 					}
 					// Activ Liste leeren
-					if (state && state.val && typeof(state.val) == "boolean" && id == `alexa-shoppinglist.${this.instance}.delete_activ_list`){
+					if (state && state.val && typeof(state.val) == "boolean" && id == `alexa-shoppinglist.${this.instance}.delete_activ_list`&& state.ack == false){
 						this.log.info("Active List deleted");
 						deleteList(jsonActiv, "toInActiv");
+
+						await this.setStateAsync(id, {ack:true});
 					}
 
 					// Zu Inactiv Liste verschieben
-					if (state && state.val && id == `alexa-shoppinglist.${this.instance}.to_inactiv_list`){
+					if (state && state.val && id == `alexa-shoppinglist.${this.instance}.to_inactiv_list` && state.ack == false){
 						this.log.info("Position to Inactive");
 						shiftPosition(positionToShift, jsonActiv, "toInActiv");
+
+						await this.setStateAsync(id, {ack:true});
 					}
 
 					// Zu Activ Liste verschieben
-					if (state && state.val && typeof(state.val) == "boolean" && id == `alexa-shoppinglist.${this.instance}.to_activ_list`){
+					if (state && state.val && typeof(state.val) == "boolean" && id == `alexa-shoppinglist.${this.instance}.to_activ_list` && state.ack == false){
 						this.log.info("Position to Active");
 						shiftPosition(positionToShift, jsonInactiv, "toActiv");
+
+						await this.setStateAsync(id, {ack:true});
 					}
 					// Position die verschoben werden soll
-					if (state && state.val && typeof(state.val) == "number" && id == `alexa-shoppinglist.${this.instance}.position_to_shift`){
+					if (state && state.val && typeof(state.val) == "number" && id == `alexa-shoppinglist.${this.instance}.position_to_shift` && state.ack == false){
 						this.log.info("Position");
 						positionToShift = state.val;
+
+						await this.setStateAsync(id, {ack:true});
 					}
 
 
 				}
 				catch (e){
-
+					this.log.error(e);
 				}
 			});
 
@@ -390,23 +404,19 @@ class AlexaShoppinglist extends utils.Adapter {
 		// });
 
 		// In order to get state updates, you need to subscribe to them. The following line adds a subscription for our variable we have created above.
-		try {
-			this.subscribeForeignStatesAsync(alexaState);
-			this.subscribeStatesAsync(idSortActiv);
-			this.subscribeStatesAsync(idSortInActiv);
-			this.subscribeStatesAsync(`alexa-shoppinglist.${this.instance}.add_position`);
-			this.subscribeStatesAsync(`alexa-shoppinglist.${this.instance}.to_activ_list`);
-			this.subscribeStatesAsync(`alexa-shoppinglist.${this.instance}.to_inactiv_list`);
-			this.subscribeStatesAsync(`alexa-shoppinglist.${this.instance}.delete_inactiv_list`);
-			this.subscribeStatesAsync(`alexa-shoppinglist.${this.instance}.delete_activ_list`);
-			this.subscribeStatesAsync(`alexa-shoppinglist.${this.instance}.position_to_shift`);
+
+		this.subscribeForeignStatesAsync(alexaState);
+		this.subscribeStatesAsync(idSortActiv);
+		this.subscribeStatesAsync(idSortInActiv);
+		this.subscribeStatesAsync(`alexa-shoppinglist.${this.instance}.add_position`);
+		this.subscribeStatesAsync(`alexa-shoppinglist.${this.instance}.to_activ_list`);
+		this.subscribeStatesAsync(`alexa-shoppinglist.${this.instance}.to_inactiv_list`);
+		this.subscribeStatesAsync(`alexa-shoppinglist.${this.instance}.delete_inactiv_list`);
+		this.subscribeStatesAsync(`alexa-shoppinglist.${this.instance}.delete_activ_list`);
+		this.subscribeStatesAsync(`alexa-shoppinglist.${this.instance}.position_to_shift`);
 
 
 
-		}
-		catch (e){
-
-		}
 		// You can also add a subscription for multiple states. The following line watches all states starting with "lights."
 		// this.subscribeStates("lights.*");
 		// Or, if you really must, you can also watch all states. Don't do this if you don't need to. Otherwise this will cause a lot of unnecessary load on the system:
@@ -445,6 +455,7 @@ class AlexaShoppinglist extends utils.Adapter {
 
 			callback();
 		} catch (e) {
+			this.log.error(e);
 			callback();
 		}
 	}

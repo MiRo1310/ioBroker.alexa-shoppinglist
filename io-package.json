@@ -72,7 +72,7 @@
             "MiRo1310 <michael.roling@gmx.de>"
         ],
         "keywords": [
-            "Iobroker"
+            "Iobroker, Alexa, Shoppinglist, List, Smarthome"
         ],
         "license": "MIT",
         "platform": "Javascript/Node.js",
@@ -168,10 +168,10 @@
                 "read": true,
                 "write": true,
                 "states": {
-                    "time": "Time",
-                    "alphabeth": "Alphabetical"
+                    "1": "Time",
+                    "2": "Alphabetical"
                 },
-                "def": "Time"
+                "def": "1"
             },
             "native": {}
         },
