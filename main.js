@@ -74,7 +74,6 @@ class AlexaShoppinglist extends utils.Adapter {
 
 
 		// States auslesen, damit beim ersten Start richtig sortiert wird
-		// @ts-ignore
 		this.getState(idSortActiv,function(err, state){
 
 			if (state && state.val && typeof(state.val) == "string"){
@@ -82,7 +81,7 @@ class AlexaShoppinglist extends utils.Adapter {
 			}
 		});
 
-		// @ts-ignore
+		
 		this.getState(idSortInActiv,(err, state)=>{
 			if (state && state.val && typeof(state.val) == "string"){
 				sortListInActiv = state.val;
@@ -376,34 +375,7 @@ class AlexaShoppinglist extends utils.Adapter {
 			this.setStateChanged(`alexa-shoppinglist.${this.instance}.list_inactiv`, JSON.stringify(arrayInactiv),true);
 		};
 
-		// this.on("stateChange", (id,state)=>{
-
-
-		// });
-
-
-		// The adapters config (in the instance object everything under the attribute "native") is accessible via
-		// this.config:
-		//this.log.info("config alexastate: " + this.config.alexastate);
-
-		/*
-		For every state in the system there has to be also an object of type state
-		Here a simple template for a boolean variable named "testVariable"
-		Because every adapter instance uses its own unique namespace variable names can't collide with other adapters variables
-		*/
-		// await this.setObjectNotExistsAsync("testVariable", {
-		// 	type: "state",
-		// 	common: {
-		// 		name: "testVariable",
-		// 		type: "boolean",
-		// 		role: "indicator",
-		// 		read: true,
-		// 		write: true,
-		// 	},
-		// 	native: {},
-		// });
-
-		// In order to get state updates, you need to subscribe to them. The following line adds a subscription for our variable we have created above.
+		
 
 		this.subscribeForeignStatesAsync(alexaState);
 		this.subscribeStatesAsync(idSortActiv);
