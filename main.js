@@ -258,9 +258,20 @@ class AlexaShoppinglist extends utils.Adapter {
 		 */
 		const addPos = (array) => {
 			let num = 0;
+			// Button
+			var symbolLink="❌";
+			let farbeSchalterON = "green";
+			
+			// let valJSON = val1JSON.replace(/"/g, '\\"');
 			for(const element of array){
 				num++;
 				element.pos = num;
+				
+				let valButton= `alexa2.0.Lists.SHOPPING_LIST.items.${element.id}.#delete` 
+				// Der Button 
+				var val1JSON="<button style\=\"border:none\; background-color\:transparent\; color\:white\; font\-size\:1em\; text\-align:center\" value=\"toggle\" onclick=\"setOnDblClickCustomShop\(\'"+valButton+"\')\">"+symbolLink + "</button> <font color=\""+farbeSchalterON+"\">";
+				//Den HTML-Code des Buutons noch so ausmaskieren das man ihn in einem JSON unterbingen darf (wegen der " ") 
+				element.button = val1JSON;
 			}
 		};
 
