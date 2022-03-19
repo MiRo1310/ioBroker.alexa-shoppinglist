@@ -185,10 +185,10 @@
                 "read": true,
                 "write": true,
                 "states": {
-                    "time": "Time",
-                    "alphabeth": "Alphabetical"
+                    "1": "Time",
+                    "2": "Alphabetical"
                 },
-                "def": "Time"
+                "def": "1"
             },
             "native": {}
         },
