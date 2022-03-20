@@ -252,18 +252,18 @@ class AlexaShoppinglist extends utils.Adapter {
 			return arraySort;
 
 		};
-
 		// ANCHOR AddFunktion to Delete
+		/**
+		* @param {*} array 
+		*/			
 		const addFunktion = (array)=>{
-			array.push(
+			array.push(	"setOnDblClickCustomShop(myvalue) \{var objID = myvalue; vis.setValue(myvalue,true);\}")
+		}			
+				
 
-			function setOnDblClickCustomShop( myvalue ) {
-				var objID = myvalue;			
-				// @ts-ignore
-				vis.setValue(myvalue,true);						
-			
-				})
-		}
+			 
+		
+		
 
 		// ANCHOR AddPos
 		/**
