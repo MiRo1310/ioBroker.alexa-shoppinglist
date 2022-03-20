@@ -129,8 +129,7 @@ class AlexaShoppinglist extends utils.Adapter {
 					jsonActiv = sortList(jsonActiv, sortListActiv);
 					jsonInactiv = sortList(jsonInactiv, sortListInActiv);
 					addPos(jsonActiv);
-					addPos(jsonInactiv);
-					addFunktion(jsonInactiv);
+					addPos(jsonInactiv);					
 					writeState(jsonActiv, jsonInactiv);
 				}
 			}catch(e){
@@ -252,13 +251,7 @@ class AlexaShoppinglist extends utils.Adapter {
 			return arraySort;
 
 		};
-		// ANCHOR AddFunktion to Delete
-		/**
-		* @param {*} array 
-		*/			
-		const addFunktion = (array)=>{
-			array.push(	"setOnDblClickCustomShop(myvalue) \{var objID = myvalue; vis.setValue(myvalue,true);\}")
-		}			
+				
 				
 
 			 
