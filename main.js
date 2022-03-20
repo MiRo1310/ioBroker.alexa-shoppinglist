@@ -130,6 +130,7 @@ class AlexaShoppinglist extends utils.Adapter {
 					jsonInactiv = sortList(jsonInactiv, sortListInActiv);
 					addPos(jsonActiv);
 					addPos(jsonInactiv);
+					addFunktion(jsonInactiv);
 					writeState(jsonActiv, jsonInactiv);
 				}
 			}catch(e){
@@ -252,6 +253,18 @@ class AlexaShoppinglist extends utils.Adapter {
 
 		};
 
+		// ANCHOR AddFunktion to Delete
+		const addFunktion = (array)=>{
+			array.push(
+
+			function setOnDblClickCustomShop( myvalue ) {
+				var objID = myvalue;			
+				// @ts-ignore
+				vis.setValue(myvalue,true);						
+			
+				})
+		}
+
 		// ANCHOR AddPos
 		/**
 		 * Jeder Artikelposition eine Positionsnummer hinzufügen
@@ -265,6 +278,7 @@ class AlexaShoppinglist extends utils.Adapter {
 			
 			
 			for(const element of array){
+				// Positionsnummern eintragen
 				num++;
 				element.pos = num;				
 
