@@ -283,13 +283,13 @@ class AlexaShoppinglist extends utils.Adapter {
 				// Button Completed
 				let valButtonMove =  `alexa2.0.Lists.SHOPPING_LIST.items.${element.id}.completed`
 				// Der Button 
-				let val1JSON="<button style\=\"border:none\; cursor\:pointer; background-color\:transparent\; color\:white\; font\-size\:1em\; text\-align:center\" value=\"toggle\" onclick=\"setOnDblClickCustomShop\(\'"+valButtonDelete+","+true+"\')\">"+symbolLink + "</button> <font color=\""+farbeSchalterON+"\">";
+				let val1JSON="<button style\=\"border:none\; cursor\:pointer; background-color\:transparent\; color\:white\; font\-size\:1em\; text\-align:center\" value=\"toggle\" onclick=\"setOnDblClickCustomShop\(\'"+valButtonDelete+",true\')\">"+symbolLink + "</button> <font color=\""+farbeSchalterON+"\">";
 				if (list == "activ"){
-					let val2JSON="<button style\=\"border:none\; cursor\:pointer; background-color\:transparent\; color\:white\; font\-size\:1em\; text\-align:center\" value=\"toggle\" onclick=\"setOnDblClickCustomShop\(\'"+valButtonMove+","+true+"\')\">"+symbolMoveToInactiv + "</button> <font color=\""+farbeSchalterON+"\">";
+					let val2JSON="<button style\=\"border:none\; cursor\:pointer; background-color\:transparent\; color\:white\; font\-size\:1em\; text\-align:center\" value=\"toggle\" onclick=\"setOnDblClickCustomShop\(\'"+valButtonMove+",true\')\">"+symbolMoveToInactiv + "</button> <font color=\""+farbeSchalterON+"\">";
 					element.buttonmove = val2JSON;
 				}
 				if (list == "inactiv"){
-					let val2JSON="<button style\=\"border:none\; cursor\:pointer; background-color\:transparent\; color\:white\; font\-size\:1em\; text\-align:center\" value=\"toggle\" onclick=\"setOnDblClickCustomShop\(\'"+valButtonMove+","+false+"\')\">"+symbolMoveToActiv + "</button> <font color=\""+farbeSchalterON+"\">";
+					let val2JSON="<button style\=\"border:none\; cursor\:pointer; background-color\:transparent\; color\:white\; font\-size\:1em\; text\-align:center\" value=\"toggle\" onclick=\"setOnDblClickCustomShop\(\'"+valButtonMove+",false\')\">"+symbolMoveToActiv + "</button> <font color=\""+farbeSchalterON+"\">";
 					element.buttonmove = val2JSON;
 				}
 
