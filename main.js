@@ -284,8 +284,8 @@ class AlexaShoppinglist extends utils.Adapter {
 				let val1JSON="<button style\=\"border:none\; cursor\:pointer; background-color\:transparent\; color\:white\; font\-size\:1em\; text\-align:center\" value=\"toggle\" onclick=\"setOnDblClickCustomShop\(\'"+valButtonDelete+"\')\">"+symbolLink + "</button> <font color=\""+farbeSchalterON+"\">";
 				let val2JSON="<button style\=\"border:none\; cursor\:pointer; background-color\:transparent\; color\:white\; font\-size\:1em\; text\-align:center\" value=\"toggle\" onclick=\"setOnDblClickCustomShop\(\'"+valButtonMove+"\')\">"+symbolMove + "</button> <font color=\""+farbeSchalterON+"\">";
 				
-				element.buttonDelete = val1JSON;
-				element.buttonMove = val2JSON;
+				element.buttondelete = val1JSON;
+				element.buttonmove = val2JSON;
 			}
 		};
 
