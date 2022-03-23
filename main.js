@@ -200,7 +200,7 @@ class AlexaShoppinglist extends utils.Adapter {
 
 		};
 		/**
-		 *
+		 * Fügt einen Artikel zur Liste hinzu
 		 * @param {string} element
 		 */
 		const addPosition = (element) =>{
@@ -260,13 +260,14 @@ class AlexaShoppinglist extends utils.Adapter {
 
 		// ANCHOR AddPos
 		/**
-		 * Jeder Artikelposition eine Positionsnummer hinzufügen
+		 * Jeder Artikelposition eine Positionsnummer hinzufügen, 
 		 * @param {*} array Aktiv oder Inaktiv Array
 		 */
 		const addPos = (array) => {
 			let num = 0;
 			// Button
-			var symbolLink="❌";
+			let symbolLink="❌";
+			let symbolMove ="↪";
 			let farbeSchalterON = "green";
 			
 			
@@ -275,13 +276,16 @@ class AlexaShoppinglist extends utils.Adapter {
 				num++;
 				element.pos = num;				
 
-				// Button
-				let valButton= `alexa2.0.Lists.SHOPPING_LIST.items.${element.id}.#delete` 
+				// Button Delete
+				let valButtonDelete = `alexa2.0.Lists.SHOPPING_LIST.items.${element.id}.#delete` 
+				// Button Completed
+				let valButtonMove =  `alexa2.0.Lists.SHOPPING_LIST.items.${element.id}.completed`
 				// Der Button 
-				var val1JSON="<button style\=\"border:none\; cursor\:pointer; background-color\:transparent\; color\:white\; font\-size\:1em\; text\-align:center\" value=\"toggle\" onclick=\"setOnDblClickCustomShop\(\'"+valButton+"\')\">"+symbolLink + "</button> <font color=\""+farbeSchalterON+"\">";
-				// let valJSON = val1JSON.replace(/"/g, '\\"');
-				//Den HTML-Code des Buutons noch so ausmaskieren das man ihn in einem JSON unterbingen darf (wegen der " ") 
-				element.button = val1JSON;
+				let val1JSON="<button style\=\"border:none\; cursor\:pointer; background-color\:transparent\; color\:white\; font\-size\:1em\; text\-align:center\" value=\"toggle\" onclick=\"setOnDblClickCustomShop\(\'"+valButtonDelete+"\')\">"+symbolLink + "</button> <font color=\""+farbeSchalterON+"\">";
+				let val2JSON="<button style\=\"border:none\; cursor\:pointer; background-color\:transparent\; color\:white\; font\-size\:1em\; text\-align:center\" value=\"toggle\" onclick=\"setOnDblClickCustomShop\(\'"+valButtonMove+"\')\">"+symbolMove + "</button> <font color=\""+farbeSchalterON+"\">";
+				
+				element.buttonDelete = val1JSON;
+				element.buttonMove = val2JSON;
 			}
 		};
 
