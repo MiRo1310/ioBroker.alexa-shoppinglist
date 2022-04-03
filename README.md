@@ -39,7 +39,15 @@ I hope you enjoy
 | to_activ_list             | Button        | First insert position_to_shift and than press the button to move to activ_list
 | to_inactive_list          | Button        | First insert position_to_shift and than press the button to move to inactiv_list
 
+The JSON contains now 2 Buttons to move Items or to delete.
+For this you have to insert Code in the VIS Editor unter Skript, put this in:
+|/* Alexa Einkaufsliste JSON */
 
+function setOnDblClickCustomShop( myvalue) {
+    let id = myvalue.slice(0,myvalue.indexOf(","));
+    let val = myvalue.slice(myvalue.indexOf(",")+1, myvalue.length)
+    vis.setValue(id,val);
+  }|
 
 ## Changelog
 
