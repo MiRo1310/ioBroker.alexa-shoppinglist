@@ -282,7 +282,7 @@ class AlexaShoppinglist extends utils.Adapter {
 				let valButtonDelete = `alexa2.0.Lists.SHOPPING_LIST.items.${element.id}.#delete` 
 				// Button Completed
 				let valButtonMove =  `alexa2.0.Lists.SHOPPING_LIST.items.${element.id}.completed`
-				// Der Button 
+				// Der Button delete
 				let val1JSON="<button style\=\"border:none\; cursor\:pointer; background-color\:transparent\; color\:white\; font\-size\:1em\; text\-align:center\" value=\"toggle\" onclick=\"setOnDblClickCustomShop\(\'"+valButtonDelete+"\')\">"+symbolLink + "</button> <font color=\""+farbeSchalterON+"\">";
 				if (list == "activ"){
 					let val2JSON="<button style\=\"border:none\; cursor\:pointer; background-color\:transparent\; color\:white\; font\-size\:1em\; text\-align:center\" value=\"toggle\" onclick=\"setOnDblClickCustomShop\(\'"+valButtonMove+"\')\">"+symbolMoveToInactiv + "</button> <font color=\""+farbeSchalterON+"\">";
