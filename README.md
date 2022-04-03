@@ -43,11 +43,17 @@ The JSON contains now 2 Buttons to move Items or to delete.
 For this you have to insert Code in the VIS Editor unter Skript, put this in:
  /* Alexa Einkaufsliste JSON */
 
- function setOnDblClickCustomShop( myvalue) {
+function setOnDblClickCustomShop( myvalue) {
     let id = myvalue.slice(0,myvalue.indexOf(","));
     let val = myvalue.slice(myvalue.indexOf(",")+1, myvalue.length)
-    vis.setValue(id,val);
-  } 
+    let val1;
+    if (val =="true"){
+        val1 = true;
+    }else if (val =="false"){
+        val1 = false;
+    }
+    vis.setValue(id,val1);
+  }
 
 ## Changelog
 
