@@ -56,7 +56,7 @@ function setOnDblClickCustomShop( myvalue) {
     vis.setValue(id,val1);
   }
   ```
-  https://github.com/MiRo1310/ioBroker.alexa-shoppinglist/blob/main/admin/Skript.png
+  ![](admin/Skript.png)
 
 ## Changelog
 
