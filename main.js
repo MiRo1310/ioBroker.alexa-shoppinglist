@@ -279,12 +279,13 @@ class AlexaShoppinglist extends utils.Adapter {
 				element.pos = num;				
 
 				// Button Delete
-				let valButtonDelete = `alexa2.0.Lists.SHOPPING_LIST.items.${element.id}.#delete` 
+				let valButtonDelete = `alexa2.0.Lists.SHOPPING_LIST.items.${element.id}.#delete`
+				let valButtonDelete2 = `alexa2.0.Lists.SHOPPING_LIST.items.${element.id}.#delete,true`
 				// Button Completed
 				let valButtonMove =  `alexa2.0.Lists.SHOPPING_LIST.items.${element.id}.completed`
-				let valTrue = "true"
+				
 				// Der Button delete
-				let val1JSON="<button style\=\"border:none\; cursor\:pointer; background-color\:transparent\; color\:white\; font\-size\:1em\; text\-align:center\" value=\"toggle\" onclick=\"setOnDblClickCustomShop\(\'"+valButtonDelete+","+valTrue+"\')\">"+symbolLink + "</button> <font color=\""+farbeSchalterON+"\">";
+				let val1JSON="<button style\=\"border:none\; cursor\:pointer; background-color\:transparent\; color\:white\; font\-size\:1em\; text\-align:center\" value=\"toggle\" onclick=\"setOnDblClickCustomShop\(\'"+valButtonDelete2+"\')\">"+symbolLink + "</button> <font color=\""+farbeSchalterON+"\">";
 				if (list == "activ"){
 					let val2JSON="<button style\=\"border:none\; cursor\:pointer; background-color\:transparent\; color\:white\; font\-size\:1em\; text\-align:center\" value=\"toggle\" onclick=\"setOnDblClickCustomShop\(\'"+valButtonMove+"\')\">"+symbolMoveToInactiv + "</button> <font color=\""+farbeSchalterON+"\">";
 					element.buttonmove = val2JSON;
