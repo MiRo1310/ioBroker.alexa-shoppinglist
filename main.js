@@ -270,8 +270,7 @@ class AlexaShoppinglist extends utils.Adapter {
 			let symbolLink="❌";
 			let symbolMoveToInactiv ="↪";
 			let symbolMoveToActiv ="↩";
-			let farbeSchalterON = "green";
-			
+			let farbeSchalterON = "green";			
 			
 			for(const element of array){
 				// Positionsnummern eintragen
