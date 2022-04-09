@@ -39,6 +39,16 @@ I hope you enjoy
 | to_activ_list             | Button        | First insert position_to_shift and than press the button to move to activ_list
 | to_inactive_list          | Button        | First insert position_to_shift and than press the button to move to inactiv_list
 
+| Attribute in JSON | Descripton 
+|-------------------|-----------
+| name              | Name of the Item  
+| time              | Timestamp of insert
+| id                | id in the Alexa2 Adapter
+| pos               | Position in the list
+| buttonmove        | Button to move to active or inactive list
+| buttondelete      | Button to completly delete the item
+
+
 The JSON contains now 2 Buttons to move Items or to delete.
 For this you have to insert Code in the VIS Editor under Skript, put this in:
 ```
