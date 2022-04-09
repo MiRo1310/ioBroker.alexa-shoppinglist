@@ -139,7 +139,7 @@ class AlexaShoppinglist extends utils.Adapter {
 		};
 
 
-
+		// ANCHOR firstLetterToUpperCase
 		/**
 		 * Ersetzt den ersten Buchstaben des eingegebenen Wortes durch den selbigen Großbuchstaben
 		 * @param {string} name "w"ort wo der erste Buchstabe groß geschrieben werden soll
@@ -152,6 +152,8 @@ class AlexaShoppinglist extends utils.Adapter {
 
 			return name;
 		};
+
+		// ANCHOR shift Position
 		/**
 		 * Einzelne Elemente verschieben
 		 *
@@ -180,7 +182,7 @@ class AlexaShoppinglist extends utils.Adapter {
 			}
 		};
 
-
+		// ANCHOR deleteList
 		/**
 		 * Komplette Listen leeren
 		 *
@@ -199,6 +201,8 @@ class AlexaShoppinglist extends utils.Adapter {
 			}
 
 		};
+
+		// ANCHOR addPosition
 		/**
 		 * Fügt einen Artikel zur Liste hinzu
 		 * @param {string} element
@@ -224,6 +228,7 @@ class AlexaShoppinglist extends utils.Adapter {
 
 		};
 
+		// ANCHOR Sort List
 		/**
 		 * Sort List
 		 * @param {string} kindOfSort
@@ -250,11 +255,7 @@ class AlexaShoppinglist extends utils.Adapter {
 			}
 			return arraySort;
 
-		};
-				
-				
-
-			 
+		};			 
 		
 		
 
@@ -319,7 +320,7 @@ class AlexaShoppinglist extends utils.Adapter {
 			// --------------------------------------------------------------------------------------------
 
 
-
+			// ANCHOR onStateChange
 			this.on("stateChange",async (id,state)=>{
 				try{
 					if(id == alexaState){
@@ -404,15 +405,23 @@ class AlexaShoppinglist extends utils.Adapter {
 
 
 
-
+		// ANCHOR writeState
+		/**
+		 * 
+		 * @param {[]} arrayActiv 
+		 * @param {[]} arrayInactiv 
+		 */
 		const writeState =(arrayActiv, arrayInactiv)=>{
 			this.setStateChanged(`alexa-shoppinglist.${this.instance}.list_activ`, JSON.stringify(arrayActiv),true );
 			this.setStateChanged(`alexa-shoppinglist.${this.instance}.list_inactiv`, JSON.stringify(arrayInactiv),true);
 		};
 
 		
-
+		// ANCHOR subscribeStates
+		// Alexa2 State
 		this.subscribeForeignStatesAsync(alexaState);
+
+		// Adapter States
 		this.subscribeStatesAsync(idSortActiv);
 		this.subscribeStatesAsync(idSortInActiv);
 		this.subscribeStatesAsync(`alexa-shoppinglist.${this.instance}.add_position`);
