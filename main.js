@@ -74,19 +74,26 @@ class AlexaShoppinglist extends utils.Adapter {
 
 
 		// States auslesen, damit beim ersten Start richtig sortiert wird
-		this.getState(idSortActiv,function(err, state){
+		const idSortActivState = await this.getStateAsync(idSortActiv);
+		if (idSortActivState && idSortActivState.val && typeof(idSortActivState.val) == "string"){
+			sortListActiv = idSortActivState.val;
+		}
+		// this.getState(idSortActiv,function(err, state){
 
-			if (state && state.val && typeof(state.val) == "string"){
-				sortListActiv = state.val;
-			}
-		});
+		// 	if (state && state.val && typeof(state.val) == "string"){
+		// 		sortListActiv = state.val;
+		// 	}
+		// });
 
-		
-		this.getState(idSortInActiv,(err, state)=>{
-			if (state && state.val && typeof(state.val) == "string"){
-				sortListInActiv = state.val;
-			}
-		});
+		const idSortInActivState = await this.getStateAsync(idSortInActiv);
+		if (idSortInActivState && idSortInActivState.val && typeof(idSortInActivState.val) == "string"){
+			sortListInActiv = idSortInActivState.val;
+		}
+		// this.getState(idSortInActiv,(err, state)=>{
+		// 	if (state && state.val && typeof(state.val) == "string"){
+		// 		sortListInActiv = state.val;
+		// 	}
+		// });
 
 
 
@@ -129,7 +136,7 @@ class AlexaShoppinglist extends utils.Adapter {
 					jsonActiv = sortList(jsonActiv, sortListActiv);
 					jsonInactiv = sortList(jsonInactiv, sortListInActiv);
 					addPos(jsonActiv, "activ");
-					addPos(jsonInactiv, "inactiv");					
+					addPos(jsonInactiv, "inactiv");
 					writeState(jsonActiv, jsonInactiv);
 				}
 			}catch(e){
@@ -255,48 +262,48 @@ class AlexaShoppinglist extends utils.Adapter {
 			}
 			return arraySort;
 
-		};			 
-		
-		
+		};
+
+
 
 		// ANCHOR AddPos
 		/**
-		 * Jeder Artikelposition eine Positionsnummer hinzufügen, 
+		 * Jeder Artikelposition eine Positionsnummer hinzufügen,
 		 * @param {*} array Aktiv oder Inaktiv Array
 		 * @param {string} list Aktiv oder inactiv as String
 		 */
 		const addPos = (array, list) => {
 			let num = 0;
 			// Button
-			let symbolLink="❌";
-			let symbolMoveToInactiv ="↪";
-			let symbolMoveToActiv ="↩";
-			let farbeSchalterON = "green";			
-			
+			const symbolLink="❌";
+			const symbolMoveToInactiv ="↪";
+			const symbolMoveToActiv ="↩";
+			const farbeSchalterON = "green";
+
 			for(const element of array){
 				// Positionsnummern eintragen
 				num++;
-				element.pos = num;				
+				element.pos = num;
 
 				// Button Delete
-				let valButtonDelete = `alexa2.0.Lists.SHOPPING_LIST.items.${element.id}.#delete`
-				
+				const valButtonDelete = `alexa2.0.Lists.SHOPPING_LIST.items.${element.id}.#delete`;
+
 				// Button Completed
-				let valButtonMove =  `alexa2.0.Lists.SHOPPING_LIST.items.${element.id}.completed`
-				
+				const valButtonMove =  `alexa2.0.Lists.SHOPPING_LIST.items.${element.id}.completed`;
+
 				// Der Button delete
-				let val1JSON="<button style\=\"border:none\; cursor\:pointer; background-color\:transparent\; color\:white\; font\-size\:1em\; text\-align:center\" value=\"toggle\" onclick=\"setOnDblClickCustomShop\(\'"+valButtonDelete+","+true+"\')\">"+symbolLink + "</button> <font color=\""+farbeSchalterON+"\">";
+				const val1JSON="<button style\=\"border:none\; cursor\:pointer; background-color\:transparent\; color\:white\; font\-size\:1em\; text\-align:center\" value=\"toggle\" onclick=\"setOnDblClickCustomShop\(\'"+valButtonDelete+","+true+"\')\">"+symbolLink + "</button> <font color=\""+farbeSchalterON+"\">";
 				if (list == "activ"){
-					let val2JSON="<button style\=\"border:none\; cursor\:pointer; background-color\:transparent\; color\:white\; font\-size\:1em\; text\-align:center\" value=\"toggle\" onclick=\"setOnDblClickCustomShop\(\'"+valButtonMove+","+true+"\')\">"+symbolMoveToInactiv + "</button> <font color=\""+farbeSchalterON+"\">";
+					const val2JSON="<button style\=\"border:none\; cursor\:pointer; background-color\:transparent\; color\:white\; font\-size\:1em\; text\-align:center\" value=\"toggle\" onclick=\"setOnDblClickCustomShop\(\'"+valButtonMove+","+true+"\')\">"+symbolMoveToInactiv + "</button> <font color=\""+farbeSchalterON+"\">";
 					element.buttonmove = val2JSON;
 				}
 				if (list == "inactiv"){
-					let val2JSON="<button style\=\"border:none\; cursor\:pointer; background-color\:transparent\; color\:white\; font\-size\:1em\; text\-align:center\" value=\"toggle\" onclick=\"setOnDblClickCustomShop\(\'"+valButtonMove+","+false+"\')\">"+symbolMoveToActiv + "</button> <font color=\""+farbeSchalterON+"\">";
+					const val2JSON="<button style\=\"border:none\; cursor\:pointer; background-color\:transparent\; color\:white\; font\-size\:1em\; text\-align:center\" value=\"toggle\" onclick=\"setOnDblClickCustomShop\(\'"+valButtonMove+","+false+"\')\">"+symbolMoveToActiv + "</button> <font color=\""+farbeSchalterON+"\">";
 					element.buttonmove = val2JSON;
 				}
 
 				element.buttondelete = val1JSON;
-				
+
 			}
 		};
 
@@ -352,7 +359,7 @@ class AlexaShoppinglist extends utils.Adapter {
 					// Position hinzufügen
 					if (state && state.val && typeof(state.val) == "string" && id == `alexa-shoppinglist.${this.instance}.add_position` && state.ack == false){
 						addPosition(state.val);
-						
+
 						await this.setStateAsync(id, {ack:true});
 					}
 
@@ -407,16 +414,16 @@ class AlexaShoppinglist extends utils.Adapter {
 
 		// ANCHOR writeState
 		/**
-		 * 
-		 * @param {[]} arrayActiv 
-		 * @param {[]} arrayInactiv 
+		 *
+		 * @param {[]} arrayActiv
+		 * @param {[]} arrayInactiv
 		 */
 		const writeState =(arrayActiv, arrayInactiv)=>{
 			this.setStateChanged(`alexa-shoppinglist.${this.instance}.list_activ`, JSON.stringify(arrayActiv),true );
 			this.setStateChanged(`alexa-shoppinglist.${this.instance}.list_inactiv`, JSON.stringify(arrayInactiv),true);
 		};
 
-		
+
 		// ANCHOR subscribeStates
 		// Alexa2 State
 		this.subscribeForeignStatesAsync(alexaState);
