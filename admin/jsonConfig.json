@@ -68,6 +68,21 @@
                     "hidden": "!data.alexa",
                     "jsonData": "{\"alexa\":  \"${data.alexa}\"}",
                     "disabled": "!_alive"
+                },
+                "doNotMovetoInactiv" : {
+                    "newLine": true,
+                    "type" : "checkbox",                    
+                    "label": {
+                        "de": "Artikel sollen komplett entfernt werden.",
+                        "en": "Articles should be removed completely."
+                    },
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 6,
+                    "help": {
+                        "en": "Articles are deleted directly and not moved to the inactive list",
+                        "de": "Artikel werden direkt gelöscht und nicht in die inaktive Liste verschoben"
+                    }
                 }
             }
         }

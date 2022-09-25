@@ -113,7 +113,8 @@
     "native": {
         "alexa": "",
         "device": "",
-        "shoppinglist": ""
+        "shoppinglist": "",
+        "doNotMovetoInactiv": false
     },
     "objects": [],
     "instanceObjects": [
