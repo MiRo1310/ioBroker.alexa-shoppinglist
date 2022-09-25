@@ -12,6 +12,7 @@ const utils = require("@iobroker/adapter-core");
 // Load your modules here, e.g.:
 // const fs = require("fs");
 let alexaState;
+let checkBox;
 let idTexttoCommand;
 let timeout_1;
 let timeout_2;
@@ -43,6 +44,9 @@ class AlexaShoppinglist extends utils.Adapter {
 		// Variablen
 		alexaState = this.config.shoppinglist;
 		idTexttoCommand = this.config.device;
+		checkBox = this.config.doNotMovetoInactiv;
+
+		this.log.info("Checkbox: " + JSON.stringify(checkBox));
 
 
 		const alexaStateArray = alexaState.split(".");
@@ -292,12 +296,15 @@ class AlexaShoppinglist extends utils.Adapter {
 				const valButtonMove =  `alexa2.0.Lists.SHOPPING_LIST.items.${element.id}.completed`;
 
 				// Der Button delete
+				// eslint-disable-next-line no-useless-escape
 				const val1JSON="<button style\=\"border:none\; cursor\:pointer; background-color\:transparent\; color\:white\; font\-size\:1em\; text\-align:center\" value=\"toggle\" onclick=\"setOnDblClickCustomShop\(\'"+valButtonDelete+","+true+"\')\">"+symbolLink + "</button> <font color=\""+farbeSchalterON+"\">";
 				if (list == "activ"){
+					// eslint-disable-next-line no-useless-escape
 					const val2JSON="<button style\=\"border:none\; cursor\:pointer; background-color\:transparent\; color\:white\; font\-size\:1em\; text\-align:center\" value=\"toggle\" onclick=\"setOnDblClickCustomShop\(\'"+valButtonMove+","+true+"\')\">"+symbolMoveToInactiv + "</button> <font color=\""+farbeSchalterON+"\">";
 					element.buttonmove = val2JSON;
 				}
 				if (list == "inactiv"){
+					// eslint-disable-next-line no-useless-escape
 					const val2JSON="<button style\=\"border:none\; cursor\:pointer; background-color\:transparent\; color\:white\; font\-size\:1em\; text\-align:center\" value=\"toggle\" onclick=\"setOnDblClickCustomShop\(\'"+valButtonMove+","+false+"\')\">"+symbolMoveToActiv + "</button> <font color=\""+farbeSchalterON+"\">";
 					element.buttonmove = val2JSON;
 				}
@@ -363,8 +370,11 @@ class AlexaShoppinglist extends utils.Adapter {
 						await this.setStateAsync(id, {ack:true});
 					}
 
-					// Inactiv Liste leeren
-					if (state && state.val && typeof(state.val) == "boolean" && id == `alexa-shoppinglist.${this.instance}.delete_inactiv_list` && state.ack == false){
+					// Inactiv Liste leeren, oder Grundsätzlich wenn Artiekl von Activ gelöscht werden und Checkbox aktiv ist
+					if ((state && state.val && typeof(state.val) == "boolean" && id == `alexa-shoppinglist.${this.instance}.delete_inactiv_list` && state.ack == false) || checkBox){
+						if(checkBox){
+							this.log.info("Inaktive Liste immer löschen");
+						}
 						this.log.info("Inactive List deleted");
 						deleteList(jsonInactiv, "delete");
 
@@ -400,6 +410,7 @@ class AlexaShoppinglist extends utils.Adapter {
 
 						await this.setStateAsync(id, {ack:true});
 					}
+
 
 
 				}
@@ -535,9 +546,9 @@ class AlexaShoppinglist extends utils.Adapter {
 	}
 
 	async onMessage(obj) {
-		this.log.info("Test " + JSON.stringify(obj));
+		// this.log.info("Test " + JSON.stringify(obj));
 		if (obj){
-			this.log.info("Test " + JSON.stringify(obj));
+			// this.log.info("Test " + JSON.stringify(obj));
 			switch (obj.command){
 				case "getDevices" : {
 					const devices = await this.getObjectViewAsync("system", "device", {
