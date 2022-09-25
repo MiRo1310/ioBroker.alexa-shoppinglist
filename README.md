@@ -70,6 +70,10 @@ function setOnDblClickCustomShop( myvalue) {
 
 ## Changelog
 
+### 0.1.4 (25.09.2022)
+* Its now possible to delete always the Inactiv list, when you delete an Articel from the Activ list
+* You only have to check the Checkbox 
+
 ### 0.1.2 ( 09.04.2022)
 * Add Buttons in JSON String
 

@@ -1,8 +1,11 @@
 {
     "common": {
         "name": "alexa-shoppinglist",
-        "version": "0.1.3",
+        "version": "0.1.4",
         "news": {
+            "0.1.4":{
+                "en": "Its now possible to delete always the Inactiv list, when you delete an Articel from the Activ list"
+            },
             "0.1.3":{
                 "en": "Code fixed"
             },

@@ -1,6 +1,6 @@
 {
   "name": "iobroker.alexa-shoppinglist",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Generates the Shoppinglist from Alexa",
   "author": {
     "name": "MiRo1310",
