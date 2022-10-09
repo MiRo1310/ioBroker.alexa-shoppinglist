@@ -201,7 +201,8 @@ class AlexaShoppinglist extends utils.Adapter {
 		 * @param {any} array Array, welches bearbeitet werden soll
 		 * @param {*} direction Soll zu Inaktiv geschoben werden "toInActiv", oder komplett löschen "delete"
 		 */
-		const deleteList = (array, direction) => {
+		const deleteList = async (array, direction) => {
+			this.log.debug(JSON.stringify(array));
 			for (const element of array) {
 				try {
 					if (direction == "toInActiv") {
@@ -209,7 +210,8 @@ class AlexaShoppinglist extends utils.Adapter {
 						this.setForeignStateAsync(idAddapter + ".items." + element.id + ".completed", true, false);
 					} else if (direction == "delete") {
 
-						this.setForeignStateAsync(idAddapter + ".items." + element.id + ".#delete", true, false);
+						// }
+						await this.setForeignStateAsync(idAddapter + ".items." + element.id + ".#delete", true, false);
 						this.log.info(JSON.stringify(element.id) + " deleted");
 					}
 				}
@@ -343,13 +345,17 @@ class AlexaShoppinglist extends utils.Adapter {
 
 			// ANCHOR onStateChange
 			this.on("stateChange", async (id, state) => {
+
 				try {
 					if (id == alexaState) {
-						runfunction(sortListActiv, sortListInActiv);
-						if (checkBox) {
-							this.log.info("Inaktive Liste immer löschen");
-							deleteListJsonInactiv(`alexa-shoppinglist.${this.instance}.delete_inactiv_list`);
-						}
+						runfunction(sortListActiv, sortListInActiv).then(() => {
+							if (checkBox) {
+								this.log.info("Inaktive Liste löschen");
+								deleteListJsonInactiv(`alexa-shoppinglist.${this.instance}.delete_inactiv_list`);
+							}
+						});
+
+
 					}
 
 					// Auf Sortierungs Datenpunkt reagieren
@@ -429,6 +435,7 @@ class AlexaShoppinglist extends utils.Adapter {
 			this.log.info("Inactive List deleted");
 			deleteList(jsonInactiv, "delete");
 
+			// Button ack setzen
 			await this.setStateAsync(id, { ack: true });
 		};
 
