@@ -73,8 +73,8 @@
                     "newLine": true,
                     "type" : "checkbox",                    
                     "label": {
-                        "de": "Artikel sollen komplett entfernt werden.",
-                        "en": "Articles should be removed completely."
+                        "de": "Inaktive Liste immer löschen.",
+                        "en": "Inactive list always delete."
                     },
                     "sm": 12,
                     "md": 6,
