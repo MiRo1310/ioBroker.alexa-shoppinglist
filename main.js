@@ -202,7 +202,7 @@ class AlexaShoppinglist extends utils.Adapter {
 		 * @param {*} direction Soll zu Inaktiv geschoben werden "toInActiv", oder komplett löschen "delete"
 		 */
 		const deleteList = async (array, direction) => {
-			this.log.debug(JSON.stringify(array));
+			// this.log.debug(JSON.stringify(array));
 			for (const element of array) {
 				try {
 					if (direction == "toInActiv") {
@@ -212,7 +212,7 @@ class AlexaShoppinglist extends utils.Adapter {
 
 						// }
 						await this.setForeignStateAsync(idAddapter + ".items." + element.id + ".#delete", true, false);
-						this.log.info(JSON.stringify(element.id) + " deleted");
+						// this.log.info(JSON.stringify(element.id) + " deleted");
 					}
 				}
 				catch (e) { }
@@ -342,88 +342,91 @@ class AlexaShoppinglist extends utils.Adapter {
 
 			// --------------------------------------------------------------------------------------------
 
-
+			let valueOld = null;
 			// ANCHOR onStateChange
 			this.on("stateChange", async (id, state) => {
+				if (state && state.val != valueOld) {
+					valueOld = state.val;
+					try {
+						if (id == alexaState) {
+							runfunction(sortListActiv, sortListInActiv).then(() => {
+								//TODO
+								if (checkBox && jsonInactiv[0]) {
+									this.log.info("Inaktiven Artikel löschen");
+									deleteListJsonInactiv(`alexa-shoppinglist.${this.instance}.delete_inactiv_list`);
+								}
+							});
 
-				try {
-					if (id == alexaState) {
-						runfunction(sortListActiv, sortListInActiv).then(() => {
-							if (checkBox) {
-								this.log.info("Inaktive Liste löschen");
-								deleteListJsonInactiv(`alexa-shoppinglist.${this.instance}.delete_inactiv_list`);
+
+						}
+
+						// Auf Sortierungs Datenpunkt reagieren
+						if (state && state.ack == false && typeof (state.val) == "string" && (id == idSortActiv || id == idSortInActiv)) {
+							if (id == idSortActiv) {
+								sortListActiv = state.val;
+								this.log.info("Active Liste sortieren");
 							}
-						});
+							else {
+								sortListInActiv = state.val;
+								this.log.info("Inactive Liste sortieren");
+							}
 
+							this.log.info(sortListActiv);
+							runfunction(sortListActiv, sortListInActiv);
 
-					}
-
-					// Auf Sortierungs Datenpunkt reagieren
-					if (state && state.ack == false && typeof (state.val) == "string" && (id == idSortActiv || id == idSortInActiv)) {
-						if (id == idSortActiv) {
-							sortListActiv = state.val;
-							this.log.info("Active Liste sortieren");
-						}
-						else {
-							sortListInActiv = state.val;
-							this.log.info("Inactive Liste sortieren");
+							await this.setStateAsync(id, { ack: true });
 						}
 
-						this.log.info(sortListActiv);
-						runfunction(sortListActiv, sortListInActiv);
+						// Position hinzufügen
+						if (state && state.val && typeof (state.val) == "string" && id == `alexa-shoppinglist.${this.instance}.add_position` && state.ack == false) {
+							addPosition(state.val);
 
-						await this.setStateAsync(id, { ack: true });
+							await this.setStateAsync(id, { ack: true });
+						}
+
+						// Inactiv Liste leeren, oder Grundsätzlich wenn Artikel von Activ gelöscht werden und Checkbox aktiv ist
+						if ((state && state.val && typeof (state.val) == "boolean" && id == `alexa-shoppinglist.${this.instance}.delete_inactiv_list` && state.ack == false)) {
+
+							deleteListJsonInactiv(id);
+
+						}
+						// Activ Liste leeren
+						if (state && state.val && typeof (state.val) == "boolean" && id == `alexa-shoppinglist.${this.instance}.delete_activ_list` && state.ack == false) {
+							this.log.info("Active List deleted");
+							deleteList(jsonActiv, "toInActiv");
+
+							await this.setStateAsync(id, { ack: true });
+						}
+
+						// Zu Inactiv Liste verschieben
+						if (state && state.val && id == `alexa-shoppinglist.${this.instance}.to_inactiv_list` && state.ack == false) {
+							this.log.info("Position to Inactive");
+							shiftPosition(positionToShift, jsonActiv, "toInActiv");
+
+							await this.setStateAsync(id, { ack: true });
+						}
+
+						// Zu Activ Liste verschieben
+						if (state && state.val && typeof (state.val) == "boolean" && id == `alexa-shoppinglist.${this.instance}.to_activ_list` && state.ack == false) {
+							this.log.info("Position to Active");
+							shiftPosition(positionToShift, jsonInactiv, "toActiv");
+
+							await this.setStateAsync(id, { ack: true });
+						}
+						// Position die verschoben werden soll
+						if (state && state.val && typeof (state.val) == "number" && id == `alexa-shoppinglist.${this.instance}.position_to_shift` && state.ack == false) {
+							this.log.info("Position");
+							positionToShift = state.val;
+
+							await this.setStateAsync(id, { ack: true });
+						}
+
+
+
 					}
-
-					// Position hinzufügen
-					if (state && state.val && typeof (state.val) == "string" && id == `alexa-shoppinglist.${this.instance}.add_position` && state.ack == false) {
-						addPosition(state.val);
-
-						await this.setStateAsync(id, { ack: true });
+					catch (e) {
+						this.log.error(e);
 					}
-
-					// Inactiv Liste leeren, oder Grundsätzlich wenn Artikel von Activ gelöscht werden und Checkbox aktiv ist
-					if ((state && state.val && typeof (state.val) == "boolean" && id == `alexa-shoppinglist.${this.instance}.delete_inactiv_list` && state.ack == false)) {
-
-						deleteListJsonInactiv(id);
-
-					}
-					// Activ Liste leeren
-					if (state && state.val && typeof (state.val) == "boolean" && id == `alexa-shoppinglist.${this.instance}.delete_activ_list` && state.ack == false) {
-						this.log.info("Active List deleted");
-						deleteList(jsonActiv, "toInActiv");
-
-						await this.setStateAsync(id, { ack: true });
-					}
-
-					// Zu Inactiv Liste verschieben
-					if (state && state.val && id == `alexa-shoppinglist.${this.instance}.to_inactiv_list` && state.ack == false) {
-						this.log.info("Position to Inactive");
-						shiftPosition(positionToShift, jsonActiv, "toInActiv");
-
-						await this.setStateAsync(id, { ack: true });
-					}
-
-					// Zu Activ Liste verschieben
-					if (state && state.val && typeof (state.val) == "boolean" && id == `alexa-shoppinglist.${this.instance}.to_activ_list` && state.ack == false) {
-						this.log.info("Position to Active");
-						shiftPosition(positionToShift, jsonInactiv, "toActiv");
-
-						await this.setStateAsync(id, { ack: true });
-					}
-					// Position die verschoben werden soll
-					if (state && state.val && typeof (state.val) == "number" && id == `alexa-shoppinglist.${this.instance}.position_to_shift` && state.ack == false) {
-						this.log.info("Position");
-						positionToShift = state.val;
-
-						await this.setStateAsync(id, { ack: true });
-					}
-
-
-
-				}
-				catch (e) {
-					this.log.error(e);
 				}
 			});
 
