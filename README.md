@@ -58,7 +58,7 @@ function setOnDblClickCustomShop( myvalue) {
     let id = myvalue.slice(0,myvalue.indexOf(","));
     let val = myvalue.slice(myvalue.indexOf(",")+1, myvalue.length);
     if (val){
-      vis.setValue(id,val1);
+      vis.setValue(id,val);
     }
   }
 ```
