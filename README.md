@@ -67,6 +67,10 @@ function setOnDblClickCustomShop( myvalue) {
 
 ## Changelog
 
+### 0.1.5 (09.01.2023)
+
+- Error when deleting via the JSON list fixed
+
 ### 0.1.4 (25.09.2022)
 
 - Its now possible to delete always the Inactiv list, when you delete an Articel from the Activ list
@@ -92,7 +96,7 @@ function setOnDblClickCustomShop( myvalue) {
 
 MIT License
 
-Copyright (c) 2022 MiRo1310 <michael.roling@gmx.de>
+Copyright (c) 2023 MiRo1310 <michael.roling@gmx.de>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
