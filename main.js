@@ -42,7 +42,7 @@ class AlexaShoppinglist extends utils.Adapter {
 		this.setState("info.connection", false, true);
 
 		// Variablen
-		alexaState = this.config.shoppinglist;
+		alexaState = this.config.shoppinglist;		
 		idTexttoCommand = this.config.device;
 		checkBox = this.config.doNotMovetoInactiv;
 
@@ -56,6 +56,7 @@ class AlexaShoppinglist extends utils.Adapter {
 			"channel_history": alexaStateArray[2],
 			"list": alexaStateArray[3]
 		};
+		
 		let list;
 		if (alexaState != "") {
 			list = idInstanze.list.replace("_", " ").toLowerCase().replace("list", " ");
@@ -81,26 +82,12 @@ class AlexaShoppinglist extends utils.Adapter {
 		const idSortActivState = await this.getStateAsync(idSortActiv);
 		if (idSortActivState && idSortActivState.val && typeof (idSortActivState.val) == "string") {
 			sortListActiv = idSortActivState.val;
-		}
-		// this.getState(idSortActiv,function(err, state){
-
-		// 	if (state && state.val && typeof(state.val) == "string"){
-		// 		sortListActiv = state.val;
-		// 	}
-		// });
+		}		
 
 		const idSortInActivState = await this.getStateAsync(idSortInActiv);
 		if (idSortInActivState && idSortInActivState.val && typeof (idSortInActivState.val) == "string") {
 			sortListInActiv = idSortInActivState.val;
 		}
-		// this.getState(idSortInActiv,(err, state)=>{
-		// 	if (state && state.val && typeof(state.val) == "string"){
-		// 		sortListInActiv = state.val;
-		// 	}
-		// });
-
-
-
 
 		//Funktionen -----------
 
@@ -113,7 +100,6 @@ class AlexaShoppinglist extends utils.Adapter {
 			let alexaListJson;
 			try {
 				alexaListJson = await this.getForeignStateAsync(alexaState);
-
 
 				if (alexaListJson && alexaListJson.val && typeof (alexaListJson.val) == "string") {
 
@@ -297,12 +283,13 @@ class AlexaShoppinglist extends utils.Adapter {
 				// Positionsnummern eintragen
 				num++;
 				element.pos = num;
-
+				
+				// ANCHOR - JSON Listen erstellen
 				// Button Delete
-				const valButtonDelete = `alexa2.0.Lists.SHOPPING_LIST.items.${element.id}.#delete`;
+				const valButtonDelete = `alexa2.0.Lists.${idInstanze.list}.items.${element.id}.#delete`;
 
 				// Button Completed
-				const valButtonMove = `alexa2.0.Lists.SHOPPING_LIST.items.${element.id}.completed`;
+				const valButtonMove = `alexa2.0.Lists.${idInstanze.list}.items.${element.id}.completed`;
 
 				// Der Button delete
 				// eslint-disable-next-line no-useless-escape
@@ -356,8 +343,6 @@ class AlexaShoppinglist extends utils.Adapter {
 									deleteListJsonInactiv(`alexa-shoppinglist.${this.instance}.delete_inactiv_list`);
 								}
 							});
-
-
 						}
 
 						// Auf Sortierungs Datenpunkt reagieren
