@@ -63,6 +63,7 @@ function setOnDblClickCustomShop( myvalue) {
   }
 ```
 
+image.png
 ![](admin/Skript.png)
 
 ## Changelog
