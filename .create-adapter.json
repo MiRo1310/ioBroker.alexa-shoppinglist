@@ -46,7 +46,7 @@
 	"authorEmail": "michael.roling@gmx.de",
 	"gitRemoteProtocol": "HTTPS",
 	"license": "MIT License",
-	"dependabot": "no",
+	"dependabot": "yes",
 	"tabReact": "no",
 	"target": "zip",
 	"creatorVersion": "2.0.1"
