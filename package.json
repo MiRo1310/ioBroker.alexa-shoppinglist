@@ -16,7 +16,7 @@
     "url": "https://github.com/MiRo1310/ioBroker.alexa-shoppinglist"
   },
   "dependencies": {
-    "@iobroker/adapter-core": "^2.6.0"
+    "@iobroker/adapter-core": "^2.6.8"
   },
   "devDependencies": {
     "@alcalzone/release-script": "^3.5.9",
