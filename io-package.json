@@ -3,20 +3,70 @@
         "name": "alexa-shoppinglist",
         "version": "0.1.5",
         "news": {
-            "0.1.5":{
-                "en": "Error when deleting via the JSON list fixed"
+            "0.1.5": {
+                "en": "Error when deleting via the JSON list fixed",
+                "de": "Fehler beim Löschen über die JSON-Liste behoben",
+                "ru": "Исправлена ​​ошибка при удалении через список JSON",
+                "pt": "Erro ao excluir via lista JSON corrigido",
+                "nl": "Fout bij verwijderen via de JSON-lijst verholpen",
+                "fr": "Erreur lors de la suppression via la liste JSON corrigée",
+                "it": "Errore durante l'eliminazione tramite l'elenco JSON corretto",
+                "es": "Se corrigió el error al eliminar a través de la lista JSON",
+                "pl": "Naprawiono błąd podczas usuwania przez listę JSON",
+                "uk": "Виправлено помилку при видаленні через список JSON",
+                "zh-cn": "通过修复的 JSON 列表删除时出错"
             },
-            "0.1.4":{
-                "en": "Its now possible to delete always the Inactiv list, when you delete an Articel from the Activ list"
+            "0.1.4": {
+                "en": "Its now possible to delete always the Inactiv list, when you delete an Articel from the Activ list",
+                "de": "Es ist jetzt möglich, immer die Inaktiv-Liste zu löschen, wenn Sie einen Artikel aus der Aktiv-Liste löschen",
+                "ru": "Теперь можно всегда удалять список неактивных, когда вы удаляете статью из списка активных.",
+                "pt": "Agora é possível excluir sempre a lista Inactiv, quando você exclui um Articel da lista Activ",
+                "nl": "Het is nu mogelijk om altijd de Inactiv-lijst te verwijderen wanneer u een artikel uit de Activ-lijst verwijdert",
+                "fr": "Il est maintenant possible de supprimer toujours la liste Inactiv, lorsque vous supprimez un article de la liste Activ",
+                "it": "Ora è possibile eliminare sempre l'elenco Inattivi, quando si elimina un Articel dall'elenco Attivo",
+                "es": "Ahora es posible eliminar siempre la lista Inactiv, cuando elimina un Articel de la lista Activ",
+                "pl": "Teraz można zawsze usunąć listę nieaktywnych, gdy usuniesz artykuł z listy aktywnych",
+                "uk": "Тепер можна завжди видаляти список неактивних, коли ви видаляєте статтю зі списку активних",
+                "zh-cn": "当您从 Activ 列表中删除 Articel 时，现在可以始终删除 Inactiv 列表"
             },
-            "0.1.3":{
-                "en": "Code fixed"
+            "0.1.3": {
+                "en": "Code fixed",
+                "de": "Code behoben",
+                "ru": "Код исправлен",
+                "pt": "Código corrigido",
+                "nl": "Code opgelost",
+                "fr": "Code fixe",
+                "it": "Codice fisso",
+                "es": "Código fijo",
+                "pl": "Kod naprawiony",
+                "uk": "Код виправлено",
+                "zh-cn": "代码固定"
             },
-            "0.1.2":{
-                "en": "Add Buttons in JSON String"
+            "0.1.2": {
+                "en": "Add Buttons in JSON String",
+                "de": "Schaltflächen in JSON-String hinzufügen",
+                "ru": "Добавить кнопки в строку JSON",
+                "pt": "Adicionar botões em string JSON",
+                "nl": "Knoppen toevoegen in JSON String",
+                "fr": "Ajouter des boutons dans la chaîne JSON",
+                "it": "Aggiungi pulsanti nella stringa JSON",
+                "es": "Agregar botones en cadena JSON",
+                "pl": "Dodaj przyciski w ciągu JSON",
+                "uk": "Додайте кнопки в JSON String",
+                "zh-cn": "在 JSON 字符串中添加按钮"
             },
-            "0.1.1":{
-                "en": "Error fixed in json Config"
+            "0.1.1": {
+                "en": "Error fixed in json Config",
+                "de": "Fehler in json Config behoben",
+                "ru": "Исправлена ​​ошибка в json config",
+                "pt": "Erro corrigido no json Config",
+                "nl": "Fout verholpen in json Config",
+                "fr": "Erreur corrigée dans json Config",
+                "it": "Errore risolto in json Config",
+                "es": "Error solucionado en json Config",
+                "pl": "Naprawiono błąd w json Config",
+                "uk": "Помилка виправлена ​​в конфігурації json",
+                "zh-cn": "json 配置中修复的错误"
             },
             "0.1.0": {
                 "en": "jsonConfig",
@@ -28,7 +78,8 @@
                 "it": "jsonConfig",
                 "es": "jsonconfig",
                 "pl": "jsonConfig",
-                "zh-cn": "jsonConfig"
+                "zh-cn": "jsonConfig",
+                "uk": "jsonConfig"
             },
             "0.0.2": {
                 "en": "Adjustment of Ids",
@@ -40,7 +91,8 @@
                 "it": "Adeguamento degli ID",
                 "es": "Ajuste de identificaciones",
                 "pl": "Dostosowanie identyfikatorów",
-                "zh-cn": "ID的调整"
+                "zh-cn": "ID的调整",
+                "uk": "Коригування ідентифікаторів"
             },
             "0.0.1": {
                 "en": "initial release",
@@ -52,7 +104,8 @@
                 "it": "Versione iniziale",
                 "es": "Versión inicial",
                 "pl": "Pierwsze wydanie",
-                "zh-cn": "首次出版"
+                "zh-cn": "首次出版",
+                "uk": "початковий випуск"
             }
         },
         "title": "Alexa Shoppinglist",
@@ -66,7 +119,8 @@
             "it": "Lista della spesa di Alexa",
             "es": "Lista de la compra de Alexa",
             "pl": "Lista zakupów Alexa",
-            "zh-cn": "Alexa购物清单"
+            "zh-cn": "Alexa购物清单",
+            "uk": "Список покупок Alexa"
         },
         "desc": {
             "en": "Generates the Shoppinglist from Alexa",
@@ -78,7 +132,8 @@
             "it": "Genera la lista della spesa da Alexa",
             "es": "Genera la lista de la compra desde Alexa",
             "pl": "Generuje listę zakupów z Alexa",
-            "zh-cn": "从 Alexa 生成购物清单"
+            "zh-cn": "从 Alexa 生成购物清单",
+            "uk": "Створює список покупок з Alexa"
         },
         "authors": [
             "MiRo1310 <michael.roling@gmx.de>"
