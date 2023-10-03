@@ -15,6 +15,9 @@
     "type": "git",
     "url": "https://github.com/MiRo1310/ioBroker.alexa-shoppinglist"
   },
+  "engines": {
+    "node": ">= 16"
+  },
   "dependencies": {
     "@iobroker/adapter-core": "^3.0.3"
   },
