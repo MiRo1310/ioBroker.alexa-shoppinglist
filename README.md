@@ -75,7 +75,8 @@ function setOnDblClickCustomShop( myvalue) {
 
 ### **WORK IN PROGRESS**
 
-- Breaking change: minimal supported node.js version is 16.x
+- Js-controller >=5.0.19 is required
+- Breaking change: minimal supported node.js version is 18.x
 
 ### 0.1.5 (09.01.2023)
 

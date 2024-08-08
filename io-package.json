@@ -93,19 +93,6 @@
         "pl": "Dostosowanie identyfikatorów",
         "zh-cn": "ID的调整",
         "uk": "Коригування ідентифікаторів"
-      },
-      "0.0.1": {
-        "en": "initial release",
-        "de": "Erstveröffentlichung",
-        "ru": "Начальная версия",
-        "pt": "lançamento inicial",
-        "nl": "Eerste uitgave",
-        "fr": "Première version",
-        "it": "Versione iniziale",
-        "es": "Versión inicial",
-        "pl": "Pierwsze wydanie",
-        "zh-cn": "首次出版",
-        "uk": "початковий випуск"
       }
     },
     "titleLang": {
@@ -136,9 +123,11 @@
     },
     "authors": ["MiRo1310 <michael.roling@gmx.de>"],
     "keywords": ["Iobroker, Alexa, Shoppinglist, List, Smarthome"],
-    "license": "MIT",
+    "licenseInformation": {
+      "license": "MIT",
+      "type": "free"
+    },
     "platform": "Javascript/Node.js",
-    "main": "main.js",
     "icon": "alexa-shoppinglist.png",
     "enabled": true,
     "extIcon": "https://raw.githubusercontent.com/MiRo1310/ioBroker.alexa-shoppinglist/main/admin/alexa-shoppinglist.png",
@@ -147,17 +136,17 @@
     "messagebox": true,
     "mode": "daemon",
     "type": "logic",
+    "tier": 3,
     "compact": true,
     "connectionType": "local",
     "dataSource": "poll",
-    "materialize": true,
     "supportCustoms": false,
     "adminUI": {
       "config": "json"
     },
     "dependencies": [
       {
-        "js-controller": ">=2.0.0"
+        "js-controller": ">=5.0.19"
       }
     ],
     "globalDependencies": [
