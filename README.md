@@ -72,8 +72,7 @@ function setOnDblClickCustomShop( myvalue) {
 ![](admin/Skript.png)
 
 ## Changelog
-
-### **WORK IN PROGRESS**
+### 1.0.0 (2024-08-09)
 
 - Js-controller >=5.0.19 is required
 - Breaking change: minimal supported node.js version is 18.x

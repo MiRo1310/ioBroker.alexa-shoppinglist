@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alexa-shoppinglist",
-    "version": "0.1.5",
+    "version": "1.0.0",
     "news": {
+      "1.0.0": {
+        "en": "Js-controller >=5.0.19 is required\nBreaking change: minimal supported node.js version is 18.x",
+        "de": "Js-Controller >=5.0.19 ist erforderlich\nBreaking change: minimal unterstützt node.js version is 18.x",
+        "ru": "Js-контроллер >=5.0.19 требуется\nПерерыв изменения: минимальная поддерживаемая версия node.js - 18.x",
+        "pt": "Js-controller >=5.0.19 é necessário\nAlteração de ruptura: node.js mínimo suportado versão é 18.x",
+        "nl": "Js-controller > 5.0.19 is vereist\nBreaking change: minimale ondersteunde node.js versie is 18.x",
+        "fr": "Js-contrôleur >=5.0.19 est nécessaire\nBreaking change: la version minimale prise en charge node.js est 18.x",
+        "it": "Js-controller >=5.0.19 è richiesto\nCambiamento di rottura: versione node.js supportata minima è 18.x",
+        "es": "Se requiere Js-controller\nCambio de ruptura: la versión mínima de node.js es 18.x",
+        "pl": "Wymagany jest kontroler js- 19\nZmiana łamania: minimalna obsługiwana wersja node.js to 18.x",
+        "uk": "Js-controller >=5.0.19 потрібно\nЗміна розривів: мінімальний підтриманий вузол.js версія 18.x",
+        "zh-cn": "需要Js控制器 >=5.0.19\n突破更改:最小支持的节点.js版本为18x"
+      },
       "0.1.5": {
         "en": "Error when deleting via the JSON list fixed",
         "de": "Fehler beim Löschen über die JSON-Liste behoben",
@@ -80,19 +93,6 @@
         "pl": "jsonConfig",
         "zh-cn": "jsonConfig",
         "uk": "jsonConfig"
-      },
-      "0.0.2": {
-        "en": "Adjustment of Ids",
-        "de": "Anpassung der IDs",
-        "ru": "Настройка идентификаторов",
-        "pt": "Ajuste de IDs",
-        "nl": "Aanpassing van ID's",
-        "fr": "Ajustement des identifiants",
-        "it": "Adeguamento degli ID",
-        "es": "Ajuste de identificaciones",
-        "pl": "Dostosowanie identyfikatorów",
-        "zh-cn": "ID的调整",
-        "uk": "Коригування ідентифікаторів"
       }
     },
     "titleLang": {
@@ -121,8 +121,12 @@
       "zh-cn": "从 Alexa 生成购物清单",
       "uk": "Створює список покупок з Alexa"
     },
-    "authors": ["MiRo1310 <michael.roling@gmx.de>"],
-    "keywords": ["Iobroker, Alexa, Shoppinglist, List, Smarthome"],
+    "authors": [
+      "MiRo1310 <michael.roling@gmx.de>"
+    ],
+    "keywords": [
+      "Iobroker, Alexa, Shoppinglist, List, Smarthome"
+    ],
     "licenseInformation": {
       "license": "MIT",
       "type": "free"
@@ -159,7 +163,10 @@
     {
       "condition": {
         "operand": "and",
-        "rules": ["oldVersion<0.1.6", "newVersion>=0.1.6"]
+        "rules": [
+          "oldVersion<0.1.6",
+          "newVersion>=0.1.6"
+        ]
       },
       "title": {
         "en": "Important notice!",
@@ -188,7 +195,10 @@
         "zh-cn": "突破变化! 至少需要节点Js 18"
       },
       "level": "warn",
-      "buttons": ["agree", "cancel"]
+      "buttons": [
+        "agree",
+        "cancel"
+      ]
     }
   ],
   "native": {
