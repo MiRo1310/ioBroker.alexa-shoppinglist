@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alexa-shoppinglist",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "news": {
+      "1.0.1": {
+        "en": "FEAT: #95 Responsive Design",
+        "de": "FEAT: #95 Responsive Design",
+        "ru": "#95 Ответственный дизайн",
+        "pt": "FEAT: #95 Design responsivo",
+        "nl": "FEAT: #95 Responsive Design",
+        "fr": "NUMÉRO: #95 Conception sensible",
+        "it": "FEAT: #95 Responsive Design",
+        "es": "FEAT: #95 Diseño responsable",
+        "pl": "FEAT: # 95 Responsive Design",
+        "uk": "FEAT: #95 Відповідальний дизайн",
+        "zh-cn": "FEAT: #95 反应设计"
+      },
       "1.0.0": {
         "en": "Js-controller >=5.0.19 is required\nBreaking change: minimal supported node.js version is 18.x",
         "de": "Js-Controller >=5.0.19 ist erforderlich\nBreaking change: minimal unterstützt node.js version is 18.x",
@@ -80,19 +93,6 @@
         "pl": "Naprawiono błąd w json Config",
         "uk": "Помилка виправлена ​​в конфігурації json",
         "zh-cn": "json 配置中修复的错误"
-      },
-      "0.1.0": {
-        "en": "jsonConfig",
-        "de": "jsonConfig",
-        "ru": "jsonconfig",
-        "pt": "jsonConfig",
-        "nl": "jsonConfig",
-        "fr": "jsonConfig",
-        "it": "jsonConfig",
-        "es": "jsonconfig",
-        "pl": "jsonConfig",
-        "zh-cn": "jsonConfig",
-        "uk": "jsonConfig"
       }
     },
     "titleLang": {
