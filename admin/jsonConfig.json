@@ -1,90 +1,100 @@
 {
-    "i18n": true,
-    "type": "tabs",
-    "items": {
-        "_options": {
-            "type": "panel",
-            "label": {
-                "en": "Alexa Lists",
-                "de": "Alexa Listen"
-            },
-            "items": {
-                "status": {
-                    "type":"alive",                                                            
-                    "newLine": true,                    
-                    "sm": 12,
-                    "md": 6,
-                    "lg": 6,                    
-                    "textNotAlive": "You have to start the Adapter before you can configure!",
-                    "textAlive":""    
-                },
-                "alexa": {
-                    "newLine": true,
-                    "type": "instance",                     
-                    "adapter": "alexa2",
-                    "sm": 12,
-                    "md": 6,
-                    "lg": 6,
-                    "hidden":"",
-                    "label": {
-                        "en" : "Alexa2 Instance",
-                        "de" : "Alexa2 Instanz"
-                    },                    
-                    "disabled": "!_alive"
-                },
-                "device": {
-                    "newLine": true,
-                    "type": "selectSendTo",
-                    "label": {
-                        "en":"Device",
-                        "de": "Gerät"
-                    },
-                    "help": {
-                        "en": "Device for the acoustic output of inserted articles",
-                        "de": "Gerät zur akustischen Ausgabe von eingefügten Artikeln"
-                    },
-                    "sm": 12,
-                    "md": 6,
-                    "lg": 6,
-                    "command": "getDevices",
-                    "noTranslation": true,
-                    "alsoDependsOn": ["alexa"],
-                    "hidden": "!data.alexa",
-                    "jsonData": "{\"alexa\":  \"${data.alexa}\"}",
-                    "disabled": "!_alive"
-                },
-                "shoppinglist": {
-                    "type": "selectSendTo",
-                    "label": {
-                        "en" : "List to use",
-                        "de" : "Liste die genutzt werden soll"
-                    },
-                    "sm": 12,
-                    "md": 6,
-                    "lg": 6,
-                    "command": "getShoppinglist",
-                    "noTranslation": true,
-                    "alsoDependsOn": ["alexa"],
-                    "hidden": "!data.alexa",
-                    "jsonData": "{\"alexa\":  \"${data.alexa}\"}",
-                    "disabled": "!_alive"
-                },
-                "doNotMovetoInactiv" : {
-                    "newLine": true,
-                    "type" : "checkbox",                    
-                    "label": {
-                        "de": "Inaktive Liste immer löschen.",
-                        "en": "Inactive list always delete."
-                    },
-                    "sm": 12,
-                    "md": 6,
-                    "lg": 6,
-                    "help": {
-                        "en": "Articles are deleted directly and not moved to the inactive list",
-                        "de": "Artikel werden direkt gelöscht und nicht in die inaktive Liste verschoben"
-                    }
-                }
-            }
+  "i18n": true,
+  "type": "tabs",
+  "items": {
+    "_options": {
+      "type": "panel",
+      "label": {
+        "en": "Alexa Lists",
+        "de": "Alexa Listen"
+      },
+      "items": {
+        "status": {
+          "type": "alive",
+          "newLine": true,
+          "xs:": 12,
+          "sm": 12,
+          "md": 6,
+          "lg": 6,
+          "xl": 6,
+          "textNotAlive": "You have to start the Adapter before you can configure!",
+          "textAlive": ""
+        },
+        "alexa": {
+          "newLine": true,
+          "type": "instance",
+          "adapter": "alexa2",
+          "xs:": 12,
+          "sm": 12,
+          "md": 6,
+          "lg": 6,
+          "xl": 6,
+          "hidden": "",
+          "label": {
+            "en": "Alexa2 Instance",
+            "de": "Alexa2 Instanz"
+          },
+          "disabled": "!_alive"
+        },
+        "device": {
+          "newLine": true,
+          "type": "selectSendTo",
+          "label": {
+            "en": "Device",
+            "de": "Gerät"
+          },
+          "help": {
+            "en": "Device for the acoustic output of inserted articles",
+            "de": "Gerät zur akustischen Ausgabe von eingefügten Artikeln"
+          },
+          "xs:": 12,
+          "sm": 12,
+          "md": 6,
+          "lg": 6,
+          "xl": 6,
+          "command": "getDevices",
+          "noTranslation": true,
+          "alsoDependsOn": ["alexa"],
+          "hidden": "!data.alexa",
+          "jsonData": "{\"alexa\":  \"${data.alexa}\"}",
+          "disabled": "!_alive"
+        },
+        "shoppinglist": {
+          "type": "selectSendTo",
+          "label": {
+            "en": "List to use",
+            "de": "Liste die genutzt werden soll"
+          },
+          "xs:": 12,
+          "sm": 12,
+          "md": 6,
+          "lg": 6,
+          "xl": 6,
+          "command": "getShoppinglist",
+          "noTranslation": true,
+          "alsoDependsOn": ["alexa"],
+          "hidden": "!data.alexa",
+          "jsonData": "{\"alexa\":  \"${data.alexa}\"}",
+          "disabled": "!_alive"
+        },
+        "doNotMovetoInactiv": {
+          "newLine": true,
+          "type": "checkbox",
+          "label": {
+            "de": "Inaktive Liste immer löschen.",
+            "en": "Inactive list always delete."
+          },
+          "xs:": 12,
+          "sm": 12,
+          "md": 6,
+          "lg": 6,
+          "xl": 6,
+          "help": {
+            "en": "Articles are deleted directly and not moved to the inactive list",
+            "de": "Artikel werden direkt gelöscht und nicht in die inaktive Liste verschoben"
+          }
         }
+      }
     }
+  }
 }
