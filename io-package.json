@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alexa-shoppinglist",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "news": {
+      "1.0.2": {
+        "en": "FIX: #97 Add missing attributes to jsonConfig",
+        "de": "FIX: #97 fehlende Attribute zu jsonConfig hinzufügen",
+        "ru": "#97 Добавить недостающие атрибуты в jsonConfig",
+        "pt": "FIX: #97 Adicionar atributos ausentes ao jsonConfig",
+        "nl": "FIX: #97 Voeg ontbrekende attributen toe aan jsonConfig",
+        "fr": "FIX: #97 Ajouter des attributs manquants à jsonConfig",
+        "it": "FIX: #97 Aggiungi attributi mancanti a jsonConfig",
+        "es": "FIX: #97 Añadir atributos perdidos a jsonConfig",
+        "pl": "FIX: # 97 Dodaj brakujące atrybuty do jsonConfig",
+        "uk": "FIX: #97 Додати відсутні атрибути до jsonConfig",
+        "zh-cn": "FIX: # 97 向 jsonConfig 添加缺失属性"
+      },
       "1.0.1": {
         "en": "FEAT: #95 Responsive Design",
         "de": "FEAT: #95 Responsive Design",
@@ -80,19 +93,6 @@
         "pl": "Dodaj przyciski w ciągu JSON",
         "uk": "Додайте кнопки в JSON String",
         "zh-cn": "在 JSON 字符串中添加按钮"
-      },
-      "0.1.1": {
-        "en": "Error fixed in json Config",
-        "de": "Fehler in json Config behoben",
-        "ru": "Исправлена ​​ошибка в json config",
-        "pt": "Erro corrigido no json Config",
-        "nl": "Fout verholpen in json Config",
-        "fr": "Erreur corrigée dans json Config",
-        "it": "Errore risolto in json Config",
-        "es": "Error solucionado en json Config",
-        "pl": "Naprawiono błąd w json Config",
-        "uk": "Помилка виправлена ​​в конфігурації json",
-        "zh-cn": "json 配置中修复的错误"
       }
     },
     "titleLang": {
