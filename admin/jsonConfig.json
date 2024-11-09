@@ -12,7 +12,7 @@
         "status": {
           "type": "alive",
           "newLine": true,
-          "xs:": 12,
+          "xs": 12,
           "sm": 12,
           "md": 6,
           "lg": 6,
@@ -24,7 +24,7 @@
           "newLine": true,
           "type": "instance",
           "adapter": "alexa2",
-          "xs:": 12,
+          "xs": 12,
           "sm": 12,
           "md": 6,
           "lg": 6,
@@ -47,7 +47,7 @@
             "en": "Device for the acoustic output of inserted articles",
             "de": "Gerät zur akustischen Ausgabe von eingefügten Artikeln"
           },
-          "xs:": 12,
+          "xs": 12,
           "sm": 12,
           "md": 6,
           "lg": 6,
@@ -65,7 +65,7 @@
             "en": "List to use",
             "de": "Liste die genutzt werden soll"
           },
-          "xs:": 12,
+          "xs": 12,
           "sm": 12,
           "md": 6,
           "lg": 6,
@@ -84,7 +84,7 @@
             "de": "Inaktive Liste immer löschen.",
             "en": "Inactive list always delete."
           },
-          "xs:": 12,
+          "xs": 12,
           "sm": 12,
           "md": 6,
           "lg": 6,
