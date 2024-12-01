@@ -79,7 +79,7 @@ function setOnDblClickCustomShop( myvalue) {
 -->
 ### **WORK IN PROGRESS**
 
-- FEAT: Migration to ESLint 9 and @iobroker/eslint-config
+- CHORE: Migration to ESLint 9 and @iobroker/eslint-config
 
 ### 1.0.2 (2024-11-09)
 
