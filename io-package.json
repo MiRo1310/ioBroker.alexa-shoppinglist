@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alexa-shoppinglist",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "news": {
+      "1.0.3": {
+        "en": "CHORE: Migration to ESLint 9 and @iobroker/eslint-config",
+        "de": "CHORE: Migration auf ESLint 9 und @iobroker/eslint-config",
+        "ru": "CHORE: Migration to ESLint 9 and @iobroker/eslint-config",
+        "pt": "CHORE: Migração para ESLint 9 e @iobroker/eslint-config",
+        "nl": "CHORE: migratie naar ESLint 9 en @iobroker/eslint-config",
+        "fr": "CHORE: Migration vers ESLint 9 et @iobroker/eslint-config",
+        "it": "CHORE: Migrazione a ESLint 9 e @iobroker/eslint-config",
+        "es": "CHORE: Migración a ESLint 9 y @iobroker/eslint-config",
+        "pl": "CHORE: Migracja do ESLint 9 i @ iobroker / eslint- config",
+        "uk": "CHORE: Міграція до ESLint 9 і @iobroker/eslint-config",
+        "zh-cn": "CHORE: 迁移到ESLint 9 和 @iobroster/eslint-config"
+      },
       "1.0.2": {
         "en": "FIX: #97 Add missing attributes to jsonConfig",
         "de": "FIX: #97 fehlende Attribute zu jsonConfig hinzufügen",
@@ -80,19 +93,6 @@
         "pl": "Kod naprawiony",
         "uk": "Код виправлено",
         "zh-cn": "代码固定"
-      },
-      "0.1.2": {
-        "en": "Add Buttons in JSON String",
-        "de": "Schaltflächen in JSON-String hinzufügen",
-        "ru": "Добавить кнопки в строку JSON",
-        "pt": "Adicionar botões em string JSON",
-        "nl": "Knoppen toevoegen in JSON String",
-        "fr": "Ajouter des boutons dans la chaîne JSON",
-        "it": "Aggiungi pulsanti nella stringa JSON",
-        "es": "Agregar botones en cadena JSON",
-        "pl": "Dodaj przyciski w ciągu JSON",
-        "uk": "Додайте кнопки в JSON String",
-        "zh-cn": "在 JSON 字符串中添加按钮"
       }
     },
     "titleLang": {
