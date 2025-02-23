@@ -6,7 +6,8 @@
 
 // The adapter-core module gives you access to the core ioBroker functions
 // you need to create an adapter
-const utils = require('@iobroker/adapter-core');
+import { Adapter } from '@iobroker/adapter-core';
+
 let checkBox;
 let idTextToCommand;
 let timeout_1;
@@ -14,7 +15,7 @@ let timeout_2;
 let timeout_3;
 let idInstance;
 
-class AlexaShoppinglist extends utils.Adapter {
+class AlexaShoppinglist extends Adapter {
     /**
      * Options
      *
@@ -49,7 +50,7 @@ class AlexaShoppinglist extends utils.Adapter {
         };
 
         let list;
-        if (alexaState != '') {
+        if (alexaState) {
             list = idInstance.list.replace('_', ' ').toLowerCase().replace('list', ' ');
         }
 
@@ -92,7 +93,7 @@ class AlexaShoppinglist extends utils.Adapter {
                     jsonActive = [];
                     jsonInactive = [];
                     for (const element of alexaList) {
-                        if (element.completed == false) {
+                        if (element.completed === false) {
                             jsonActive.push({
                                 name: firstLetterToUpperCase(element.value),
                                 time: new Date(element.createdDateTime).toLocaleString(),
@@ -141,8 +142,8 @@ class AlexaShoppinglist extends utils.Adapter {
          */
         const shiftPosition = (pos, array, direction) => {
             for (const element of array) {
-                if (pos == element.pos) {
-                    if (direction == 'toActiv') {
+                if (pos === element.pos) {
+                    if (direction === 'toActiv') {
                         this.setForeignStateAsync(`${idAdapter}.items.${element.id}.completed`, false, false);
                         timeout_2 = setTimeout(() => {
                             this.setState(`alexa-shoppinglist.${this.instance}.position_to_shift`, 0, true);
@@ -166,9 +167,9 @@ class AlexaShoppinglist extends utils.Adapter {
         const deleteList = async (array, direction) => {
             for (const element of array) {
                 try {
-                    if (direction == 'toInActiv') {
+                    if (direction === 'toInActiv') {
                         this.setForeignStateAsync(`${idAdapter}.items.${element.id}.completed`, true, false);
-                    } else if (direction == 'delete') {
+                    } else if (direction === 'delete') {
                         await this.setForeignStateAsync(`${idAdapter}.items.${element.id}.#delete`, true, false);
                     }
                 } catch (e) {
@@ -184,7 +185,7 @@ class AlexaShoppinglist extends utils.Adapter {
          */
         const addPosition = element => {
             this.getForeignStateAsync(idTextToCommand, (err, obj) => {
-                if (err || obj == '') {
+                if (err || obj === '') {
                     this.log.info('State not found! Please check the ID!');
                 } else {
                     try {
@@ -207,7 +208,7 @@ class AlexaShoppinglist extends utils.Adapter {
          */
         const sortList = (array, kindOfSort) => {
             let arraySort;
-            if (kindOfSort == '1') {
+            if (kindOfSort === '1') {
                 arraySort = array.sort((a, b) => {
                     a.time - b.time;
                 });
@@ -255,17 +256,15 @@ class AlexaShoppinglist extends utils.Adapter {
                 const val1JSON = `<button style="border:none; cursor:pointer; background-color:transparent; color:white; font-size:1em; text-align:center" value="toggle" onclick="setOnDblClickCustomShop('${
                     valButtonDelete
                 },${true}')">${symbolLink}</button> <font color="${farbeSchalterON}">`;
-                if (list == 'activ') {
-                    const val2JSON = `<button style="border:none; cursor:pointer; background-color:transparent; color:white; font-size:1em; text-align:center" value="toggle" onclick="setOnDblClickCustomShop('${
+                if (list === 'activ') {
+                    element.buttonmove = `<button style="border:none; cursor:pointer; background-color:transparent; color:white; font-size:1em; text-align:center" value="toggle" onclick="setOnDblClickCustomShop('${
                         valButtonMove
                     },${true}')">${symbolMoveToInactiv}</button> <font color="${farbeSchalterON}">`;
-                    element.buttonmove = val2JSON;
                 }
-                if (list == 'inactiv') {
-                    const val2JSON = `<button style="border:none; cursor:pointer; background-color:transparent; color:white; font-size:1em; text-align:center" value="toggle" onclick="setOnDblClickCustomShop('${
+                if (list === 'inactiv') {
+                    element.buttonmove = `<button style="border:none; cursor:pointer; background-color:transparent; color:white; font-size:1em; text-align:center" value="toggle" onclick="setOnDblClickCustomShop('${
                         valButtonMove
                     },${false}')">${symbolMoveToActiv}</button> <font color="${farbeSchalterON}">`;
-                    element.buttonmove = val2JSON;
                 }
 
                 element.buttondelete = val1JSON;
@@ -287,10 +286,10 @@ class AlexaShoppinglist extends utils.Adapter {
             let valueOld = null;
             // ANCHOR onStateChange
             this.on('stateChange', async (id, state) => {
-                if (state && state.val != valueOld) {
+                if (state && state.val !== valueOld) {
                     valueOld = state.val;
                     try {
-                        if (id == alexaState) {
+                        if (id === alexaState) {
                             runFunction(sortListActive, sortListInActive).then(() => {
                                 //TODO
                                 if (checkBox && jsonInactive[0]) {
@@ -303,11 +302,11 @@ class AlexaShoppinglist extends utils.Adapter {
                         // Auf Sortierungs Datenpunkt reagieren
                         if (
                             state &&
-                            state.ack == false &&
+                            state.ack === false &&
                             typeof state.val == 'string' &&
-                            (id == idSortActive || id == idSortInActive)
+                            (id === idSortActive || id === idSortInActive)
                         ) {
-                            if (id == idSortActive) {
+                            if (id === idSortActive) {
                                 sortListActive = state.val;
                                 this.log.info('Active Liste sortieren');
                             } else {
@@ -326,8 +325,8 @@ class AlexaShoppinglist extends utils.Adapter {
                             state &&
                             state.val &&
                             typeof state.val == 'string' &&
-                            id == `alexa-shoppinglist.${this.instance}.add_position` &&
-                            state.ack == false
+                            id === `alexa-shoppinglist.${this.instance}.add_position` &&
+                            state.ack === false
                         ) {
                             addPosition(state.val);
 
@@ -339,8 +338,8 @@ class AlexaShoppinglist extends utils.Adapter {
                             state &&
                             state.val &&
                             typeof state.val == 'boolean' &&
-                            id == `alexa-shoppinglist.${this.instance}.delete_inactiv_list` &&
-                            state.ack == false
+                            id === `alexa-shoppinglist.${this.instance}.delete_inactiv_list` &&
+                            state.ack === false
                         ) {
                             deleteListJsonInactive(id);
                         }
@@ -349,8 +348,8 @@ class AlexaShoppinglist extends utils.Adapter {
                             state &&
                             state.val &&
                             typeof state.val == 'boolean' &&
-                            id == `alexa-shoppinglist.${this.instance}.delete_activ_list` &&
-                            state.ack == false
+                            id === `alexa-shoppinglist.${this.instance}.delete_activ_list` &&
+                            state.ack === false
                         ) {
                             this.log.info('Active List deleted');
                             deleteList(jsonActive, 'toInActiv');
@@ -362,8 +361,8 @@ class AlexaShoppinglist extends utils.Adapter {
                         if (
                             state &&
                             state.val &&
-                            id == `alexa-shoppinglist.${this.instance}.to_inactiv_list` &&
-                            state.ack == false
+                            id === `alexa-shoppinglist.${this.instance}.to_inactiv_list` &&
+                            state.ack === false
                         ) {
                             this.log.info('Position to Inactive');
                             shiftPosition(positionToShift, jsonActive, 'toInActiv');
@@ -376,8 +375,8 @@ class AlexaShoppinglist extends utils.Adapter {
                             state &&
                             state.val &&
                             typeof state.val == 'boolean' &&
-                            id == `alexa-shoppinglist.${this.instance}.to_activ_list` &&
-                            state.ack == false
+                            id === `alexa-shoppinglist.${this.instance}.to_activ_list` &&
+                            state.ack === false
                         ) {
                             this.log.info('Position to Active');
                             shiftPosition(positionToShift, jsonInactive, 'toActiv');
@@ -389,8 +388,8 @@ class AlexaShoppinglist extends utils.Adapter {
                             state &&
                             state.val &&
                             typeof state.val == 'number' &&
-                            id == `alexa-shoppinglist.${this.instance}.position_to_shift` &&
-                            state.ack == false
+                            id === `alexa-shoppinglist.${this.instance}.position_to_shift` &&
+                            state.ack === false
                         ) {
                             this.log.info('Position');
                             positionToShift = state.val;
@@ -406,7 +405,7 @@ class AlexaShoppinglist extends utils.Adapter {
 
         const deleteListJsonInactive = async id => {
             this.log.info('Inactive List deleted');
-            deleteList(jsonInactive, 'delete');
+            await deleteList(jsonInactive, 'delete');
 
             await this.setStateAsync(id, { ack: true });
         };
