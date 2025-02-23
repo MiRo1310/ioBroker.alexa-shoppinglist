@@ -7,7 +7,6 @@
 // The adapter-core module gives you access to the core ioBroker functions
 // you need to create an adapter
 const utils = require('@iobroker/adapter-core');
-
 let checkBox;
 let idTextToCommand;
 let timeout_1;
@@ -15,7 +14,7 @@ let timeout_2;
 let timeout_3;
 let idInstance;
 
-class AlexaShoppinglist extends utils.Adapter {
+class AlexaShoppinglist extends Adapter {
     /**
      * Options
      *
