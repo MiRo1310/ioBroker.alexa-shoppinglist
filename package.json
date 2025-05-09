@@ -44,19 +44,23 @@
     "proxyquire": "^2.1.3",
     "sinon": "^21.0.0",
     "sinon-chai": "^3.7.0",
-    "typescript": "~5.8.3"
+    "rimraf": "^6.0.1",
+    "typescript": "~5.8.2"
   },
-  "main": "main.js",
+  "main": "build/main.js",
   "files": [
     "admin{,/!(src)/**}/!(tsconfig|tsconfig.*).json",
     "admin{,/!(src)/**}/*.{html,css,png,svg,jpg,js}",
-    "lib/",
+    "src/lib/",
     "www/",
+    "build/",
     "io-package.json",
-    "LICENSE",
-    "main.js"
+    "LICENSE"
   ],
   "scripts": {
+    "prebuild": "npm run lint:fix && rimraf admin/build",
+    "build": "build-adapter all",
+    "watch": "build-adapter react --watch",
     "test:js": "mocha --config test/mocharc.custom.json \"{!(node_modules|test)/**/*.test.js,*.test.js,test/**/test!(PackageFiles|Startup).js}\"",
     "test:package": "mocha test/package --exit",
     "test:unit": "mocha test/unit --exit",

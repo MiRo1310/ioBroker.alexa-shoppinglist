@@ -82,6 +82,7 @@ function setOnDblClickCustomShop( myvalue) {
 ### **WORK IN PROGRESS**
 
 - Breaking change: minimal supported node.js version is 20.x
+- FEAT: Add typescript
 
 ### 1.0.3 (2024-12-04)
 
