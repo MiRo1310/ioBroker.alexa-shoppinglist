@@ -1,16 +1,14 @@
-import type { Instance } from '../types/types';
+import type { ShoppingList } from '../types/types';
 import type AlexaShoppinglist from '../main';
+import { timeout } from './timeout';
+import { adapterIds, getAlexaInstanceValues } from './ids';
 
-export const addPos = (
-    array: {
-        pos: number;
-        id: string;
-        buttonmove: string;
-        buttondelete: string;
-    }[],
-    list: 'activ' | 'inactiv',
-    idInstance: Instance,
+export const addPositionNumberAndBtn = (
+    adapter: AlexaShoppinglist,
+    array: ShoppingList[],
+    list: 'active' | 'inactive',
 ): void => {
+    const idInstance = getAlexaInstanceValues(adapter);
     let num = 0;
     // Button
     const symbolLink = '❌';
@@ -19,29 +17,27 @@ export const addPos = (
     const colorBtnON = 'green';
 
     for (const element of array) {
-        // Positionsnummern eintragen
         num++;
-        element.pos = num;
+        element.pos = num; // Positionsnummern eintragen
 
-        // Button Delete
-        const valButtonDelete = `alexa2.0.Lists.${idInstance.list}.items.${element.id}.#delete`;
-
-        // Button Completed
-        const valButtonMove = `alexa2.0.Lists.${idInstance.list}.items.${element.id}.completed`;
+        const idAlexaButtonDelete = `alexa2.0.Lists.${idInstance.list}.items.${element.id}.#delete`;
+        const idAlexaButtonCompleted = `alexa2.0.Lists.${idInstance.list}.items.${element.id}.completed`;
 
         // Der Button delete
 
         const val1JSON = `<button style="border:none; cursor:pointer; background-color:transparent; color:white; font-size:1em; text-align:center" value="toggle" onclick="setOnDblClickCustomShop('${
-            valButtonDelete
+            idAlexaButtonDelete
         },${true}')">${symbolLink}</button> <font color="${colorBtnON}">`;
-        if (list === 'activ') {
+
+        if (list === 'active') {
             element.buttonmove = `<button style="border:none; cursor:pointer; background-color:transparent; color:white; font-size:1em; text-align:center" value="toggle" onclick="setOnDblClickCustomShop('${
-                valButtonMove
+                idAlexaButtonCompleted
             },${true}')">${symbolMoveToInactive}</button> <font color="${colorBtnON}">`;
         }
-        if (list === 'inactiv') {
+
+        if (list === 'inactive') {
             element.buttonmove = `<button style="border:none; cursor:pointer; background-color:transparent; color:white; font-size:1em; text-align:center" value="toggle" onclick="setOnDblClickCustomShop('${
-                valButtonMove
+                idAlexaButtonCompleted
             },${false}')">${symbolMoveToActive}</button> <font color="${colorBtnON}">`;
         }
 
@@ -49,30 +45,25 @@ export const addPos = (
     }
 };
 
-/**
- * Fügt einen Artikel zur Liste hinzu
- *
- * @param adapter
- * @param element Artikel der hinzugefügt werden soll
- * @param idTextToCommand
- * @param list
- */
 export const addPosition = async (
     adapter: AlexaShoppinglist,
     element: ioBroker.StateValue,
     idTextToCommand: string,
-    list: string,
-): Promise<number> => {
-    let timeout_1: ioBroker.Timeout;
-    await adapter.getForeignStateAsync(idTextToCommand, async (err, obj) => {
-        if (err || obj === '') {
-            adapter.log.info('State not found! Please check the ID!');
-        } else {
-            await adapter.setForeignStateAsync(idTextToCommand, `${element} zur ${list} liste`, false);
-            timeout_1 = adapter.setTimeout(async () => {
-                await adapter.setState(`alexa-shoppinglist.${adapter.instance}.add_position`, '', false);
-            }, 2000);
-        }
-    });
-    return timeout_1;
+): Promise<void> => {
+    const { listName } = getAlexaInstanceValues(adapter);
+    const { getIds } = adapterIds(adapter);
+    const result = await adapter.getForeignStateAsync(idTextToCommand, async () => {});
+
+    if (!result) {
+        adapter.log.info('State not found! Please check the ID!');
+        return;
+    }
+
+    await adapter.setForeignStateAsync(idTextToCommand, `${element} to ${listName} list`, false);
+    timeout().setTimeout(
+        1,
+        adapter.setTimeout(async () => {
+            await adapter.setState(getIds.idAddPosition, '', false);
+        }, 2000),
+    );
 };

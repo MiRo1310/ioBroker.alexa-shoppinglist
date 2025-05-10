@@ -8,17 +8,16 @@
 // you need to create an adapter
 
 import * as utils from '@iobroker/adapter-core';
-import type { Instance } from './types/types';
 import { addPosition } from './lib/addPosition';
-import { runFunction } from './lib/runFunction';
-import { deleteListJsonInactive } from './lib/deletListJson';
-import { deleteList } from './lib/deleteList';
+import { updateListsOnChange } from './lib/updateListsOnChange';
+import { deleteOrSetAsCompleted } from './lib/deleteOrSetAsCompleted';
 import { shiftPosition } from './lib/shiftPosition';
-
-let timeout_1: ioBroker.Timeout | undefined;
-let timeout_2: ioBroker.Timeout | undefined;
-let timeout_3: ioBroker.Timeout | undefined;
-let idInstance: Instance;
+import { timeout } from './lib/timeout';
+import { adapterIds } from './lib/ids';
+import type { OnMessageObj, ShoppingList, SortByTime1Alpha2 } from './types/types';
+import { isStateValue } from './lib/utils';
+import { getAlexaDevices } from './lib/getAlexaDevices';
+import { getShoppingLists } from './lib/getShoppingLists';
 
 export default class AlexaShoppinglist extends utils.Adapter {
     public constructor(options: Partial<utils.AdapterOptions> = {}) {
@@ -35,192 +34,134 @@ export default class AlexaShoppinglist extends utils.Adapter {
         const adapter = this;
         await this.setState('info.connection', false, true);
 
-        const alexaState = this.config.shoppinglist;
-        const idTextToCommand = this.config.device;
-        const checkBox = this.config.doNotMovetoInactiv;
+        const { shoppinglist: shoppingListId, device: idTextToCommand, doNotMovetoInactiv: checkBox } = this.config;
 
-        this.log.info(`Checkbox: ${JSON.stringify(checkBox)}`);
+        const state = await this.getForeignState(shoppingListId, () => {});
 
-        const alexaStateArray = alexaState.split('.');
-
-        idInstance = {
-            adapter: alexaStateArray[0],
-            instanz: alexaStateArray[1],
-            channel_history: alexaStateArray[2],
-            list: alexaStateArray[3],
-        };
-
-        let list = '';
-        if (alexaState) {
-            list = idInstance.list.replace('_', ' ').toLowerCase().replace('list', ' ');
+        if (!state) {
+            this.log.error(`The DataPoint ${shoppingListId} was not found!`);
+            return;
         }
+        const { getIds, validateIds, setIds } = adapterIds(adapter);
+        setIds.setShoppingListId(shoppingListId);
 
-        this.log.info(idTextToCommand);
-        this.log.info(alexaState);
+        const idAdapter = shoppingListId.slice(0, shoppingListId.length - 5);
 
-        const idAdapter = alexaState.slice(0, alexaState.length - 5);
-
-        const idSortActive = `alexa-shoppinglist.${this.instance}.list_activ_sort`;
-        const idSortInActive = `alexa-shoppinglist.${this.instance}.list_inactiv_sort`;
-
-        let sortListActive = '1';
-        let sortListInActive = '1';
         let positionToShift = 0;
-        const jsonActive = [];
-        const jsonInactive = [];
+        let jsonActive: ShoppingList[] = [];
+        let jsonInactive: ShoppingList[] = [];
 
-        const idSortActiveState = await this.getStateAsync(idSortActive);
-        if (idSortActiveState && idSortActiveState.val && typeof idSortActiveState.val == 'string') {
-            sortListActive = idSortActiveState.val;
-        }
+        const idSortActiveState = await this.getStateAsync(getIds.idSortActiveList);
+        const idSortInActiveState = await this.getStateAsync(getIds.idSortInActiveList);
 
-        const idSortInActiveState = await this.getStateAsync(idSortInActive);
-        if (idSortInActiveState && idSortInActiveState.val && typeof idSortInActiveState.val == 'string') {
-            sortListInActive = idSortInActiveState.val;
-        }
+        let sortListActive: SortByTime1Alpha2 = idSortActiveState?.val
+            ? (String(idSortActiveState.val) as SortByTime1Alpha2)
+            : '1';
 
-        await this.getForeignState(alexaState, async (err, obj) => {
-            if (err || obj == null) {
-                this.log.error(`The DataPoint ${alexaState} was not found!`);
-            } else {
-                // Datenpunkt wurde gefunden
-                this.log.info('Alexa State was found');
-                await this.setState('info.connection', true, true);
-                await runFunction(sortListActive, sortListInActive);
-            }
+        let sortListInActive: SortByTime1Alpha2 = idSortInActiveState?.val
+            ? (String(idSortInActiveState.val) as SortByTime1Alpha2)
+            : '1';
 
-            // --------------------------------------------------------------------------------------------
+        this.log.info('Alexa State was found');
+        await this.setState('info.connection', true, true);
+        ({ jsonInactive, jsonActive } = await updateListsOnChange(
+            adapter,
+            sortListActive,
+            sortListInActive,
+            shoppingListId,
+        ));
 
-            let valueOld: ioBroker.StateValue = null;
+        let valueOld: ioBroker.StateValue = null;
+        const {
+            isToInActiveList,
+            isDeleteActiveList,
+            isDeleteInActiveList,
+            isToActiveList,
+            isPositionToShift,
+            isAddPosition,
+        } = validateIds;
 
-            this.on('stateChange', async (id, state) => {
-                if (state && state.val !== valueOld) {
-                    valueOld = state.val;
-                    try {
-                        if (id === alexaState) {
-                            await runFunction(sortListActive, sortListInActive).then(async () => {
-                                //TODO
-                                if (checkBox && jsonInactive[0]) {
-                                    this.log.info('Inaktiven Artikel löschen');
-                                    await deleteListJsonInactive(
-                                        adapter,
-                                        `alexa-shoppinglist.${this.instance}.delete_inactiv_list`,
-                                        jsonInactive,
-                                    );
-                                }
-                            });
+        this.on('stateChange', async (id, state) => {
+            if (state?.val !== valueOld) {
+                valueOld = state.val;
+                try {
+                    if (id === shoppingListId) {
+                        ({ jsonInactive, jsonActive } = await updateListsOnChange(
+                            adapter,
+                            sortListActive,
+                            sortListInActive,
+                            shoppingListId,
+                        ));
+                        if (checkBox && jsonInactive[0]) {
+                            this.log.debug('Delete inactive list');
+                            await deleteOrSetAsCompleted(adapter, jsonInactive, 'delete', idAdapter);
                         }
-
-                        // Auf Sortierungs Datenpunkt reagieren
-                        if (
-                            state &&
-                            state.ack === false &&
-                            typeof state.val == 'string' &&
-                            (id === idSortActive || id === idSortInActive)
-                        ) {
-                            if (id === idSortActive) {
-                                sortListActive = state.val;
-                                this.log.info('Active Liste sortieren');
-                            } else {
-                                sortListInActive = state.val;
-                                this.log.info('Inactive Liste sortieren');
-                            }
-
-                            this.log.info(sortListActive);
-                            await runFunction(sortListActive, sortListInActive);
-
-                            await this.setState(id, { ack: true });
-                        }
-
-                        // Position hinzufügen
-                        if (
-                            state &&
-                            state.val &&
-                            typeof state.val == 'string' &&
-                            id === `alexa-shoppinglist.${this.instance}.add_position` &&
-                            state.ack === false
-                        ) {
-                            await addPosition(adapter, state.val, idTextToCommand, list);
-
-                            await this.setState(id, { ack: true });
-                        }
-
-                        // Inactiv Liste leeren, oder Grundsätzlich wenn Artikel von Activ gelöscht werden und Checkbox aktiv ist
-                        if (
-                            state?.val &&
-                            typeof state.val == 'boolean' &&
-                            id === `alexa-shoppinglist.${this.instance}.delete_inactiv_list` &&
-                            state.ack === false
-                        ) {
-                            await deleteListJsonInactive(adapter, id, jsonInactive);
-                        }
-                        // Activ Liste leeren
-                        if (
-                            state?.val &&
-                            typeof state.val == 'boolean' &&
-                            id === `alexa-shoppinglist.${this.instance}.delete_activ_list` &&
-                            state.ack === false
-                        ) {
-                            this.log.info('Active List deleted');
-                            await deleteList(jsonActive, 'toInActiv');
-
-                            await this.setState(id, { ack: true });
-                        }
-
-                        // Zu Inactiv Liste verschieben
-                        if (
-                            state?.val &&
-                            id === `alexa-shoppinglist.${this.instance}.to_inactiv_list` &&
-                            state.ack === false
-                        ) {
-                            this.log.info('Position to Inactive');
-                            shiftPosition(positionToShift, jsonActive, 'toInActiv');
-
-                            await this.setState(id, { ack: true });
-                        }
-
-                        // Zu Activ Liste verschieben
-                        if (
-                            state?.val &&
-                            typeof state.val == 'boolean' &&
-                            id === `alexa-shoppinglist.${this.instance}.to_activ_list` &&
-                            state.ack === false
-                        ) {
-                            this.log.info('Position to Active');
-                            shiftPosition(positionToShift, jsonInactive, 'toActiv');
-
-                            await this.setState(id, { ack: true });
-                        }
-                        // Position die verschoben werden soll
-                        if (
-                            state &&
-                            state.val &&
-                            typeof state.val == 'number' &&
-                            id === `alexa-shoppinglist.${this.instance}.position_to_shift` &&
-                            state.ack === false
-                        ) {
-                            this.log.info('Position');
-                            positionToShift = state.val;
-
-                            await this.setState(id, { ack: true });
-                        }
-                    } catch (e) {
-                        this.log.error(e);
                     }
+
+                    if (
+                        isStateValue(state, 'string') &&
+                        (id === getIds.idSortActiveList || id === getIds.idSortInActiveList)
+                    ) {
+                        if (id === getIds.idSortActiveList) {
+                            sortListActive = state.val as SortByTime1Alpha2;
+                        } else {
+                            sortListInActive = state.val as SortByTime1Alpha2;
+                        }
+
+                        ({ jsonActive, jsonInactive } = await updateListsOnChange(
+                            adapter,
+                            sortListActive,
+                            sortListInActive,
+                            shoppingListId,
+                        ));
+                        await this.setState(id, { ack: true });
+                    }
+
+                    if (isStateValue(state, 'string') && isAddPosition(id)) {
+                        await addPosition(adapter, state.val, idTextToCommand);
+                        await this.setState(id, { ack: true });
+                    }
+
+                    if (isStateValue(state, 'boolean') && isDeleteInActiveList(id)) {
+                        await deleteOrSetAsCompleted(adapter, jsonInactive, 'delete', idAdapter);
+                        await this.setState(id, { ack: true });
+                    }
+
+                    if (isStateValue(state, 'boolean') && isDeleteActiveList(id)) {
+                        await deleteOrSetAsCompleted(adapter, jsonActive, 'completed', idAdapter);
+                        await this.setState(id, { ack: true });
+                    }
+
+                    if (isStateValue(state, 'boolean') && isToInActiveList(id)) {
+                        await shiftPosition(adapter, positionToShift, jsonActive, 'toInActiv', idAdapter);
+                        await this.setState(id, { ack: true });
+                    }
+
+                    if (isStateValue(state, 'boolean') && isToActiveList(id)) {
+                        await shiftPosition(adapter, positionToShift, jsonInactive, 'toActiv', idAdapter);
+                        await this.setState(id, { ack: true });
+                    }
+
+                    if (isStateValue(state, 'number') && isPositionToShift(id)) {
+                        positionToShift = state.val;
+                        await this.setState(id, { ack: true });
+                    }
+                } catch (e) {
+                    this.log.error(e);
                 }
-            });
+            }
         });
 
-        await this.subscribeForeignStatesAsync(alexaState);
+        await this.subscribeForeignStatesAsync(shoppingListId);
 
-        await this.subscribeStatesAsync(idSortActive);
-        await this.subscribeStatesAsync(idSortInActive);
-        await this.subscribeStatesAsync(`alexa-shoppinglist.${this.instance}.add_position`);
-        await this.subscribeStatesAsync(`alexa-shoppinglist.${this.instance}.to_activ_list`);
-        await this.subscribeStatesAsync(`alexa-shoppinglist.${this.instance}.to_inactiv_list`);
-        await this.subscribeStatesAsync(`alexa-shoppinglist.${this.instance}.delete_inactiv_list`);
-        await this.subscribeStatesAsync(`alexa-shoppinglist.${this.instance}.delete_activ_list`);
-        await this.subscribeStatesAsync(`alexa-shoppinglist.${this.instance}.position_to_shift`);
+        await this.subscribeStatesAsync(getIds.idSortActiveList);
+        await this.subscribeStatesAsync(getIds.idSortInActiveList);
+        await this.subscribeStatesAsync(getIds.idAddPosition);
+        await this.subscribeStatesAsync(getIds.idToActiveList);
+        await this.subscribeStatesAsync(getIds.idToInActiveList);
+        await this.subscribeStatesAsync(getIds.idDeleteInActiveList);
+        await this.subscribeStatesAsync(getIds.idDeleteActiveList);
+        await this.subscribeStatesAsync(getIds.idPositionToShift);
     }
 
     /**
@@ -230,9 +171,10 @@ export default class AlexaShoppinglist extends utils.Adapter {
      */
     onUnload(callback: () => void): void {
         try {
-            this.clearTimeout(timeout_1);
-            this.clearTimeout(timeout_2);
-            this.clearTimeout(timeout_3);
+            const timeouts = timeout();
+            this.clearTimeout(timeouts.getTimeout(1));
+            this.clearTimeout(timeouts.getTimeout(2));
+            this.clearTimeout(timeouts.getTimeout(3));
 
             callback();
         } catch (e: any) {
@@ -241,48 +183,15 @@ export default class AlexaShoppinglist extends utils.Adapter {
         }
     }
 
-    async onMessage(obj: { command: string; message: { alexa: string }; callback: any; from: string }): Promise<void> {
+    async onMessage(obj: OnMessageObj): Promise<void> {
         if (obj) {
             switch (obj.command) {
                 case 'getDevices': {
-                    const devices = await this.getObjectViewAsync('system', 'device', {
-                        startkey: `${obj.message.alexa}.Echo-Devices.`,
-                        endkey: `${obj.message.alexa}.Echo-Devices.\u9999`,
-                    });
-                    const result: { label: ioBroker.StringOrTranslated; value: string }[] = [];
-                    for (let i = 0; i < devices.rows.length; i++) {
-                        const a = devices.rows[i];
-                        if (
-                            a.value &&
-                            a.value.common.name !== 'Timer' &&
-                            a.value.common.name !== 'Reminder' &&
-                            a.value.common.name !== 'Alarm'
-                        ) {
-                            result.push({
-                                label: a.value.common.name,
-                                value: `${a.id}.Commands.textCommand`,
-                            });
-                        }
-                    }
-                    obj.callback && this.sendTo(obj.from, obj.command, result, obj.callback);
+                    await getAlexaDevices(this, obj);
                     break;
                 }
                 case 'getShoppinglist': {
-                    const result: { label: ioBroker.StringOrTranslated; value: string }[] = [];
-                    const lists = await this.getObjectViewAsync('system', 'channel', {
-                        startkey: `${obj.message.alexa}.Lists.`,
-                        endkey: `${obj.message.alexa}.Lists.\u9999`,
-                    });
-                    for (let i = 0; i < lists.rows.length; i++) {
-                        const a = lists.rows[i];
-                        if (a.value && a.id.split('.').length === 4) {
-                            result.push({
-                                label: `${JSON.stringify(a.value.common.name)}`,
-                                value: `${a.id}.json`,
-                            });
-                        }
-                    }
-                    obj.callback && this.sendTo(obj.from, obj.command, result, obj.callback);
+                    await getShoppingLists(this, obj);
                     break;
                 }
             }
@@ -295,7 +204,7 @@ if (require.main !== module) {
     /**
      * @param [options] {object} Some options
      */
-    module.exports = options => new AlexaShoppinglist(options);
+    module.exports = (options: Partial<utils.AdapterOptions<undefined, undefined>>) => new AlexaShoppinglist(options);
 } else {
     // otherwise start the instance directly
     new AlexaShoppinglist();
