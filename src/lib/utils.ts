@@ -1,23 +1,19 @@
+import type { ShoppingList, SortByTime1Alpha2 } from '../types/types';
+
 export const firstLetterToUpperCase = (name: string): string => {
     const firstLetter = name.slice(0, 1); // Ersten Buchstaben selektieren
     const leftoverLetters = name.slice(1); // Restliche Buchstaben selektieren
     return firstLetter.toUpperCase() + leftoverLetters;
 };
 
-export const sortList = (
-    array: { time: number; name: string }[],
-    sortBy: string,
-): {
-    time: number;
-    name: string;
-}[] => {
-    let arraySort: { time: number; name: string }[] = [];
+export const sortList = (array: ShoppingList[], sortBy: SortByTime1Alpha2): ShoppingList[] => {
     if (sortBy === '1') {
-        arraySort = array.sort((a, b) => {
-            return a.time - b.time;
+        return array.sort((a, b): number => {
+            return a.ts - b.ts;
         });
-    } else {
-        arraySort = array.sort((a, b) => {
+    }
+    if (sortBy === '2') {
+        return array.sort((a, b) => {
             if (a.name > b.name) {
                 return 1;
             } else if (a.name < b.name) {
@@ -26,5 +22,14 @@ export const sortList = (
             return 0;
         });
     }
-    return arraySort;
+    return array;
 };
+
+/*
+Is State and Ack === false and State typeof === type
+ */
+export const isStateValue = <T extends 'string' | 'boolean' | 'number'>(
+    state: ioBroker.State,
+    type: T,
+): state is ioBroker.State & { val: T extends 'string' ? string : T extends 'boolean' ? boolean : number } =>
+    state?.val !== undefined && typeof state.val === type && !state.ack;
