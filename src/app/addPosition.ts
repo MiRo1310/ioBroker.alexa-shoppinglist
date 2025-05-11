@@ -2,6 +2,7 @@ import type { ShoppingList } from '../types/types';
 import type AlexaShoppinglist from '../main';
 import { timeout } from './timeout';
 import { adapterIds } from './ids';
+import { errorLogger } from './logging';
 
 export const addPositionNumberAndBtn = (
     adapter: AlexaShoppinglist,
@@ -49,20 +50,24 @@ export const addPosition = async (
     element: ioBroker.StateValue,
     idTextToCommand: string,
 ): Promise<void> => {
-    const { getAdapterIds, getAlexaIds } = adapterIds();
-    const { listName } = getAlexaIds.alexaInstanceValues;
-    const result = await adapter.getForeignStateAsync(idTextToCommand, async () => {});
+    try {
+        const { getAdapterIds, getAlexaIds } = adapterIds();
+        const { listName } = getAlexaIds.alexaInstanceValues;
+        const result = await adapter.getForeignStateAsync(idTextToCommand, async () => {});
 
-    if (!result) {
-        adapter.log.info('State not found! Please check the ID!');
-        return;
+        if (!result) {
+            adapter.log.info('State not found! Please check the ID!');
+            return;
+        }
+
+        await adapter.setForeignStateAsync(idTextToCommand, `${element} to ${listName} list`, false);
+        timeout().setTimeout(
+            1,
+            adapter.setTimeout(async () => {
+                await adapter.setState(getAdapterIds.idAddPosition, '', false);
+            }, 2000),
+        );
+    } catch (e: any) {
+        errorLogger('Error add position', e, adapter);
     }
-
-    await adapter.setForeignStateAsync(idTextToCommand, `${element} to ${listName} list`, false);
-    timeout().setTimeout(
-        1,
-        adapter.setTimeout(async () => {
-            await adapter.setState(getAdapterIds.idAddPosition, '', false);
-        }, 2000),
-    );
 };
