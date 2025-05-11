@@ -18,7 +18,7 @@ export const deleteOrSetAsCompleted = async (
             if (status === 'delete') {
                 await adapter.setForeignStateAsync(`${idAdapter}.items.${id}.#delete`, true, false);
             }
-        } catch (e) {
+        } catch (e: any) {
             adapter.log.error(e);
         }
     }

@@ -8,16 +8,16 @@
 // you need to create an adapter
 
 import * as utils from '@iobroker/adapter-core';
-import { addPosition } from './lib/addPosition';
-import { updateListsOnChange } from './lib/updateListsOnChange';
-import { deleteOrSetAsCompleted } from './lib/deleteOrSetAsCompleted';
-import { shiftPosition } from './lib/shiftPosition';
-import { timeout } from './lib/timeout';
-import { adapterIds } from './lib/ids';
+import { addPosition } from './app/addPosition';
+import { updateListsOnChange } from './app/updateListsOnChange';
+import { deleteOrSetAsCompleted } from './app/deleteOrSetAsCompleted';
+import { shiftPosition } from './app/shiftPosition';
+import { timeout } from './app/timeout';
+import { adapterIds } from './app/ids';
 import type { OnMessageObj, ShoppingList, SortByTime1Alpha2 } from './types/types';
 import { isStateValue } from './lib/utils';
-import { getAlexaDevices } from './lib/getAlexaDevices';
-import { getShoppingLists } from './lib/getShoppingLists';
+import { getAlexaDevices } from './app/getAlexaDevices';
+import { getShoppingLists } from './app/getShoppingLists';
 
 export default class AlexaShoppinglist extends utils.Adapter {
     public constructor(options: Partial<utils.AdapterOptions> = {}) {
@@ -26,6 +26,7 @@ export default class AlexaShoppinglist extends utils.Adapter {
             name: 'alexa-shoppinglist',
         });
         this.on('ready', this.onReady.bind(this));
+        // @ts-expect-error
         this.on('message', this.onMessage.bind(this));
         this.on('unload', this.onUnload.bind(this));
     }
@@ -42,7 +43,7 @@ export default class AlexaShoppinglist extends utils.Adapter {
             this.log.error(`The DataPoint ${shoppingListId} was not found!`);
             return;
         }
-        const { getIds, validateIds, setIds } = adapterIds(adapter);
+        const { getAdapterIds, validateIds, setIds } = adapterIds(adapter);
         setIds.setShoppingListId(shoppingListId);
 
         const idAdapter = shoppingListId.slice(0, shoppingListId.length - 5);
@@ -51,8 +52,8 @@ export default class AlexaShoppinglist extends utils.Adapter {
         let jsonActive: ShoppingList[] = [];
         let jsonInactive: ShoppingList[] = [];
 
-        const idSortActiveState = await this.getStateAsync(getIds.idSortActiveList);
-        const idSortInActiveState = await this.getStateAsync(getIds.idSortInActiveList);
+        const idSortActiveState = await this.getStateAsync(getAdapterIds.idSortActiveList);
+        const idSortInActiveState = await this.getStateAsync(getAdapterIds.idSortInActiveList);
 
         let sortListActive: SortByTime1Alpha2 = idSortActiveState?.val
             ? (String(idSortActiveState.val) as SortByTime1Alpha2)
@@ -82,7 +83,7 @@ export default class AlexaShoppinglist extends utils.Adapter {
         } = validateIds;
 
         this.on('stateChange', async (id, state) => {
-            if (state?.val !== valueOld) {
+            if (state?.val && state?.val !== valueOld) {
                 valueOld = state.val;
                 try {
                     if (id === shoppingListId) {
@@ -100,9 +101,9 @@ export default class AlexaShoppinglist extends utils.Adapter {
 
                     if (
                         isStateValue(state, 'string') &&
-                        (id === getIds.idSortActiveList || id === getIds.idSortInActiveList)
+                        (id === getAdapterIds.idSortActiveList || id === getAdapterIds.idSortInActiveList)
                     ) {
-                        if (id === getIds.idSortActiveList) {
+                        if (id === getAdapterIds.idSortActiveList) {
                             sortListActive = state.val as SortByTime1Alpha2;
                         } else {
                             sortListInActive = state.val as SortByTime1Alpha2;
@@ -146,7 +147,7 @@ export default class AlexaShoppinglist extends utils.Adapter {
                         positionToShift = state.val;
                         await this.setState(id, { ack: true });
                     }
-                } catch (e) {
+                } catch (e: any) {
                     this.log.error(e);
                 }
             }
@@ -154,14 +155,14 @@ export default class AlexaShoppinglist extends utils.Adapter {
 
         await this.subscribeForeignStatesAsync(shoppingListId);
 
-        await this.subscribeStatesAsync(getIds.idSortActiveList);
-        await this.subscribeStatesAsync(getIds.idSortInActiveList);
-        await this.subscribeStatesAsync(getIds.idAddPosition);
-        await this.subscribeStatesAsync(getIds.idToActiveList);
-        await this.subscribeStatesAsync(getIds.idToInActiveList);
-        await this.subscribeStatesAsync(getIds.idDeleteInActiveList);
-        await this.subscribeStatesAsync(getIds.idDeleteActiveList);
-        await this.subscribeStatesAsync(getIds.idPositionToShift);
+        await this.subscribeStatesAsync(getAdapterIds.idSortActiveList);
+        await this.subscribeStatesAsync(getAdapterIds.idSortInActiveList);
+        await this.subscribeStatesAsync(getAdapterIds.idAddPosition);
+        await this.subscribeStatesAsync(getAdapterIds.idToActiveList);
+        await this.subscribeStatesAsync(getAdapterIds.idToInActiveList);
+        await this.subscribeStatesAsync(getAdapterIds.idDeleteInActiveList);
+        await this.subscribeStatesAsync(getAdapterIds.idDeleteActiveList);
+        await this.subscribeStatesAsync(getAdapterIds.idPositionToShift);
     }
 
     /**

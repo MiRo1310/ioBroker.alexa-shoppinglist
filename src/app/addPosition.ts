@@ -8,20 +8,19 @@ export const addPositionNumberAndBtn = (
     array: ShoppingList[],
     list: 'active' | 'inactive',
 ): void => {
-    const idInstance = getAlexaInstanceValues(adapter);
     let num = 0;
     // Button
     const symbolLink = '❌';
     const symbolMoveToInactive = '↪';
     const symbolMoveToActive = '↩';
     const colorBtnON = 'green';
-
+    const { getAlexaIds } = adapterIds(adapter);
     for (const element of array) {
         num++;
         element.pos = num; // Positionsnummern eintragen
 
-        const idAlexaButtonDelete = `alexa2.0.Lists.${idInstance.list}.items.${element.id}.#delete`;
-        const idAlexaButtonCompleted = `alexa2.0.Lists.${idInstance.list}.items.${element.id}.completed`;
+        const idAlexaButtonDelete = getAlexaIds.idAlexaButtonDelete(element.id);
+        const idAlexaButtonCompleted = getAlexaIds.idAlexaButtonCompleted(element.id);
 
         // Der Button delete
 
@@ -51,7 +50,7 @@ export const addPosition = async (
     idTextToCommand: string,
 ): Promise<void> => {
     const { listName } = getAlexaInstanceValues(adapter);
-    const { getIds } = adapterIds(adapter);
+    const { getAdapterIds } = adapterIds(adapter);
     const result = await adapter.getForeignStateAsync(idTextToCommand, async () => {});
 
     if (!result) {
@@ -63,7 +62,7 @@ export const addPosition = async (
     timeout().setTimeout(
         1,
         adapter.setTimeout(async () => {
-            await adapter.setState(getIds.idAddPosition, '', false);
+            await adapter.setState(getAdapterIds.idAddPosition, '', false);
         }, 2000),
     );
 };
