@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../src/app/getShoppingLists.ts"],
+  "sourcesContent": ["import type AlexaShoppinglist from '../main';\nimport type { OnMessageObj } from '../types/types';\n\nexport const getShoppingLists = async (adapter: AlexaShoppinglist, obj: OnMessageObj): Promise<void> => {\n    const result: { label: ioBroker.StringOrTranslated; value: string }[] = [];\n    const lists = await adapter.getObjectViewAsync('system', 'channel', {\n        startkey: `${obj.message.alexa}.Lists.`,\n        endkey: `${obj.message.alexa}.Lists.\\u9999`,\n    });\n    for (let i = 0; i < lists.rows.length; i++) {\n        const a = lists.rows[i];\n        if (a.value && a.id.split('.').length === 4) {\n            result.push({\n                label: `${JSON.stringify(a.value.common.name)}`,\n                value: `${a.id}.json`,\n            });\n        }\n    }\n    obj.callback && adapter.sendTo(obj.from, obj.command, result, obj.callback);\n};\n"],
+  "mappings": ";;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAGO,MAAM,mBAAmB,OAAO,SAA4B,QAAqC;AACpG,QAAM,SAAkE,CAAC;AACzE,QAAM,QAAQ,MAAM,QAAQ,mBAAmB,UAAU,WAAW;AAAA,IAChE,UAAU,GAAG,IAAI,QAAQ,KAAK;AAAA,IAC9B,QAAQ,GAAG,IAAI,QAAQ,KAAK;AAAA,EAChC,CAAC;AACD,WAAS,IAAI,GAAG,IAAI,MAAM,KAAK,QAAQ,KAAK;AACxC,UAAM,IAAI,MAAM,KAAK,CAAC;AACtB,QAAI,EAAE,SAAS,EAAE,GAAG,MAAM,GAAG,EAAE,WAAW,GAAG;AACzC,aAAO,KAAK;AAAA,QACR,OAAO,GAAG,KAAK,UAAU,EAAE,MAAM,OAAO,IAAI,CAAC;AAAA,QAC7C,OAAO,GAAG,EAAE,EAAE;AAAA,MAClB,CAAC;AAAA,IACL;AAAA,EACJ;AACA,MAAI,YAAY,QAAQ,OAAO,IAAI,MAAM,IAAI,SAAS,QAAQ,IAAI,QAAQ;AAC9E;",
+  "names": []
+}

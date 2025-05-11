@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../src/app/writeState.ts"],
+  "sourcesContent": ["import type AlexaShoppinglist from '../main';\nimport type { ShoppingList } from '../types/types';\n\nexport const writeState = (\n    adapter: AlexaShoppinglist,\n    arrayActive: ShoppingList[],\n    arrayInactive: ShoppingList[],\n): void => {\n    // TODO Add list only with items and positions and ids from ids.ts\n\n    adapter.setStateChanged(`alexa-shoppinglist.${adapter.instance}.list_activ`, JSON.stringify(arrayActive), true);\n    adapter.setStateChanged(`alexa-shoppinglist.${adapter.instance}.list_inactiv`, JSON.stringify(arrayInactive), true);\n};\n"],
+  "mappings": ";;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAGO,MAAM,aAAa,CACtB,SACA,aACA,kBACO;AAGP,UAAQ,gBAAgB,sBAAsB,QAAQ,QAAQ,eAAe,KAAK,UAAU,WAAW,GAAG,IAAI;AAC9G,UAAQ,gBAAgB,sBAAsB,QAAQ,QAAQ,iBAAiB,KAAK,UAAU,aAAa,GAAG,IAAI;AACtH;",
+  "names": []
+}

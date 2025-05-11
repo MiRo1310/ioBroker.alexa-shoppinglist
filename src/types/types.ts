@@ -2,7 +2,7 @@ export interface Instance {
     adapter: string;
     instanz: string;
     channel_history: string;
-    list: string;
+    listId: string;
     listName: string; // TODO Check if this is needed
 }
 
@@ -32,4 +32,33 @@ export interface OnMessageObj {
     message: { alexa: string };
     callback: any;
     from: string;
+}
+
+export interface AdapterIdsReturnType {
+    validateIds: {
+        isPositionToShift: (id: string) => boolean;
+        isToActiveList: (id: string) => boolean;
+        isToInActiveList: (id: string) => boolean;
+        isDeleteActiveList: (id: string) => boolean;
+        isDeleteInActiveList: (id: string) => boolean;
+        isAddPosition: (id: string) => boolean;
+    };
+    getAdapterIds: {
+        idToActiveList: string;
+        idToInActiveList: string;
+        idDeleteActiveList: string;
+        idDeleteInActiveList: string;
+        idAddPosition: string;
+        idPositionToShift: string;
+        idSortActiveList: string;
+        idSortInActiveList: string;
+        idShoppingList: string;
+    };
+    getAlexaIds: {
+        idAlexaButtonDelete: (id: string) => string;
+        idAlexaButtonCompleted: (id: string) => string;
+    };
+    setIds: {
+        setShoppingListId: (id: string) => void;
+    };
 }
