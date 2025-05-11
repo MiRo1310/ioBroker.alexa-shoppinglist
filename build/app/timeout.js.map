@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../src/app/timeout.ts"],
+  "sourcesContent": ["interface TimeoutObject {\n    timeout1: ioBroker.Timeout | null;\n    timeout2: ioBroker.Timeout | null;\n    timeout3: ioBroker.Timeout | null;\n}\n\nconst timeouts: TimeoutObject = {\n    timeout1: null,\n    timeout2: null,\n    timeout3: null,\n};\n\nexport const timeout = (): {\n    getTimeout: (timeout: number) => ioBroker.Timeout | null;\n    setTimeout: (timeout: number, value: ioBroker.Timeout | undefined) => void;\n} => {\n    return {\n        getTimeout: (timeout: number): ioBroker.Timeout | null => timeouts[`timeout${timeout}` as keyof TimeoutObject],\n        setTimeout: (timeout: number, value: ioBroker.Timeout | undefined): void => {\n            if (!value) {\n                return;\n            }\n            timeouts[`timeout${timeout}` as keyof TimeoutObject] = value;\n        },\n    };\n};\n"],
+  "mappings": ";;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAMA,MAAM,WAA0B;AAAA,EAC5B,UAAU;AAAA,EACV,UAAU;AAAA,EACV,UAAU;AACd;AAEO,MAAM,UAAU,MAGlB;AACD,SAAO;AAAA,IACH,YAAY,CAACA,aAA6C,SAAS,UAAUA,QAAO,EAAyB;AAAA,IAC7G,YAAY,CAACA,UAAiB,UAA8C;AACxE,UAAI,CAAC,OAAO;AACR;AAAA,MACJ;AACA,eAAS,UAAUA,QAAO,EAAyB,IAAI;AAAA,IAC3D;AAAA,EACJ;AACJ;",
+  "names": ["timeout"]
+}

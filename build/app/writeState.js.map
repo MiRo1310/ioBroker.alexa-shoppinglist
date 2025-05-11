@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../src/app/writeState.ts"],
+  "sourcesContent": ["import type AlexaShoppinglist from '../main';\nimport type { ShoppingList } from '../types/types';\nimport { errorLogger } from './logging';\nimport { adapterIds } from './ids';\n\nexport const writeState = (\n    adapter: AlexaShoppinglist,\n    arrayActive: ShoppingList[],\n    arrayInactive: ShoppingList[],\n): void => {\n    try {\n        const { getAdapterIds } = adapterIds();\n\n        adapter.setStateChanged(getAdapterIds.idListActive, JSON.stringify(arrayActive), true);\n        adapter.setStateChanged(getAdapterIds.idListInActive, JSON.stringify(arrayInactive), true);\n    } catch (e: any) {\n        errorLogger('Error write state', e, adapter);\n    }\n};\n"],
+  "mappings": ";;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAEA,qBAA4B;AAC5B,iBAA2B;AAEpB,MAAM,aAAa,CACtB,SACA,aACA,kBACO;AACP,MAAI;AACA,UAAM,EAAE,cAAc,QAAI,uBAAW;AAErC,YAAQ,gBAAgB,cAAc,cAAc,KAAK,UAAU,WAAW,GAAG,IAAI;AACrF,YAAQ,gBAAgB,cAAc,gBAAgB,KAAK,UAAU,aAAa,GAAG,IAAI;AAAA,EAC7F,SAAS,GAAQ;AACb,oCAAY,qBAAqB,GAAG,OAAO;AAAA,EAC/C;AACJ;",
+  "names": []
+}
