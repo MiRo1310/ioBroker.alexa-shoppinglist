@@ -52,6 +52,8 @@ export interface AdapterIdsReturnType {
         idPositionToShift: string;
         idSortActiveList: string;
         idSortInActiveList: string;
+        idListActive: string;
+        idListInActive: string;
     };
     getAlexaIds: {
         idAlexaButtons: (id: string, btn: AlexaBtns) => string;

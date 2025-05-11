@@ -24,6 +24,7 @@ __export(addPosition_exports, {
 module.exports = __toCommonJS(addPosition_exports);
 var import_timeout = require("./timeout");
 var import_ids = require("./ids");
+var import_logging = require("./logging");
 const addPositionNumberAndBtn = (adapter, array, list) => {
   let num = 0;
   const symbolLink = "\u274C";
@@ -47,21 +48,25 @@ const addPositionNumberAndBtn = (adapter, array, list) => {
   }
 };
 const addPosition = async (adapter, element, idTextToCommand) => {
-  const { getAdapterIds, getAlexaIds } = (0, import_ids.adapterIds)();
-  const { listName } = getAlexaIds.alexaInstanceValues;
-  const result = await adapter.getForeignStateAsync(idTextToCommand, async () => {
-  });
-  if (!result) {
-    adapter.log.info("State not found! Please check the ID!");
-    return;
+  try {
+    const { getAdapterIds, getAlexaIds } = (0, import_ids.adapterIds)();
+    const { listName } = getAlexaIds.alexaInstanceValues;
+    const result = await adapter.getForeignStateAsync(idTextToCommand, async () => {
+    });
+    if (!result) {
+      adapter.log.info("State not found! Please check the ID!");
+      return;
+    }
+    await adapter.setForeignStateAsync(idTextToCommand, `${element} to ${listName} list`, false);
+    (0, import_timeout.timeout)().setTimeout(
+      1,
+      adapter.setTimeout(async () => {
+        await adapter.setState(getAdapterIds.idAddPosition, "", false);
+      }, 2e3)
+    );
+  } catch (e) {
+    (0, import_logging.errorLogger)("Error add position", e, adapter);
   }
-  await adapter.setForeignStateAsync(idTextToCommand, `${element} to ${listName} list`, false);
-  (0, import_timeout.timeout)().setTimeout(
-    1,
-    adapter.setTimeout(async () => {
-      await adapter.setState(getAdapterIds.idAddPosition, "", false);
-    }, 2e3)
-  );
 };
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
