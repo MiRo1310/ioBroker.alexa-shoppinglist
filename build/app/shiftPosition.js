@@ -22,26 +22,28 @@ __export(shiftPosition_exports, {
 });
 module.exports = __toCommonJS(shiftPosition_exports);
 var import_timeout = require("./timeout");
-const shiftPosition = async (adapter, pos, array, list, idAdapter) => {
+var import_ids = require("./ids");
+const shiftPosition = async (adapter, pos, array, list) => {
+  const { getAlexaIds, getAdapterIds } = (0, import_ids.adapterIds)();
   for (const element of array) {
     if (pos !== element.pos) {
       continue;
     }
     if (list === "toActiv") {
-      await adapter.setForeignStateAsync(`${idAdapter}.items.${element.id}.completed`, false, false);
+      await adapter.setForeignStateAsync(getAlexaIds.idAlexaButtons(element.id, "completed"), false, false);
       (0, import_timeout.timeout)().setTimeout(
         2,
         adapter.setTimeout(async () => {
-          await adapter.setState(`alexa-shoppinglist.${adapter.instance}.position_to_shift`, 0, true);
+          await adapter.setState(getAdapterIds.idPositionToShift, 0, true);
         }, 1e3)
       );
       return;
     }
-    await adapter.setForeignStateAsync(`${idAdapter}.items.${element.id}.completed`, true, false);
+    await adapter.setForeignStateAsync(getAlexaIds.idAlexaButtons(element.id, "completed"), true, false);
     (0, import_timeout.timeout)().setTimeout(
       3,
       adapter.setTimeout(async () => {
-        await adapter.setState(`alexa-shoppinglist.${adapter.instance}.position_to_shift`, 0, true);
+        await adapter.setState(getAdapterIds.idPositionToShift, 0, true);
       }, 1e3)
     );
   }

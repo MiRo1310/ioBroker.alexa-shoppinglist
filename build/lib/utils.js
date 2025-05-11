@@ -19,6 +19,7 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 var utils_exports = {};
 __export(utils_exports, {
   firstLetterToUpperCase: () => firstLetterToUpperCase,
+  getListId: () => getListId,
   isStateValue: () => isStateValue,
   sortList: () => sortList
 });
@@ -47,9 +48,15 @@ const sortList = (array, sortBy) => {
   return array;
 };
 const isStateValue = (state, type) => (state == null ? void 0 : state.val) !== void 0 && typeof state.val === type && !state.ack;
+const getListId = (id) => {
+  const parts = id.split(".");
+  parts.pop();
+  return parts.join(".");
+};
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   firstLetterToUpperCase,
+  getListId,
   isStateValue,
   sortList
 });

@@ -30,12 +30,12 @@ const addPositionNumberAndBtn = (adapter, array, list) => {
   const symbolMoveToInactive = "\u21AA";
   const symbolMoveToActive = "\u21A9";
   const colorBtnON = "green";
-  const { getAlexaIds } = (0, import_ids.adapterIds)(adapter);
+  const { getAlexaIds } = (0, import_ids.adapterIds)();
   for (const element of array) {
     num++;
     element.pos = num;
-    const idAlexaButtonDelete = getAlexaIds.idAlexaButtonDelete(element.id);
-    const idAlexaButtonCompleted = getAlexaIds.idAlexaButtonCompleted(element.id);
+    const idAlexaButtonDelete = getAlexaIds.idAlexaButtons(element.id, "#delete");
+    const idAlexaButtonCompleted = getAlexaIds.idAlexaButtons(element.id, "completed");
     const val1JSON = `<button style="border:none; cursor:pointer; background-color:transparent; color:white; font-size:1em; text-align:center" value="toggle" onclick="setOnDblClickCustomShop('${idAlexaButtonDelete},${true}')">${symbolLink}</button> <font color="${colorBtnON}">`;
     if (list === "active") {
       element.buttonmove = `<button style="border:none; cursor:pointer; background-color:transparent; color:white; font-size:1em; text-align:center" value="toggle" onclick="setOnDblClickCustomShop('${idAlexaButtonCompleted},${true}')">${symbolMoveToInactive}</button> <font color="${colorBtnON}">`;
@@ -47,8 +47,8 @@ const addPositionNumberAndBtn = (adapter, array, list) => {
   }
 };
 const addPosition = async (adapter, element, idTextToCommand) => {
-  const { listName } = (0, import_ids.getAlexaInstanceValues)(adapter);
-  const { getAdapterIds } = (0, import_ids.adapterIds)(adapter);
+  const { getAdapterIds, getAlexaIds } = (0, import_ids.adapterIds)();
+  const { listName } = getAlexaIds.alexaInstanceValues;
   const result = await adapter.getForeignStateAsync(idTextToCommand, async () => {
   });
   if (!result) {

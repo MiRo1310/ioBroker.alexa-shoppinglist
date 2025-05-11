@@ -13,7 +13,7 @@ import { updateListsOnChange } from './app/updateListsOnChange';
 import { deleteOrSetAsCompleted } from './app/deleteOrSetAsCompleted';
 import { shiftPosition } from './app/shiftPosition';
 import { timeout } from './app/timeout';
-import { adapterIds } from './app/ids';
+import { adapterIds, initAlexaInstanceValues } from './app/ids';
 import type { OnMessageObj, ShoppingList, SortByTime1Alpha2 } from './types/types';
 import { isStateValue } from './lib/utils';
 import { getAlexaDevices } from './app/getAlexaDevices';
@@ -35,18 +35,20 @@ export default class AlexaShoppinglist extends utils.Adapter {
         const adapter = this;
         await this.setState('info.connection', false, true);
 
-        const { shoppinglist: shoppingListId, device: idTextToCommand, doNotMovetoInactiv: checkBox } = this.config;
+        const {
+            shoppinglist: idAlexa2ListJson,
+            device: idAlexaEchoDotTextToCommand,
+            doNotMovetoInactiv: directDelete,
+        } = this.config;
 
-        const state = await this.getForeignState(shoppingListId, () => {});
-
-        if (!state) {
-            this.log.error(`The DataPoint ${shoppingListId} was not found!`);
-            return;
-        }
-        const { getAdapterIds, validateIds, setIds } = adapterIds(adapter);
-        setIds.setShoppingListId(shoppingListId);
-
-        const idAdapter = shoppingListId.slice(0, shoppingListId.length - 5);
+        // const state = await this.getForeignState(shoppingListId, () => {});
+        //
+        // if (!state) {
+        //     this.log.error(`The DataPoint ${shoppingListId} was not found!`);
+        //     return;
+        // }
+        initAlexaInstanceValues(adapter, idAlexa2ListJson);
+        const { getAdapterIds, validateIds } = adapterIds();
 
         let positionToShift = 0;
         let jsonActive: ShoppingList[] = [];
@@ -69,7 +71,7 @@ export default class AlexaShoppinglist extends utils.Adapter {
             adapter,
             sortListActive,
             sortListInActive,
-            shoppingListId,
+            idAlexa2ListJson,
         ));
 
         let valueOld: ioBroker.StateValue = null;
@@ -86,16 +88,16 @@ export default class AlexaShoppinglist extends utils.Adapter {
             if (state?.val && state?.val !== valueOld) {
                 valueOld = state.val;
                 try {
-                    if (id === shoppingListId) {
+                    if (id === idAlexa2ListJson) {
                         ({ jsonInactive, jsonActive } = await updateListsOnChange(
                             adapter,
                             sortListActive,
                             sortListInActive,
-                            shoppingListId,
+                            idAlexa2ListJson,
                         ));
-                        if (checkBox && jsonInactive[0]) {
+                        if (directDelete && jsonInactive[0]) {
                             this.log.debug('Delete inactive list');
-                            await deleteOrSetAsCompleted(adapter, jsonInactive, 'delete', idAdapter);
+                            await deleteOrSetAsCompleted(adapter, jsonInactive, '#delete');
                         }
                     }
 
@@ -113,33 +115,33 @@ export default class AlexaShoppinglist extends utils.Adapter {
                             adapter,
                             sortListActive,
                             sortListInActive,
-                            shoppingListId,
+                            idAlexa2ListJson,
                         ));
                         await this.setState(id, { ack: true });
                     }
 
                     if (isStateValue(state, 'string') && isAddPosition(id)) {
-                        await addPosition(adapter, state.val, idTextToCommand);
+                        await addPosition(adapter, state.val, idAlexaEchoDotTextToCommand);
                         await this.setState(id, { ack: true });
                     }
 
                     if (isStateValue(state, 'boolean') && isDeleteInActiveList(id)) {
-                        await deleteOrSetAsCompleted(adapter, jsonInactive, 'delete', idAdapter);
+                        await deleteOrSetAsCompleted(adapter, jsonInactive, '#delete');
                         await this.setState(id, { ack: true });
                     }
 
                     if (isStateValue(state, 'boolean') && isDeleteActiveList(id)) {
-                        await deleteOrSetAsCompleted(adapter, jsonActive, 'completed', idAdapter);
+                        await deleteOrSetAsCompleted(adapter, jsonActive, 'completed');
                         await this.setState(id, { ack: true });
                     }
 
                     if (isStateValue(state, 'boolean') && isToInActiveList(id)) {
-                        await shiftPosition(adapter, positionToShift, jsonActive, 'toInActiv', idAdapter);
+                        await shiftPosition(adapter, positionToShift, jsonActive, 'toInActiv');
                         await this.setState(id, { ack: true });
                     }
 
                     if (isStateValue(state, 'boolean') && isToActiveList(id)) {
-                        await shiftPosition(adapter, positionToShift, jsonInactive, 'toActiv', idAdapter);
+                        await shiftPosition(adapter, positionToShift, jsonInactive, 'toActiv');
                         await this.setState(id, { ack: true });
                     }
 
@@ -153,7 +155,7 @@ export default class AlexaShoppinglist extends utils.Adapter {
             }
         });
 
-        await this.subscribeForeignStatesAsync(shoppingListId);
+        await this.subscribeForeignStatesAsync(idAlexa2ListJson);
 
         await this.subscribeStatesAsync(getAdapterIds.idSortActiveList);
         await this.subscribeStatesAsync(getAdapterIds.idSortInActiveList);

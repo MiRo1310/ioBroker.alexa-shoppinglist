@@ -2,7 +2,7 @@ export interface Instance {
     adapter: string;
     instanz: string;
     channel_history: string;
-    listId: string;
+    listNameOriginal: string;
     listName: string; // TODO Check if this is needed
 }
 
@@ -52,13 +52,16 @@ export interface AdapterIdsReturnType {
         idPositionToShift: string;
         idSortActiveList: string;
         idSortInActiveList: string;
-        idShoppingList: string;
     };
     getAlexaIds: {
-        idAlexaButtonDelete: (id: string) => string;
-        idAlexaButtonCompleted: (id: string) => string;
+        idAlexaButtons: (id: string, btn: AlexaBtns) => string;
+        alexaInstanceValues: Instance;
+        idShoppingList: string;
+        idShoppingListJson: string;
     };
     setIds: {
-        setShoppingListId: (id: string) => void;
+        setAlexaInstanceValues: (obj: Instance, alexa: string, idAlexa: string) => void;
     };
 }
+
+export type AlexaBtns = 'completed' | '#delete';
