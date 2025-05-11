@@ -1,22 +1,25 @@
-import type { AdapterIdsReturnType, Instance } from '../types/types';
+import type { AdapterIdsReturnType, AlexaBtns, Instance } from '../types/types';
 import type AlexaShoppinglist from '../main';
+import { getListId } from '../lib/utils';
 
-export const getAlexaInstanceValues = (adapter: AlexaShoppinglist): Instance => {
-    const { idShoppingList } = adapterIds(adapter).getAdapterIds;
+export const initAlexaInstanceValues = (adapter: AlexaShoppinglist, idShoppingList: string): void => {
     const alexaStateArray = idShoppingList.split('.');
-
-    return {
-        adapter: alexaStateArray[0],
-        instanz: alexaStateArray[1] ?? '',
-        channel_history: alexaStateArray[2] ?? '',
-        listId: alexaStateArray[3] ?? '',
-        listName: alexaStateArray[3].replace('_', ' ').toLowerCase().replace('list', ' '),
-    };
+    adapterIds().setIds.setAlexaInstanceValues(
+        {
+            adapter: alexaStateArray[0],
+            instanz: alexaStateArray[1] ?? '',
+            channel_history: alexaStateArray[2] ?? '',
+            listNameOriginal: alexaStateArray[3] ?? '',
+            listName: alexaStateArray[3].replace('_', ' ').toLowerCase().replace('list', ' '),
+        },
+        `alexa-shoppinglist.${adapter.instance}`,
+        idShoppingList,
+    );
 };
 
-export function adapterIds(adapter: AlexaShoppinglist): AdapterIdsReturnType {
-    const alexaId = `alexa-shoppinglist.${adapter.instance}`;
-    const { listId } = getAlexaInstanceValues(adapter);
+let alexaShoppingListAdapterInstanceId = ``;
+
+export function adapterIds(): AdapterIdsReturnType {
     const validateIds = {
         validateIds: {
             isPositionToShift: (id: string): boolean => id === validateIds.getAdapterIds.idPositionToShift,
@@ -27,22 +30,29 @@ export function adapterIds(adapter: AlexaShoppinglist): AdapterIdsReturnType {
             isAddPosition: (id: string): boolean => id === validateIds.getAdapterIds.idAddPosition,
         },
         getAdapterIds: {
-            idPositionToShift: `${alexaId}.position_to_shift`,
-            idToActiveList: `${alexaId}.to_activ_list`,
-            idToInActiveList: `${alexaId}.to_inactiv_list`,
-            idDeleteActiveList: `${alexaId}.delete_activ_list`,
-            idDeleteInActiveList: `${alexaId}.delete_inactiv_list`,
-            idAddPosition: `${alexaId}.add_position`,
-            idSortActiveList: `${alexaId}.sort_active_list`,
-            idSortInActiveList: `${alexaId}.sort_inactive_list`,
-            idShoppingList: '', // Will be set on adapter start,
+            idPositionToShift: `${alexaShoppingListAdapterInstanceId}.position_to_shift`,
+            idToActiveList: `${alexaShoppingListAdapterInstanceId}.to_activ_list`,
+            idToInActiveList: `${alexaShoppingListAdapterInstanceId}.to_inactiv_list`,
+            idDeleteActiveList: `${alexaShoppingListAdapterInstanceId}.delete_activ_list`,
+            idDeleteInActiveList: `${alexaShoppingListAdapterInstanceId}.delete_inactiv_list`,
+            idAddPosition: `${alexaShoppingListAdapterInstanceId}.add_position`,
+            idSortActiveList: `${alexaShoppingListAdapterInstanceId}.sort_active_list`,
+            idSortInActiveList: `${alexaShoppingListAdapterInstanceId}.sort_inactive_list`,
         },
         getAlexaIds: {
-            idAlexaButtonDelete: (id: string) => `alexa2.0.Lists.${listId}.items.${id}.#delete`,
-            idAlexaButtonCompleted: (id: string) => `alexa2.0.Lists.${listId}.items.${id}.completed`,
+            idAlexaButtons: (id: string, btn: AlexaBtns) =>
+                `${validateIds.getAlexaIds.idShoppingList}.items.${id}.${btn}`,
+            alexaInstanceValues: {} as Instance,
+            idShoppingListJson: '', // Will be set on adapter start,
+            idShoppingList: '', // Will be set on adapter start,
         },
         setIds: {
-            setShoppingListId: (id: string) => (validateIds.getAdapterIds.idShoppingList = id),
+            setAlexaInstanceValues: (obj: Instance, instanceId: string, idAlexa: string) => {
+                alexaShoppingListAdapterInstanceId = instanceId;
+                validateIds.getAlexaIds.alexaInstanceValues = obj;
+                validateIds.getAlexaIds.idShoppingListJson = idAlexa;
+                validateIds.getAlexaIds.idShoppingList = getListId(idAlexa);
+            },
         },
     };
     return validateIds;

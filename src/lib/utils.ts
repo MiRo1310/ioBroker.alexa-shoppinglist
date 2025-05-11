@@ -33,3 +33,9 @@ export const isStateValue = <T extends 'string' | 'boolean' | 'number'>(
     type: T,
 ): state is ioBroker.State & { val: T extends 'string' ? string : T extends 'boolean' ? boolean : number } =>
     state?.val !== undefined && typeof state.val === type && !state.ack;
+
+export const getListId = (id: string): string => {
+    const parts = id.split('.'); //alexa2.0.Lists.SHOPPING_LIST.json
+    parts.pop();
+    return parts.join('.'); //alexa2.0.Lists.SHOPPING_LIST
+};

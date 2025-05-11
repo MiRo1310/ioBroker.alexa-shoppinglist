@@ -19,24 +19,27 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 var ids_exports = {};
 __export(ids_exports, {
   adapterIds: () => adapterIds,
-  getAlexaInstanceValues: () => getAlexaInstanceValues
+  initAlexaInstanceValues: () => initAlexaInstanceValues
 });
 module.exports = __toCommonJS(ids_exports);
-const getAlexaInstanceValues = (adapter) => {
+var import_utils = require("../lib/utils");
+const initAlexaInstanceValues = (adapter, idShoppingList) => {
   var _a, _b, _c;
-  const { idShoppingList } = adapterIds(adapter).getAdapterIds;
   const alexaStateArray = idShoppingList.split(".");
-  return {
-    adapter: alexaStateArray[0],
-    instanz: (_a = alexaStateArray[1]) != null ? _a : "",
-    channel_history: (_b = alexaStateArray[2]) != null ? _b : "",
-    listId: (_c = alexaStateArray[3]) != null ? _c : "",
-    listName: alexaStateArray[3].replace("_", " ").toLowerCase().replace("list", " ")
-  };
+  adapterIds().setIds.setAlexaInstanceValues(
+    {
+      adapter: alexaStateArray[0],
+      instanz: (_a = alexaStateArray[1]) != null ? _a : "",
+      channel_history: (_b = alexaStateArray[2]) != null ? _b : "",
+      listNameOriginal: (_c = alexaStateArray[3]) != null ? _c : "",
+      listName: alexaStateArray[3].replace("_", " ").toLowerCase().replace("list", " ")
+    },
+    `alexa-shoppinglist.${adapter.instance}`,
+    idShoppingList
+  );
 };
-function adapterIds(adapter) {
-  const alexaId = `alexa-shoppinglist.${adapter.instance}`;
-  const { listId } = getAlexaInstanceValues(adapter);
+let alexaShoppingListAdapterInstanceId = ``;
+function adapterIds() {
   const validateIds = {
     validateIds: {
       isPositionToShift: (id) => id === validateIds.getAdapterIds.idPositionToShift,
@@ -47,23 +50,30 @@ function adapterIds(adapter) {
       isAddPosition: (id) => id === validateIds.getAdapterIds.idAddPosition
     },
     getAdapterIds: {
-      idPositionToShift: `${alexaId}.position_to_shift`,
-      idToActiveList: `${alexaId}.to_activ_list`,
-      idToInActiveList: `${alexaId}.to_inactiv_list`,
-      idDeleteActiveList: `${alexaId}.delete_activ_list`,
-      idDeleteInActiveList: `${alexaId}.delete_inactiv_list`,
-      idAddPosition: `${alexaId}.add_position`,
-      idSortActiveList: `${alexaId}.sort_active_list`,
-      idSortInActiveList: `${alexaId}.sort_inactive_list`,
+      idPositionToShift: `${alexaShoppingListAdapterInstanceId}.position_to_shift`,
+      idToActiveList: `${alexaShoppingListAdapterInstanceId}.to_activ_list`,
+      idToInActiveList: `${alexaShoppingListAdapterInstanceId}.to_inactiv_list`,
+      idDeleteActiveList: `${alexaShoppingListAdapterInstanceId}.delete_activ_list`,
+      idDeleteInActiveList: `${alexaShoppingListAdapterInstanceId}.delete_inactiv_list`,
+      idAddPosition: `${alexaShoppingListAdapterInstanceId}.add_position`,
+      idSortActiveList: `${alexaShoppingListAdapterInstanceId}.sort_active_list`,
+      idSortInActiveList: `${alexaShoppingListAdapterInstanceId}.sort_inactive_list`
+    },
+    getAlexaIds: {
+      idAlexaButtons: (id, btn) => `${validateIds.getAlexaIds.idShoppingList}.items.${id}.${btn}`,
+      alexaInstanceValues: {},
+      idShoppingListJson: "",
+      // Will be set on adapter start,
       idShoppingList: ""
       // Will be set on adapter start,
     },
-    getAlexaIds: {
-      idAlexaButtonDelete: (id) => `alexa2.0.Lists.${listId}.items.${id}.#delete`,
-      idAlexaButtonCompleted: (id) => `alexa2.0.Lists.${listId}.items.${id}.completed`
-    },
     setIds: {
-      setShoppingListId: (id) => validateIds.getAdapterIds.idShoppingList = id
+      setAlexaInstanceValues: (obj, instanceId, idAlexa) => {
+        alexaShoppingListAdapterInstanceId = instanceId;
+        validateIds.getAlexaIds.alexaInstanceValues = obj;
+        validateIds.getAlexaIds.idShoppingListJson = idAlexa;
+        validateIds.getAlexaIds.idShoppingList = (0, import_utils.getListId)(idAlexa);
+      }
     }
   };
   return validateIds;
@@ -71,6 +81,6 @@ function adapterIds(adapter) {
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   adapterIds,
-  getAlexaInstanceValues
+  initAlexaInstanceValues
 });
 //# sourceMappingURL=ids.js.map

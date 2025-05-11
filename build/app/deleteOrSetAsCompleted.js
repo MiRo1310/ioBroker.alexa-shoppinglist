@@ -21,16 +21,12 @@ __export(deleteOrSetAsCompleted_exports, {
   deleteOrSetAsCompleted: () => deleteOrSetAsCompleted
 });
 module.exports = __toCommonJS(deleteOrSetAsCompleted_exports);
-const deleteOrSetAsCompleted = async (adapter, array, status, idAdapter) => {
+var import_ids = require("./ids");
+const deleteOrSetAsCompleted = async (adapter, array, status) => {
+  const { getAlexaIds } = (0, import_ids.adapterIds)();
   for (const { id } of array) {
     try {
-      if (status === "completed") {
-        await adapter.setForeignStateAsync(`${idAdapter}.items.${id}.completed`, true, false);
-        return;
-      }
-      if (status === "delete") {
-        await adapter.setForeignStateAsync(`${idAdapter}.items.${id}.#delete`, true, false);
-      }
+      await adapter.setForeignStateAsync(getAlexaIds.idAlexaButtons(id, status), true, false);
     } catch (e) {
       adapter.log.error(e);
     }

@@ -1,7 +1,7 @@
 import type { ShoppingList } from '../types/types';
 import type AlexaShoppinglist from '../main';
 import { timeout } from './timeout';
-import { adapterIds, getAlexaInstanceValues } from './ids';
+import { adapterIds } from './ids';
 
 export const addPositionNumberAndBtn = (
     adapter: AlexaShoppinglist,
@@ -14,13 +14,13 @@ export const addPositionNumberAndBtn = (
     const symbolMoveToInactive = '↪';
     const symbolMoveToActive = '↩';
     const colorBtnON = 'green';
-    const { getAlexaIds } = adapterIds(adapter);
+    const { getAlexaIds } = adapterIds();
     for (const element of array) {
         num++;
         element.pos = num; // Positionsnummern eintragen
 
-        const idAlexaButtonDelete = getAlexaIds.idAlexaButtonDelete(element.id);
-        const idAlexaButtonCompleted = getAlexaIds.idAlexaButtonCompleted(element.id);
+        const idAlexaButtonDelete = getAlexaIds.idAlexaButtons(element.id, '#delete');
+        const idAlexaButtonCompleted = getAlexaIds.idAlexaButtons(element.id, 'completed');
 
         // Der Button delete
 
@@ -49,8 +49,8 @@ export const addPosition = async (
     element: ioBroker.StateValue,
     idTextToCommand: string,
 ): Promise<void> => {
-    const { listName } = getAlexaInstanceValues(adapter);
-    const { getAdapterIds } = adapterIds(adapter);
+    const { getAdapterIds, getAlexaIds } = adapterIds();
+    const { listName } = getAlexaIds.alexaInstanceValues;
     const result = await adapter.getForeignStateAsync(idTextToCommand, async () => {});
 
     if (!result) {

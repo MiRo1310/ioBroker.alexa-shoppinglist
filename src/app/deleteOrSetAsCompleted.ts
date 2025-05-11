@@ -1,23 +1,16 @@
 import type AlexaShoppinglist from '../main';
-import type { ShoppingList } from '../types/types';
+import type { AlexaBtns, ShoppingList } from '../types/types';
+import { adapterIds } from './ids';
 
 export const deleteOrSetAsCompleted = async (
     adapter: AlexaShoppinglist,
     array: ShoppingList[],
-    status: 'completed' | 'delete',
-    idAdapter: string,
+    status: AlexaBtns,
 ): Promise<void> => {
+    const { getAlexaIds } = adapterIds();
     for (const { id } of array) {
         try {
-            if (status === 'completed') {
-                //TODO Id to ids.ts
-                await adapter.setForeignStateAsync(`${idAdapter}.items.${id}.completed`, true, false);
-                return;
-            }
-
-            if (status === 'delete') {
-                await adapter.setForeignStateAsync(`${idAdapter}.items.${id}.#delete`, true, false);
-            }
+            await adapter.setForeignStateAsync(getAlexaIds.idAlexaButtons(id, status), true, false);
         } catch (e: any) {
             adapter.log.error(e);
         }
