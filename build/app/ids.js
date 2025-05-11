@@ -51,13 +51,25 @@ function adapterIds() {
     },
     getAdapterIds: {
       idPositionToShift: `${alexaShoppingListAdapterInstanceId}.position_to_shift`,
+      //Number
       idToActiveList: `${alexaShoppingListAdapterInstanceId}.to_activ_list`,
+      // Boolean
       idToInActiveList: `${alexaShoppingListAdapterInstanceId}.to_inactiv_list`,
+      // Boolean
       idDeleteActiveList: `${alexaShoppingListAdapterInstanceId}.delete_activ_list`,
+      // Boolean
       idDeleteInActiveList: `${alexaShoppingListAdapterInstanceId}.delete_inactiv_list`,
+      // Boolean
       idAddPosition: `${alexaShoppingListAdapterInstanceId}.add_position`,
-      idSortActiveList: `${alexaShoppingListAdapterInstanceId}.sort_active_list`,
-      idSortInActiveList: `${alexaShoppingListAdapterInstanceId}.sort_inactive_list`
+      //String
+      idSortActiveList: `${alexaShoppingListAdapterInstanceId}.list_active_sort`,
+      //Select
+      idSortInActiveList: `${alexaShoppingListAdapterInstanceId}.list_inactive_sort`,
+      //Select
+      idListActive: `${alexaShoppingListAdapterInstanceId}.list_activ`,
+      //Array
+      idListInActive: `${alexaShoppingListAdapterInstanceId}.list_inactiv`
+      //Array
     },
     getAlexaIds: {
       idAlexaButtons: (id, btn) => `${validateIds.getAlexaIds.idShoppingList}.items.${id}.${btn}`,

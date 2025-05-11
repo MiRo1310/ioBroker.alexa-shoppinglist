@@ -41,6 +41,7 @@ var import_ids = require("./app/ids");
 var import_utils = require("./lib/utils");
 var import_getAlexaDevices = require("./app/getAlexaDevices");
 var import_getShoppingLists = require("./app/getShoppingLists");
+var import_logging = require("./app/logging");
 class AlexaShoppinglist extends utils.Adapter {
   constructor(options = {}) {
     super({
@@ -59,6 +60,12 @@ class AlexaShoppinglist extends utils.Adapter {
       device: idAlexaEchoDotTextToCommand,
       doNotMovetoInactiv: directDelete
     } = this.config;
+    const state = await this.getForeignState(idAlexa2ListJson, () => {
+    });
+    if (!state) {
+      this.log.error(`The DataPoint ${idAlexa2ListJson} was not found!`);
+      return;
+    }
     (0, import_ids.initAlexaInstanceValues)(adapter, idAlexa2ListJson);
     const { getAdapterIds, validateIds } = (0, import_ids.adapterIds)();
     let positionToShift = 0;
@@ -85,9 +92,9 @@ class AlexaShoppinglist extends utils.Adapter {
       isPositionToShift,
       isAddPosition
     } = validateIds;
-    this.on("stateChange", async (id, state) => {
-      if ((state == null ? void 0 : state.val) && (state == null ? void 0 : state.val) !== valueOld) {
-        valueOld = state.val;
+    this.on("stateChange", async (id, state2) => {
+      if ((state2 == null ? void 0 : state2.val) && (state2 == null ? void 0 : state2.val) !== valueOld) {
+        valueOld = state2.val;
         try {
           if (id === idAlexa2ListJson) {
             ({ jsonInactive, jsonActive } = await (0, import_updateListsOnChange.updateListsOnChange)(
@@ -101,11 +108,11 @@ class AlexaShoppinglist extends utils.Adapter {
               await (0, import_deleteOrSetAsCompleted.deleteOrSetAsCompleted)(adapter, jsonInactive, "#delete");
             }
           }
-          if ((0, import_utils.isStateValue)(state, "string") && (id === getAdapterIds.idSortActiveList || id === getAdapterIds.idSortInActiveList)) {
+          if ((0, import_utils.isStateValue)(state2, "string") && (id === getAdapterIds.idSortActiveList || id === getAdapterIds.idSortInActiveList)) {
             if (id === getAdapterIds.idSortActiveList) {
-              sortListActive = state.val;
+              sortListActive = state2.val;
             } else {
-              sortListInActive = state.val;
+              sortListInActive = state2.val;
             }
             ({ jsonActive, jsonInactive } = await (0, import_updateListsOnChange.updateListsOnChange)(
               adapter,
@@ -115,32 +122,32 @@ class AlexaShoppinglist extends utils.Adapter {
             ));
             await this.setState(id, { ack: true });
           }
-          if ((0, import_utils.isStateValue)(state, "string") && isAddPosition(id)) {
-            await (0, import_addPosition.addPosition)(adapter, state.val, idAlexaEchoDotTextToCommand);
+          if ((0, import_utils.isStateValue)(state2, "string") && isAddPosition(id)) {
+            await (0, import_addPosition.addPosition)(adapter, state2.val, idAlexaEchoDotTextToCommand);
             await this.setState(id, { ack: true });
           }
-          if ((0, import_utils.isStateValue)(state, "boolean") && isDeleteInActiveList(id)) {
+          if ((0, import_utils.isStateValue)(state2, "boolean") && isDeleteInActiveList(id)) {
             await (0, import_deleteOrSetAsCompleted.deleteOrSetAsCompleted)(adapter, jsonInactive, "#delete");
             await this.setState(id, { ack: true });
           }
-          if ((0, import_utils.isStateValue)(state, "boolean") && isDeleteActiveList(id)) {
+          if ((0, import_utils.isStateValue)(state2, "boolean") && isDeleteActiveList(id)) {
             await (0, import_deleteOrSetAsCompleted.deleteOrSetAsCompleted)(adapter, jsonActive, "completed");
             await this.setState(id, { ack: true });
           }
-          if ((0, import_utils.isStateValue)(state, "boolean") && isToInActiveList(id)) {
+          if ((0, import_utils.isStateValue)(state2, "boolean") && isToInActiveList(id)) {
             await (0, import_shiftPosition.shiftPosition)(adapter, positionToShift, jsonActive, "toInActiv");
             await this.setState(id, { ack: true });
           }
-          if ((0, import_utils.isStateValue)(state, "boolean") && isToActiveList(id)) {
+          if ((0, import_utils.isStateValue)(state2, "boolean") && isToActiveList(id)) {
             await (0, import_shiftPosition.shiftPosition)(adapter, positionToShift, jsonInactive, "toActiv");
             await this.setState(id, { ack: true });
           }
-          if ((0, import_utils.isStateValue)(state, "number") && isPositionToShift(id)) {
-            positionToShift = state.val;
+          if ((0, import_utils.isStateValue)(state2, "number") && isPositionToShift(id)) {
+            positionToShift = state2.val;
             await this.setState(id, { ack: true });
           }
         } catch (e) {
-          this.log.error(e);
+          (0, import_logging.errorLogger)("Error stage changed", e, this);
         }
       }
     });
@@ -167,7 +174,7 @@ class AlexaShoppinglist extends utils.Adapter {
       this.clearTimeout(timeouts.getTimeout(3));
       callback();
     } catch (e) {
-      this.log.error(e);
+      (0, import_logging.errorLogger)("OnUnload", e, this);
       callback();
     }
   }

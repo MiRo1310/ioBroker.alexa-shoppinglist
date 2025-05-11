@@ -21,22 +21,27 @@ __export(getAlexaDevices_exports, {
   getAlexaDevices: () => getAlexaDevices
 });
 module.exports = __toCommonJS(getAlexaDevices_exports);
+var import_logging = require("./logging");
 const getAlexaDevices = async (adapter, obj) => {
-  const devices = await adapter.getObjectViewAsync("system", "device", {
-    startkey: `${obj.message.alexa}.Echo-Devices.`,
-    endkey: `${obj.message.alexa}.Echo-Devices.\u9999`
-  });
-  const result = [];
-  for (let i = 0; i < devices.rows.length; i++) {
-    const a = devices.rows[i];
-    if (a.value && a.value.common.name !== "Timer" && a.value.common.name !== "Reminder" && a.value.common.name !== "Alarm") {
-      result.push({
-        label: a.value.common.name,
-        value: `${a.id}.Commands.textCommand`
-      });
+  try {
+    const devices = await adapter.getObjectViewAsync("system", "device", {
+      startkey: `${obj.message.alexa}.Echo-Devices.`,
+      endkey: `${obj.message.alexa}.Echo-Devices.\u9999`
+    });
+    const result = [];
+    for (let i = 0; i < devices.rows.length; i++) {
+      const a = devices.rows[i];
+      if (a.value && a.value.common.name !== "Timer" && a.value.common.name !== "Reminder" && a.value.common.name !== "Alarm") {
+        result.push({
+          label: a.value.common.name,
+          value: `${a.id}.Commands.textCommand`
+        });
+      }
     }
+    obj.callback && adapter.sendTo(obj.from, obj.command, result, obj.callback);
+  } catch (e) {
+    (0, import_logging.errorLogger)("Error getAlexaDevices", e, adapter);
   }
-  obj.callback && adapter.sendTo(obj.from, obj.command, result, obj.callback);
 };
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {

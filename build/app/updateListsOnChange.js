@@ -24,6 +24,7 @@ module.exports = __toCommonJS(updateListsOnChange_exports);
 var import_utils = require("../lib/utils");
 var import_addPosition = require("./addPosition");
 var import_writeState = require("./writeState");
+var import_logging = require("./logging");
 const updateListsOnChange = async (adapter, sortListActive, sortListInActive, alexaState) => {
   let alexaListJson = {};
   try {
@@ -48,7 +49,7 @@ const updateListsOnChange = async (adapter, sortListActive, sortListInActive, al
     }
     return { jsonActive: [], jsonInactive: [], error: true };
   } catch (e) {
-    adapter.log.error(e);
+    (0, import_logging.errorLogger)("Error update list on change", e, adapter);
     return { jsonActive: [], jsonInactive: [], error: true };
   }
 };

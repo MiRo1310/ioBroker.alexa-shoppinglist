@@ -23,29 +23,34 @@ __export(shiftPosition_exports, {
 module.exports = __toCommonJS(shiftPosition_exports);
 var import_timeout = require("./timeout");
 var import_ids = require("./ids");
+var import_logging = require("./logging");
 const shiftPosition = async (adapter, pos, array, list) => {
-  const { getAlexaIds, getAdapterIds } = (0, import_ids.adapterIds)();
-  for (const element of array) {
-    if (pos !== element.pos) {
-      continue;
-    }
-    if (list === "toActiv") {
-      await adapter.setForeignStateAsync(getAlexaIds.idAlexaButtons(element.id, "completed"), false, false);
+  try {
+    const { getAlexaIds, getAdapterIds } = (0, import_ids.adapterIds)();
+    for (const element of array) {
+      if (pos !== element.pos) {
+        continue;
+      }
+      if (list === "toActiv") {
+        await adapter.setForeignStateAsync(getAlexaIds.idAlexaButtons(element.id, "completed"), false, false);
+        (0, import_timeout.timeout)().setTimeout(
+          2,
+          adapter.setTimeout(async () => {
+            await adapter.setState(getAdapterIds.idPositionToShift, 0, true);
+          }, 1e3)
+        );
+        return;
+      }
+      await adapter.setForeignStateAsync(getAlexaIds.idAlexaButtons(element.id, "completed"), true, false);
       (0, import_timeout.timeout)().setTimeout(
-        2,
+        3,
         adapter.setTimeout(async () => {
           await adapter.setState(getAdapterIds.idPositionToShift, 0, true);
         }, 1e3)
       );
-      return;
     }
-    await adapter.setForeignStateAsync(getAlexaIds.idAlexaButtons(element.id, "completed"), true, false);
-    (0, import_timeout.timeout)().setTimeout(
-      3,
-      adapter.setTimeout(async () => {
-        await adapter.setState(getAdapterIds.idPositionToShift, 0, true);
-      }, 1e3)
-    );
+  } catch (e) {
+    (0, import_logging.errorLogger)("Error shift position", e, adapter);
   }
 };
 // Annotate the CommonJS export names for ESM import in node:

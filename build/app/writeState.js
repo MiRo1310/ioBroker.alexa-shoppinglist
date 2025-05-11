@@ -21,9 +21,16 @@ __export(writeState_exports, {
   writeState: () => writeState
 });
 module.exports = __toCommonJS(writeState_exports);
+var import_logging = require("./logging");
+var import_ids = require("./ids");
 const writeState = (adapter, arrayActive, arrayInactive) => {
-  adapter.setStateChanged(`alexa-shoppinglist.${adapter.instance}.list_activ`, JSON.stringify(arrayActive), true);
-  adapter.setStateChanged(`alexa-shoppinglist.${adapter.instance}.list_inactiv`, JSON.stringify(arrayInactive), true);
+  try {
+    const { getAdapterIds } = (0, import_ids.adapterIds)();
+    adapter.setStateChanged(getAdapterIds.idListActive, JSON.stringify(arrayActive), true);
+    adapter.setStateChanged(getAdapterIds.idListInActive, JSON.stringify(arrayInactive), true);
+  } catch (e) {
+    (0, import_logging.errorLogger)("Error write state", e, adapter);
+  }
 };
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
