@@ -3,6 +3,7 @@ import { addPositionNumberAndBtn } from './addPosition';
 import { writeState } from './writeState';
 import type AlexaShoppinglist from '../main';
 import type { AlexaList, ShoppingList, SortByTime1Alpha2 } from '../types/types';
+import { errorLogger } from './logging';
 
 export const updateListsOnChange = async (
     adapter: AlexaShoppinglist,
@@ -41,7 +42,8 @@ export const updateListsOnChange = async (
         }
         return { jsonActive: [], jsonInactive: [], error: true };
     } catch (e: any) {
-        adapter.log.error(e);
+        errorLogger('Error update list on change', e, adapter);
+
         return { jsonActive: [], jsonInactive: [], error: true };
     }
 };

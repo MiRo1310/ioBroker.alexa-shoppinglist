@@ -145,6 +145,11 @@
     "connectionType": "local",
     "dataSource": "poll",
     "supportCustoms": false,
+    "plugins": {
+      "sentry": {
+        "dsn": "https://9d473b68d00b00d91f1535835592d739@o4508003658498048.ingest.de.sentry.io/4509305083592784"
+      }
+    },
     "adminUI": {
       "config": "json"
     },

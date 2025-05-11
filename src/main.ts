@@ -18,6 +18,7 @@ import type { OnMessageObj, ShoppingList, SortByTime1Alpha2 } from './types/type
 import { isStateValue } from './lib/utils';
 import { getAlexaDevices } from './app/getAlexaDevices';
 import { getShoppingLists } from './app/getShoppingLists';
+import { errorLogger } from './app/logging';
 
 export default class AlexaShoppinglist extends utils.Adapter {
     public constructor(options: Partial<utils.AdapterOptions> = {}) {
@@ -41,12 +42,12 @@ export default class AlexaShoppinglist extends utils.Adapter {
             doNotMovetoInactiv: directDelete,
         } = this.config;
 
-        // const state = await this.getForeignState(shoppingListId, () => {});
-        //
-        // if (!state) {
-        //     this.log.error(`The DataPoint ${shoppingListId} was not found!`);
-        //     return;
-        // }
+        const state = await this.getForeignState(idAlexa2ListJson, () => {});
+
+        if (!state) {
+            this.log.error(`The DataPoint ${idAlexa2ListJson} was not found!`);
+            return;
+        }
         initAlexaInstanceValues(adapter, idAlexa2ListJson);
         const { getAdapterIds, validateIds } = adapterIds();
 
@@ -150,7 +151,7 @@ export default class AlexaShoppinglist extends utils.Adapter {
                         await this.setState(id, { ack: true });
                     }
                 } catch (e: any) {
-                    this.log.error(e);
+                    errorLogger('Error stage changed', e, this);
                 }
             }
         });
@@ -181,7 +182,7 @@ export default class AlexaShoppinglist extends utils.Adapter {
 
             callback();
         } catch (e: any) {
-            this.log.error(e);
+            errorLogger('OnUnload', e, this);
             callback();
         }
     }
