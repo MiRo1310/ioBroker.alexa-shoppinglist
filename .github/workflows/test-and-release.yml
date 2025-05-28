@@ -11,7 +11,7 @@ on:
       - "v[0-9]+.[0-9]+.[0-9]+"
       # pre-releases
       - "v[0-9]+.[0-9]+.[0-9]+-**"
-  pull_request: {}
+  pull_request: { }
 
 jobs:
   # Performs quick checks before the expensive test runs
@@ -23,7 +23,7 @@ jobs:
     steps:
       - uses: ioBroker/testing-action-check@v1
         with:
-          node-version: "18.x"
+          node-version: "22.x"
           # Uncomment the following line if your adapter cannot be installed using 'npm ci'
           # install-command: 'npm install'
           lint: true
@@ -35,8 +35,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node-version: [18.x, 20.x, 22.x]
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        node-version: [ 20.x, 22.x, 24.x ]
+        os: [ ubuntu-latest, windows-latest, macos-latest ]
 
     steps:
       - uses: ioBroker/testing-action-adapter@v1
@@ -51,7 +51,7 @@ jobs:
 
   # Deploys the final package to NPM
   deploy:
-    needs: [check-and-lint, adapter-tests]
+    needs: [ check-and-lint, adapter-tests ]
 
     # Trigger this step only when a commit on any branch is tagged with a version number
     if: |
@@ -64,7 +64,7 @@ jobs:
     steps:
       - uses: ioBroker/testing-action-deploy@v1
         with:
-          node-version: "18.x"
+          node-version: "22.x"
           # Uncomment the following line if your adapter cannot be installed using 'npm ci'
           # install-command: 'npm install'
           npm-token: ${{ secrets.NPM_TOKEN }}
