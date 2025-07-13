@@ -25,9 +25,9 @@ var import_ids = require("./ids");
 var import_logging = require("./logging");
 const deleteOrSetAsCompleted = async (adapter, array, status) => {
   try {
-    const { getAlexaIds } = (0, import_ids.adapterIds)();
+    const { idAlexaButtons } = (0, import_ids.adapterIds)().getAlexaIds;
     for (const { id } of array) {
-      await adapter.setForeignStateAsync(getAlexaIds.idAlexaButtons(id, status), true, false);
+      await adapter.setForeignStateAsync(idAlexaButtons(id, status), true, false);
     }
   } catch (e) {
     (0, import_logging.errorLogger)("Error delete or set as completed", e, adapter);

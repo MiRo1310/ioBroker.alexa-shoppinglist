@@ -9,9 +9,9 @@ export const deleteOrSetAsCompleted = async (
     status: AlexaBtns,
 ): Promise<void> => {
     try {
-        const { getAlexaIds } = adapterIds();
+        const { idAlexaButtons } = adapterIds().getAlexaIds;
         for (const { id } of array) {
-            await adapter.setForeignStateAsync(getAlexaIds.idAlexaButtons(id, status), true, false);
+            await adapter.setForeignStateAsync(idAlexaButtons(id, status), true, false);
         }
     } catch (e: any) {
         errorLogger('Error delete or set as completed', e, adapter);

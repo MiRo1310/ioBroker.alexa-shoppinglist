@@ -39,55 +39,53 @@ const initAlexaInstanceValues = (adapter, idShoppingList) => {
   );
 };
 let alexaShoppingListAdapterInstanceId = ``;
-function adapterIds() {
-  const validateIds = {
-    validateIds: {
-      isPositionToShift: (id) => id === validateIds.getAdapterIds.idPositionToShift,
-      isToActiveList: (id) => id === validateIds.getAdapterIds.idToActiveList,
-      isToInActiveList: (id) => id === validateIds.getAdapterIds.idToInActiveList,
-      isDeleteActiveList: (id) => id === validateIds.getAdapterIds.idDeleteActiveList,
-      isDeleteInActiveList: (id) => id === validateIds.getAdapterIds.idDeleteInActiveList,
-      isAddPosition: (id) => id === validateIds.getAdapterIds.idAddPosition
-    },
-    getAdapterIds: {
-      idPositionToShift: `${alexaShoppingListAdapterInstanceId}.position_to_shift`,
-      //Number
-      idToActiveList: `${alexaShoppingListAdapterInstanceId}.to_activ_list`,
-      // Boolean
-      idToInActiveList: `${alexaShoppingListAdapterInstanceId}.to_inactiv_list`,
-      // Boolean
-      idDeleteActiveList: `${alexaShoppingListAdapterInstanceId}.delete_activ_list`,
-      // Boolean
-      idDeleteInActiveList: `${alexaShoppingListAdapterInstanceId}.delete_inactiv_list`,
-      // Boolean
-      idAddPosition: `${alexaShoppingListAdapterInstanceId}.add_position`,
-      //String
-      idSortActiveList: `${alexaShoppingListAdapterInstanceId}.list_active_sort`,
-      //Select
-      idSortInActiveList: `${alexaShoppingListAdapterInstanceId}.list_inactive_sort`,
-      //Select
-      idListActive: `${alexaShoppingListAdapterInstanceId}.list_activ`,
-      //Array
-      idListInActive: `${alexaShoppingListAdapterInstanceId}.list_inactiv`
-      //Array
-    },
-    getAlexaIds: {
-      idAlexaButtons: (id, btn) => `${validateIds.getAlexaIds.idShoppingList}.items.${id}.${btn}`,
-      alexaInstanceValues: {},
-      idShoppingListJson: "",
-      // Will be set on adapter start,
-      idShoppingList: ""
-      // Will be set on adapter start,
-    },
-    setIds: {
-      setAlexaInstanceValues: (obj, instanceId, idAlexa) => {
-        alexaShoppingListAdapterInstanceId = instanceId;
-        validateIds.getAlexaIds.alexaInstanceValues = obj;
-        validateIds.getAlexaIds.idShoppingListJson = idAlexa;
-        validateIds.getAlexaIds.idShoppingList = (0, import_utils.getListId)(idAlexa);
-      }
+const validateIds = {
+  validateIds: {
+    isPositionToShift: (id) => id === validateIds.getAdapterIds.idPositionToShift,
+    isToActiveList: (id) => id === validateIds.getAdapterIds.idToActiveList,
+    isToInActiveList: (id) => id === validateIds.getAdapterIds.idToInActiveList,
+    isDeleteActiveList: (id) => id === validateIds.getAdapterIds.idDeleteActiveList,
+    isDeleteInActiveList: (id) => id === validateIds.getAdapterIds.idDeleteInActiveList,
+    isAddPosition: (id) => id === validateIds.getAdapterIds.idAddPosition
+  },
+  getAdapterIds: {
+    idPositionToShift: `${alexaShoppingListAdapterInstanceId}.position_to_shift`,
+    idToActiveList: `${alexaShoppingListAdapterInstanceId}.to_activ_list`,
+    idToInActiveList: `${alexaShoppingListAdapterInstanceId}.to_inactiv_list`,
+    idDeleteActiveList: `${alexaShoppingListAdapterInstanceId}.delete_activ_list`,
+    idDeleteInActiveList: `${alexaShoppingListAdapterInstanceId}.delete_inactiv_list`,
+    idAddPosition: `${alexaShoppingListAdapterInstanceId}.add_position`,
+    idSortActiveList: `${alexaShoppingListAdapterInstanceId}.list_active_sort`,
+    idSortInActiveList: `${alexaShoppingListAdapterInstanceId}.list_inactive_sort`,
+    idListActive: `${alexaShoppingListAdapterInstanceId}.list_activ`,
+    idListInActive: `${alexaShoppingListAdapterInstanceId}.list_inactiv`
+  },
+  getAlexaIds: {
+    idAlexaButtons: (id, btn) => `${validateIds.getAlexaIds.idShoppingList}.items.${id}.${btn}`,
+    alexaInstanceValues: {},
+    idShoppingListJson: "",
+    idShoppingList: ""
+  },
+  setIds: {
+    setAlexaInstanceValues: (obj, instanceId, idAlexa) => {
+      alexaShoppingListAdapterInstanceId = instanceId;
+      validateIds.getAlexaIds.alexaInstanceValues = obj;
+      validateIds.getAlexaIds.idShoppingListJson = idAlexa;
+      validateIds.getAlexaIds.idShoppingList = (0, import_utils.getListId)(idAlexa);
+      validateIds.getAdapterIds.idPositionToShift = `${alexaShoppingListAdapterInstanceId}.position_to_shift`;
+      validateIds.getAdapterIds.idToActiveList = `${alexaShoppingListAdapterInstanceId}.to_activ_list`;
+      validateIds.getAdapterIds.idToInActiveList = `${alexaShoppingListAdapterInstanceId}.to_inactiv_list`;
+      validateIds.getAdapterIds.idDeleteActiveList = `${alexaShoppingListAdapterInstanceId}.delete_activ_list`;
+      validateIds.getAdapterIds.idDeleteInActiveList = `${alexaShoppingListAdapterInstanceId}.delete_inactiv_list`;
+      validateIds.getAdapterIds.idAddPosition = `${alexaShoppingListAdapterInstanceId}.add_position`;
+      validateIds.getAdapterIds.idSortActiveList = `${alexaShoppingListAdapterInstanceId}.list_active_sort`;
+      validateIds.getAdapterIds.idSortInActiveList = `${alexaShoppingListAdapterInstanceId}.list_inactive_sort`;
+      validateIds.getAdapterIds.idListActive = `${alexaShoppingListAdapterInstanceId}.list_activ`;
+      validateIds.getAdapterIds.idListInActive = `${alexaShoppingListAdapterInstanceId}.list_inactiv`;
     }
-  };
+  }
+};
+function adapterIds() {
   return validateIds;
 }
 // Annotate the CommonJS export names for ESM import in node:
