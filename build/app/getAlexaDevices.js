@@ -38,6 +38,7 @@ const getAlexaDevices = async (adapter, obj) => {
         });
       }
     }
+    adapter.log.debug(`Devices: ${JSON.stringify(result)}`);
     obj.callback && adapter.sendTo(obj.from, obj.command, result, obj.callback);
   } catch (e) {
     (0, import_logging.errorLogger)("Error getAlexaDevices", e, adapter);

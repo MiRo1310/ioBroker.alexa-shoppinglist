@@ -38,6 +38,7 @@ const getShoppingLists = async (adapter, obj) => {
         });
       }
     }
+    adapter.log.debug(`Lists: ${JSON.stringify(result)}`);
     obj.callback && adapter.sendTo(obj.from, obj.command, result, obj.callback);
   } catch (e) {
     (0, import_logging.errorLogger)("Error get shopping lists", e, adapter);

@@ -18,6 +18,7 @@ export const getShoppingLists = async (adapter: AlexaShoppinglist, obj: OnMessag
                 });
             }
         }
+        adapter.log.debug(`Lists: ${JSON.stringify(result)}`);
         obj.callback && adapter.sendTo(obj.from, obj.command, result, obj.callback);
     } catch (e: any) {
         errorLogger('Error get shopping lists', e, adapter);

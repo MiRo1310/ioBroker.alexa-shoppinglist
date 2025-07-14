@@ -16,6 +16,8 @@ export interface ShoppingList {
     buttonmove?: string;
     buttondelete?: string;
     pos?: number;
+    buttonCompletedId?: string;
+    buttonDeleteId?: string;
 }
 
 export type SortByTime1Alpha2 = '1' | '2';
