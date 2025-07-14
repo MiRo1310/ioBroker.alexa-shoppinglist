@@ -82,8 +82,7 @@ function setOnDblClickCustomShop( myvalue) {
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 1.1.0 (2025-07-14)
 
 - FEAT: Activate sentry
 - Breaking change: minimal supported node.js version is 20.x

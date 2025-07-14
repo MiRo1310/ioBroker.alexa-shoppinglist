@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alexa-shoppinglist",
-    "version": "1.0.3",
+    "version": "1.1.0",
     "news": {
+      "1.1.0": {
+        "en": "FEAT: Activate sentry\nBreaking change: minimal supported node.js version is 20.x\nFEAT: Add typescript",
+        "de": "FEAT: Aktivieren der Sendung\nBreaking change: minimal unterstützt node.js version is 20.x\nFEAT: Typscript hinzufügen",
+        "ru": "Поражение: Активировать часового\nИзменения: минимальная поддержка node.js версии 20.x\nАльбом: Add Typescript",
+        "pt": "FEAT: Ativar sentinela\nQuebrar a alteração: versão mínima suportada do nodo.js é 20.x\nFEAT: Adicionar texto",
+        "nl": "FEAT: Activeer wachters\nBreaking change: minimale ondersteunde node.js versie is 20.x\nFEAT: Voeg typescript toe",
+        "fr": "FEUILLE: Activer la sentinelle\nBreaking change: la version minimale prise en charge node.js est 20.x\nFEUILLE: Ajouter le dactylographic",
+        "it": "ATTENZIONE: Attiva la sentinella\nCambiamento di rottura: versione node.js supportata minima è 20.x\nATTENZIONE: Aggiungi il testo",
+        "es": "FEAT: Activar el centinela\nCambio de ruptura: la versión mínima de node.js es 20.x\nFEAT: Añadir tiposcript",
+        "pl": "FEAT: aktywować wartownik\nZmiana łamania: minimalna obsługiwana wersja node.js to 20.x\nFEAT: Dodaj tekst",
+        "uk": "FEAT: Активувати відправлення\nЗміна розривів: мінімальний підтриманий вузол.js версія 20.x\nFEAT: Додати шаблон",
+        "zh-cn": "FEAT: 启动哨兵\n中断更改:最小支持的节点.js版本为20x\nFEAT: 添加打字符"
+      },
       "1.0.3": {
         "en": "CHORE: Migration to ESLint 9 and @iobroker/eslint-config",
         "de": "CHORE: Migration auf ESLint 9 und @iobroker/eslint-config",
@@ -80,19 +93,6 @@
         "pl": "Teraz można zawsze usunąć listę nieaktywnych, gdy usuniesz artykuł z listy aktywnych",
         "uk": "Тепер можна завжди видаляти список неактивних, коли ви видаляєте статтю зі списку активних",
         "zh-cn": "当您从 Activ 列表中删除 Articel 时，现在可以始终删除 Inactiv 列表"
-      },
-      "0.1.3": {
-        "en": "Code fixed",
-        "de": "Code behoben",
-        "ru": "Код исправлен",
-        "pt": "Código corrigido",
-        "nl": "Code opgelost",
-        "fr": "Code fixe",
-        "it": "Codice fisso",
-        "es": "Código fijo",
-        "pl": "Kod naprawiony",
-        "uk": "Код виправлено",
-        "zh-cn": "代码固定"
       }
     },
     "titleLang": {
