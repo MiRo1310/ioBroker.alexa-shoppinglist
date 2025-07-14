@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../src/app/deleteOrSetAsCompleted.ts"],
+  "sourcesContent": ["import type AlexaShoppinglist from '../main';\nimport type { AlexaBtns, ShoppingList } from '../types/types';\nimport { adapterIds } from './ids';\nimport { errorLogger } from './logging';\n\nexport const deleteOrSetAsCompleted = async (\n    adapter: AlexaShoppinglist,\n    array: ShoppingList[],\n    status: AlexaBtns,\n): Promise<void> => {\n    try {\n        const { idAlexaButtons } = adapterIds().getAlexaIds;\n        for (const { id } of array) {\n            await adapter.setForeignStateAsync(idAlexaButtons(id, status), true, false);\n        }\n    } catch (e: any) {\n        errorLogger('Error delete or set as completed', e, adapter);\n    }\n};\n"],
+  "mappings": ";;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAEA,iBAA2B;AAC3B,qBAA4B;AAErB,MAAM,yBAAyB,OAClC,SACA,OACA,WACgB;AAChB,MAAI;AACA,UAAM,EAAE,eAAe,QAAI,uBAAW,EAAE;AACxC,eAAW,EAAE,GAAG,KAAK,OAAO;AACxB,YAAM,QAAQ,qBAAqB,eAAe,IAAI,MAAM,GAAG,MAAM,KAAK;AAAA,IAC9E;AAAA,EACJ,SAAS,GAAQ;AACb,oCAAY,oCAAoC,GAAG,OAAO;AAAA,EAC9D;AACJ;",
+  "names": []
+}
