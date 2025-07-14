@@ -27,6 +27,8 @@ export default class AlexaShoppinglist extends utils.Adapter {
             name: 'alexa-shoppinglist',
         });
         this.on('ready', this.onReady.bind(this));
+        // @ts-expect-error
+        this.on('message', this.onMessage.bind(this));
         this.on('unload', this.onUnload.bind(this));
     }
 

@@ -40,7 +40,8 @@ export const addPositionNumberAndBtn = (
                 idAlexaButtonCompleted
             },${false}')">${symbolMoveToActive}</button> <font color="${colorBtnON}">`;
         }
-
+        element.buttonDeleteId = idAlexaButtonDelete;
+        element.buttonCompletedId = idAlexaButtonCompleted;
         element.buttondelete = val1JSON;
     }
 };

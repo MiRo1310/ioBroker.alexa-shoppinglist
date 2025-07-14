@@ -23,6 +23,7 @@ export const getAlexaDevices = async (adapter: AlexaShoppinglist, obj: OnMessage
                 });
             }
         }
+        adapter.log.debug(`Devices: ${JSON.stringify(result)}`);
         obj.callback && adapter.sendTo(obj.from, obj.command, result, obj.callback);
     } catch (e: any) {
         errorLogger('Error getAlexaDevices', e, adapter);

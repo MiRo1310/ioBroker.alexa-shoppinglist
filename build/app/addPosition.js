@@ -44,6 +44,8 @@ const addPositionNumberAndBtn = (adapter, array, list) => {
     if (list === "inactive") {
       element.buttonmove = `<button style="border:none; cursor:pointer; background-color:transparent; color:white; font-size:1em; text-align:center" value="toggle" onclick="setOnDblClickCustomShop('${idAlexaButtonCompleted},${false}')">${symbolMoveToActive}</button> <font color="${colorBtnON}">`;
     }
+    element.buttonDeleteId = idAlexaButtonDelete;
+    element.buttonCompletedId = idAlexaButtonCompleted;
     element.buttondelete = val1JSON;
   }
 };
