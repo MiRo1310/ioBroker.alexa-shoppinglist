@@ -50,7 +50,7 @@ export const updateListsOnChange = async (
 
 function pushToList(list: ShoppingList[], element: AlexaList): ShoppingList[] {
     list.push({
-        name: firstLetterToUpperCase(element.value),
+        name: firstLetterToUpperCase(element.value ?? ''),
         time: new Date(element.createdDateTime).toLocaleString(),
         ts: new Date(element.createdDateTime).getTime(),
         id: element.id,

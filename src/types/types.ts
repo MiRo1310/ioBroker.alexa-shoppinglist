@@ -24,7 +24,7 @@ export type SortByTime1Alpha2 = '1' | '2';
 
 export interface AlexaList {
     completed: boolean;
-    value: string;
+    value?: string;
     createdDateTime: string;
     id: string;
 }
