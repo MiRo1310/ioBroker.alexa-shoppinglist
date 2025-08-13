@@ -54,8 +54,9 @@ const updateListsOnChange = async (adapter, sortListActive, sortListInActive, al
   }
 };
 function pushToList(list, element) {
+  var _a;
   list.push({
-    name: (0, import_utils.firstLetterToUpperCase)(element.value),
+    name: (0, import_utils.firstLetterToUpperCase)((_a = element.value) != null ? _a : ""),
     time: new Date(element.createdDateTime).toLocaleString(),
     ts: new Date(element.createdDateTime).getTime(),
     id: element.id
