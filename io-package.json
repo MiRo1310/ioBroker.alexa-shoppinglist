@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alexa-shoppinglist",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "news": {
+      "1.1.1": {
+        "en": "FIX: Error reported by sentry",
+        "de": "FIX: Fehler, die von gesendet werden",
+        "ru": "FIX: Ошибка, о которой сообщил часовой",
+        "pt": "FIX: Erro relatado pelo sentinela",
+        "nl": "FIX: Fout gemeld door de wachtdienst",
+        "fr": "FIX : Erreur signalée par sentinelle",
+        "it": "FIX: Errore segnalato dalla sentinella",
+        "es": "FIX: Error reportado por centinela",
+        "pl": "FIX: Błąd zgłaszany przez wartownika",
+        "uk": "FIX: Помилка, що повідомляється відправником",
+        "zh-cn": "FIX:哨兵报告的错误"
+      },
       "1.1.0": {
         "en": "FEAT: Activate sentry\nBreaking change: minimal supported node.js version is 20.x\nFEAT: Add typescript",
         "de": "FEAT: Aktivieren der Sendung\nBreaking change: minimal unterstützt node.js version is 20.x\nFEAT: Typscript hinzufügen",
@@ -80,19 +93,6 @@
         "pl": "Naprawiono błąd podczas usuwania przez listę JSON",
         "uk": "Виправлено помилку при видаленні через список JSON",
         "zh-cn": "通过修复的 JSON 列表删除时出错"
-      },
-      "0.1.4": {
-        "en": "Its now possible to delete always the Inactiv list, when you delete an Articel from the Activ list",
-        "de": "Es ist jetzt möglich, immer die Inaktiv-Liste zu löschen, wenn Sie einen Artikel aus der Aktiv-Liste löschen",
-        "ru": "Теперь можно всегда удалять список неактивных, когда вы удаляете статью из списка активных.",
-        "pt": "Agora é possível excluir sempre a lista Inactiv, quando você exclui um Articel da lista Activ",
-        "nl": "Het is nu mogelijk om altijd de Inactiv-lijst te verwijderen wanneer u een artikel uit de Activ-lijst verwijdert",
-        "fr": "Il est maintenant possible de supprimer toujours la liste Inactiv, lorsque vous supprimez un article de la liste Activ",
-        "it": "Ora è possibile eliminare sempre l'elenco Inattivi, quando si elimina un Articel dall'elenco Attivo",
-        "es": "Ahora es posible eliminar siempre la lista Inactiv, cuando elimina un Articel de la lista Activ",
-        "pl": "Teraz można zawsze usunąć listę nieaktywnych, gdy usuniesz artykuł z listy aktywnych",
-        "uk": "Тепер можна завжди видаляти список неактивних, коли ви видаляєте статтю зі списку активних",
-        "zh-cn": "当您从 Activ 列表中删除 Articel 时，现在可以始终删除 Inactiv 列表"
       }
     },
     "titleLang": {
