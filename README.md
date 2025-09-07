@@ -82,6 +82,11 @@ function setOnDblClickCustomShop( myvalue) {
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+
+- CHORE: #145 Update dependencies
+
 ### 1.1.1 (2025-08-13)
 
 - FIX: Error reported by sentry
