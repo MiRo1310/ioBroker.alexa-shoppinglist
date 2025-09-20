@@ -24,7 +24,7 @@ __export(ids_exports, {
 module.exports = __toCommonJS(ids_exports);
 var import_utils = require("../lib/utils");
 const initAlexaInstanceValues = (adapter, idShoppingList) => {
-  var _a, _b, _c;
+  var _a, _b, _c, _d, _e, _f;
   const alexaStateArray = idShoppingList.split(".");
   adapterIds().setIds.setAlexaInstanceValues(
     {
@@ -32,7 +32,7 @@ const initAlexaInstanceValues = (adapter, idShoppingList) => {
       instanz: (_a = alexaStateArray[1]) != null ? _a : "",
       channel_history: (_b = alexaStateArray[2]) != null ? _b : "",
       listNameOriginal: (_c = alexaStateArray[3]) != null ? _c : "",
-      listName: alexaStateArray[3].replace("_", " ").toLowerCase().replace("list", " ")
+      listName: (_f = (_e = (_d = alexaStateArray[3]) == null ? void 0 : _d.replace("_", " ").toLowerCase()) == null ? void 0 : _e.replace("list", " ")) != null ? _f : ""
     },
     `alexa-shoppinglist.${adapter.instance}`,
     idShoppingList
