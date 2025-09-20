@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alexa-shoppinglist",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "news": {
+      "1.1.2": {
+        "en": "CHORE: #145 Update dependencies",
+        "de": "CHORE: #145 Abhängigkeiten aktualisieren",
+        "ru": "CHORE: #145 Обновление зависимостей",
+        "pt": "TAREFA: #145 Atualizar dependências",
+        "nl": "CHORE: #145 Bijwerken van afhankelijkheden",
+        "fr": "CORVÉE : #145 Mise à jour des dépendances",
+        "it": "COMPLETATO: #145 Aggiornamento delle dipendenze",
+        "es": "TAREA: #145 Actualizar dependencias",
+        "pl": "ZADANIE: #145 Aktualizacja zależności",
+        "uk": "Завдання: #145 Оновлення залежностей",
+        "zh-cn": "任务: #145 更新依赖项"
+      },
       "1.1.1": {
         "en": "FIX: Error reported by sentry",
         "de": "FIX: Fehler, die von gesendet werden",
@@ -80,19 +93,6 @@
         "pl": "Wymagany jest kontroler js- 19\nZmiana łamania: minimalna obsługiwana wersja node.js to 18.x",
         "uk": "Js-controller >=5.0.19 потрібно\nЗміна розривів: мінімальний підтриманий вузол.js версія 18.x",
         "zh-cn": "需要Js控制器 >=5.0.19\n突破更改:最小支持的节点.js版本为18x"
-      },
-      "0.1.5": {
-        "en": "Error when deleting via the JSON list fixed",
-        "de": "Fehler beim Löschen über die JSON-Liste behoben",
-        "ru": "Исправлена ​​ошибка при удалении через список JSON",
-        "pt": "Erro ao excluir via lista JSON corrigido",
-        "nl": "Fout bij verwijderen via de JSON-lijst verholpen",
-        "fr": "Erreur lors de la suppression via la liste JSON corrigée",
-        "it": "Errore durante l'eliminazione tramite l'elenco JSON corretto",
-        "es": "Se corrigió el error al eliminar a través de la lista JSON",
-        "pl": "Naprawiono błąd podczas usuwania przez listę JSON",
-        "uk": "Виправлено помилку при видаленні через список JSON",
-        "zh-cn": "通过修复的 JSON 列表删除时出错"
       }
     },
     "titleLang": {
