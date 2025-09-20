@@ -18,3 +18,5 @@ admin/i18n/*/flat.txt
 
 .dev-server
 test.json
+
+.commitinfo
