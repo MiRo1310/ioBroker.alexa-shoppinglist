@@ -10,7 +10,7 @@ export const initAlexaInstanceValues = (adapter: AlexaShoppinglist, idShoppingLi
             instanz: alexaStateArray[1] ?? '',
             channel_history: alexaStateArray[2] ?? '',
             listNameOriginal: alexaStateArray[3] ?? '',
-            listName: alexaStateArray[3].replace('_', ' ').toLowerCase().replace('list', ' '),
+            listName: alexaStateArray[3]?.replace('_', ' ').toLowerCase()?.replace('list', ' ') ?? '',
         },
         `alexa-shoppinglist.${adapter.instance}`,
         idShoppingList,
