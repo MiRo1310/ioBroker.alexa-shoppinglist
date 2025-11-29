@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alexa-shoppinglist",
-    "version": "1.1.2",
+    "version": "1.1.3",
     "news": {
+      "1.1.3": {
+        "en": "CHORE: Update dependencies\nFIX: Error reported by sentry",
+        "de": "CHORE: Aktualisieren von Abhängigkeiten\nFIX: Fehler, die von gesendet werden",
+        "ru": "Изображение: Update Dependencies\nFIX: Ошибка, о которой сообщил часовой",
+        "pt": "CHORE: Atualizar dependências\nFIX: Erro relatado pelo sentinela",
+        "nl": "Afhankelijkheden bijwerken\nFIX: Fout gemeld door de wachtdienst",
+        "fr": "CHORE : Mise à jour des dépendances\nFIX : Erreur signalée par sentinelle",
+        "it": "CHORE: dipendenze di aggiornamento\nFIX: Errore segnalato dalla sentinella",
+        "es": "CHORE: Actualizar las dependencias\nFIX: Error reportado por centinela",
+        "pl": "CHORE: Uaktualnij zależności\nFIX: Błąd zgłaszany przez wartownika",
+        "uk": "CHORE: Оновити залежності\nFIX: Помилка, що повідомляється відправником",
+        "zh-cn": "CHORE: 更新依赖性\nFIX:哨兵报告的错误"
+      },
       "1.1.2": {
         "en": "CHORE: #145 Update dependencies",
         "de": "CHORE: #145 Abhängigkeiten aktualisieren",
@@ -80,19 +93,6 @@
         "pl": "FEAT: # 95 Responsive Design",
         "uk": "FEAT: #95 Відповідальний дизайн",
         "zh-cn": "FEAT: #95 反应设计"
-      },
-      "1.0.0": {
-        "en": "Js-controller >=5.0.19 is required\nBreaking change: minimal supported node.js version is 18.x",
-        "de": "Js-Controller >=5.0.19 ist erforderlich\nBreaking change: minimal unterstützt node.js version is 18.x",
-        "ru": "Js-контроллер >=5.0.19 требуется\nПерерыв изменения: минимальная поддерживаемая версия node.js - 18.x",
-        "pt": "Js-controller >=5.0.19 é necessário\nAlteração de ruptura: node.js mínimo suportado versão é 18.x",
-        "nl": "Js-controller > 5.0.19 is vereist\nBreaking change: minimale ondersteunde node.js versie is 18.x",
-        "fr": "Js-contrôleur >=5.0.19 est nécessaire\nBreaking change: la version minimale prise en charge node.js est 18.x",
-        "it": "Js-controller >=5.0.19 è richiesto\nCambiamento di rottura: versione node.js supportata minima è 18.x",
-        "es": "Se requiere Js-controller\nCambio de ruptura: la versión mínima de node.js es 18.x",
-        "pl": "Wymagany jest kontroler js- 19\nZmiana łamania: minimalna obsługiwana wersja node.js to 18.x",
-        "uk": "Js-controller >=5.0.19 потрібно\nЗміна розривів: мінімальний підтриманий вузол.js версія 18.x",
-        "zh-cn": "需要Js控制器 >=5.0.19\n突破更改:最小支持的节点.js版本为18x"
       }
     },
     "titleLang": {
