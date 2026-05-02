@@ -83,6 +83,7 @@ function setOnDblClickCustomShop( myvalue) {
 	### **WORK IN PROGRESS**
 -->
 ### **WORK IN PROGRESS**
+- (copilot) Adapter requires node.js >= 22 now
 
 CHORE: Update dependencies
 CHORE: #203 Issues reported by repository checker
