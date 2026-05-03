@@ -149,6 +149,8 @@ CHORE: #193-Repository-Checker
 
 - (MiRo1310) initial release
 
+[Older changelogs can be found there](CHANGELOG_OLD.md)
+
 ## License
 
 MIT License
