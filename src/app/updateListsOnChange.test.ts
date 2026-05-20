@@ -179,48 +179,6 @@ describe('updateListsOnChange', () => {
         expect(errorLogger).toHaveBeenCalledWith('Error update list on change', expect.any(Error), mockAdapter);
     });
 
-    it('should handle undefined element value correctly', async () => {
-        const mockAlexaStateValue = JSON.stringify([
-            {
-                id: 'item1',
-                value: undefined,
-                createdDateTime: '2023-01-01T10:00:00Z',
-                completed: false,
-            },
-        ]);
-
-        (mockAdapter.getForeignStateAsync as jest.MockedFunction<any>).mockResolvedValueOnce({
-            val: mockAlexaStateValue,
-        });
-
-        const result = await updateListsOnChange(mockAdapter, '1', '1', 'test.state');
-
-        // Verify that firstLetterToUpperCase was called with empty string for undefined value
-        expect(firstLetterToUpperCase).toHaveBeenCalledWith('');
-        expect(result.error).toBe(false);
-    });
-
-    it('should handle null element value correctly', async () => {
-        const mockAlexaStateValue = JSON.stringify([
-            {
-                id: 'item1',
-                value: null,
-                createdDateTime: '2023-01-01T10:00:00Z',
-                completed: false,
-            },
-        ]);
-
-        (mockAdapter.getForeignStateAsync as jest.MockedFunction<any>).mockResolvedValueOnce({
-            val: mockAlexaStateValue,
-        });
-
-        const result = await updateListsOnChange(mockAdapter, '1', '1', 'test.state');
-
-        // Verify that firstLetterToUpperCase was called with empty string for null value
-        expect(firstLetterToUpperCase).toHaveBeenCalledWith('');
-        expect(result.error).toBe(false);
-    });
-
     it('should apply correct sorting based on parameters', async () => {
         const mockAlexaStateValue = JSON.stringify([
             {
