@@ -1,7 +1,5 @@
 {
-    "Alexa State": "Alexa Staat van de lijst",
-    "ID": "ID van Alexa-apparaat, geef tekstopdracht aan",
-    "Instance": "Alexa-instantie",
-    "You have to start the Adapter before you can configure!": "U moet de adapter starten voordat u kunt configureren!",
-    "messageStartAdapter": "U moet de adapter starten voordat u kunt configureren!"
+    "Alexa State": "Alexa-staat van de lijst",
+    "ID": "ID van Alexa-apparaat, vermeld textCommand",
+    "You have to start the Adapter before you can configure!": "U moet de adapter starten voordat u kunt configureren!"
 }

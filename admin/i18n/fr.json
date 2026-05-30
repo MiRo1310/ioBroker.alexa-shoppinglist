@@ -1,7 +1,5 @@
 {
     "Alexa State": "Alexa État de la liste",
-    "ID": "ID de l'appareil Alexa, indiquez textCommand",
-    "Instance": "Instance Alexa",
-    "You have to start the Adapter before you can configure!": "Vous devez démarrer l'adaptateur avant de pouvoir configurer !",
-    "messageStartAdapter": "Vous devez démarrer l'adaptateur avant de pouvoir configurer !"
+    "ID": "ID de l'appareil Alexa, état textCommand",
+    "You have to start the Adapter before you can configure!": "Vous devez démarrer l'adaptateur avant de pouvoir configurer !"
 }
