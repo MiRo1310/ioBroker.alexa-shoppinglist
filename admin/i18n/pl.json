@@ -1,7 +1,5 @@
 {
-    "Alexa State": "Alexa Stan listy",
-    "ID": "ID urządzenia Alexa, stan textCommand",
-    "Instance": "Instancja Alexy",
-    "You have to start the Adapter before you can configure!": "Zanim będziesz mógł dokonać konfiguracji, musisz uruchomić Adapter!",
-    "messageStartAdapter": "Zanim będziesz mógł dokonać konfiguracji, musisz uruchomić Adapter!"
+    "Alexa State": "Stan listy Alexa",
+    "ID": "Identyfikator urządzenia Alexa, podaj polecenie tekstowe",
+    "You have to start the Adapter before you can configure!": "Zanim będziesz mógł dokonać konfiguracji, musisz uruchomić Adapter!"
 }

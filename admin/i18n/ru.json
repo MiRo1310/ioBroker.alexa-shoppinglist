@@ -1,7 +1,5 @@
 {
-    "Alexa State": "Alexa Состояние списка",
-    "ID": "ID Alexa Device, состояние textCommand",
-    "Instance": "Экземпляр Алексы",
-    "You have to start the Adapter before you can configure!": "Прежде чем приступить к настройке, вам необходимо запустить адаптер!",
-    "messageStartAdapter": "Прежде чем приступить к настройке, вам необходимо запустить адаптер!"
+    "Alexa State": "Состояние Alexa в списке",
+    "ID": "Идентификатор устройства Alexa, состояние textCommand",
+    "You have to start the Adapter before you can configure!": "Прежде чем приступить к настройке, вам необходимо запустить адаптер!"
 }

@@ -1,7 +1,5 @@
 {
     "Alexa State": "Stato dell'elenco di Alexa",
     "ID": "ID del dispositivo Alexa, stato textCommand",
-    "Instance": "Istanza di Alexa",
-    "You have to start the Adapter before you can configure!": "È necessario avviare l'adattatore prima di poterlo configurare!",
-    "messageStartAdapter": "È necessario avviare l'adattatore prima di poterlo configurare!"
+    "You have to start the Adapter before you can configure!": "È necessario avviare l'adattatore prima di poterlo configurare!"
 }
