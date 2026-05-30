@@ -12,6 +12,11 @@
 **Tests:
 ** ![Test and Release](https://github.com/MiRo1310/ioBroker.alexa-shoppinglist/workflows/Test%20and%20Release/badge.svg)
 
+**This adapter uses Sentry libraries to automatically report exceptions and code errors to the developers.** For more
+details and instructions on disabling error reporting, please refer to
+the [Sentry-Plugin Documentation](https://github.com/ioBroker/plugin-sentry#plugin-sentry)! Use of Sentry reporting
+starts with js-controller 3.0.
+
 ## alexa-shoppingList adapter for ioBroker
 
 This adapter uses Sentry libraries to automatically report exceptions and code errors to the developers. For more

@@ -1,0 +1,7 @@
+{
+    "Alexa State": "列表中的 Alexa 状态",
+    "ID": "Alexa 设备的 ID，状态 textCommand",
+    "Instance": "Alexa 实例",
+    "You have to start the Adapter before you can configure!": "您必须先启动适配器才能配置！",
+    "messageStartAdapter": "您必须先启动适配器才能配置！"
+}

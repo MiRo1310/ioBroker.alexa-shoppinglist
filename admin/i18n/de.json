@@ -1,0 +1,7 @@
+{
+    "Alexa State": "Alexa Status der Liste",
+    "ID": "ID des Alexa-Geräts, Zustand textCommand",
+    "Instance": "Alexa-Instanz",
+    "You have to start the Adapter before you can configure!": "Sie müssen den Adapter starten, bevor Sie ihn konfigurieren können!",
+    "messageStartAdapter": "Sie müssen den Adapter starten, bevor Sie ihn konfigurieren können!"
+}
