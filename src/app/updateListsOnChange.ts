@@ -1,8 +1,8 @@
-import { firstLetterToUpperCase, sortList } from '../lib/utils';
+import { firstLetterToUpperCase, sortList } from '@/lib/utils';
 import { addPositionNumberAndBtn } from './addPosition';
 import { writeState } from './writeState';
 import type AlexaShoppinglist from '../main';
-import type { AlexaList, ShoppingList, SortByTime1Alpha2 } from '../types/types';
+import type { AlexaList, ShoppingList, SortByTime1Alpha2 } from '@/types/types';
 import { errorLogger } from './logging';
 
 export const updateListsOnChange = async (

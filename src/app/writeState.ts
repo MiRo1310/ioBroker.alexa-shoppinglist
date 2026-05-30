@@ -1,5 +1,5 @@
-import type AlexaShoppinglist from '../main';
-import type { ShoppingList } from '../types/types';
+import type AlexaShoppinglist from '@/main';
+import type { ShoppingList } from '@/types/types';
 import { errorLogger } from './logging';
 import { adapterIds } from './ids';
 
