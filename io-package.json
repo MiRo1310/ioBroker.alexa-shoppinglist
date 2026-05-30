@@ -121,8 +121,12 @@
             "zh-cn": "从 Alexa 生成购物清单",
             "uk": "Створює список покупок з Alexa"
         },
-        "authors": ["MiRo1310 <michael.roling@gmx.de>"],
-        "keywords": ["Iobroker, Alexa, Shoppinglist, List, Smarthome"],
+        "authors": [
+            "MiRo1310 <michael.roling@gmx.de>"
+        ],
+        "keywords": [
+            "Iobroker, Alexa, Shoppinglist, List, Smarthome"
+        ],
         "licenseInformation": {
             "license": "MIT",
             "type": "free"

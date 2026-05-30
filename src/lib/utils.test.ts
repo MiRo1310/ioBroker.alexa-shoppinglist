@@ -55,7 +55,7 @@ describe('utils', () => {
             const array = [
                 { name: 'Zebra', ts: 10, id: 'z', time: 'time' },
                 { name: 'Apple', ts: 20, id: 'a', time: 'time' },
-                { name: 'Banana', ts: 30, id: 'b', time: 'time' }
+                { name: 'Banana', ts: 30, id: 'b', time: 'time' },
             ];
             const sorted = sortList(array, '2');
             expect(sorted[0].name).toBe('Apple');
