@@ -121,12 +121,8 @@
             "zh-cn": "从 Alexa 生成购物清单",
             "uk": "Створює список покупок з Alexa"
         },
-        "authors": [
-            "MiRo1310 <michael.roling@gmx.de>"
-        ],
-        "keywords": [
-            "Iobroker, Alexa, Shoppinglist, List, Smarthome"
-        ],
+        "authors": ["MiRo1310 <michael.roling@gmx.de>"],
+        "keywords": ["Iobroker, Alexa, Shoppinglist, List, Smarthome"],
         "licenseInformation": {
             "license": "MIT",
             "type": "free"
@@ -224,9 +220,8 @@
             "_id": "list_activ_sort",
             "type": "state",
             "common": {
-                "role": "select",
+                "role": "state",
                 "name": "Sorting of List Active",
-                "type": "string",
                 "read": true,
                 "write": true,
                 "states": {
@@ -241,9 +236,8 @@
             "_id": "list_inactiv_sort",
             "type": "state",
             "common": {
-                "role": "switch",
+                "role": "state",
                 "name": "Sorting of List Inactive",
-                "type": "string",
                 "read": true,
                 "write": true,
                 "states": {
@@ -274,7 +268,7 @@
                 "role": "button",
                 "name": "Move to inactive",
                 "type": "boolean",
-                "read": true,
+                "read": false,
                 "write": true,
                 "def": true
             },
@@ -323,7 +317,7 @@
             "_id": "position_to_shift",
             "type": "state",
             "common": {
-                "role": "value",
+                "role": "level",
                 "name": "Position to shift",
                 "type": "number",
                 "read": true,
