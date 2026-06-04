@@ -224,6 +224,7 @@
                 "name": "Sorting of List Active",
                 "read": true,
                 "write": true,
+                "type": "string",
                 "states": {
                     "1": "Time",
                     "2": "Alphabetical"
@@ -240,6 +241,7 @@
                 "name": "Sorting of List Inactive",
                 "read": true,
                 "write": true,
+                "type": "string",
                 "states": {
                     "1": "Time",
                     "2": "Alphabetical"
