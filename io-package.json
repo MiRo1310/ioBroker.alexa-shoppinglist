@@ -1,332 +1,336 @@
 {
-    "common": {
-        "name": "alexa-shoppinglist",
-        "version": "1.1.3",
-        "news": {
-            "1.1.3": {
-                "en": "CHORE: Update dependencies\nFIX: Error reported by sentry",
-                "de": "CHORE: Aktualisieren von Abhängigkeiten\nFIX: Fehler, die von gesendet werden",
-                "ru": "Изображение: Update Dependencies\nFIX: Ошибка, о которой сообщил часовой",
-                "pt": "CHORE: Atualizar dependências\nFIX: Erro relatado pelo sentinela",
-                "nl": "Afhankelijkheden bijwerken\nFIX: Fout gemeld door de wachtdienst",
-                "fr": "CHORE : Mise à jour des dépendances\nFIX : Erreur signalée par sentinelle",
-                "it": "CHORE: dipendenze di aggiornamento\nFIX: Errore segnalato dalla sentinella",
-                "es": "CHORE: Actualizar las dependencias\nFIX: Error reportado por centinela",
-                "pl": "CHORE: Uaktualnij zależności\nFIX: Błąd zgłaszany przez wartownika",
-                "uk": "CHORE: Оновити залежності\nFIX: Помилка, що повідомляється відправником",
-                "zh-cn": "CHORE: 更新依赖性\nFIX:哨兵报告的错误"
-            },
-            "1.1.2": {
-                "en": "CHORE: #145 Update dependencies",
-                "de": "CHORE: #145 Abhängigkeiten aktualisieren",
-                "ru": "CHORE: #145 Обновление зависимостей",
-                "pt": "TAREFA: #145 Atualizar dependências",
-                "nl": "CHORE: #145 Bijwerken van afhankelijkheden",
-                "fr": "CORVÉE : #145 Mise à jour des dépendances",
-                "it": "COMPLETATO: #145 Aggiornamento delle dipendenze",
-                "es": "TAREA: #145 Actualizar dependencias",
-                "pl": "ZADANIE: #145 Aktualizacja zależności",
-                "uk": "Завдання: #145 Оновлення залежностей",
-                "zh-cn": "任务: #145 更新依赖项"
-            },
-            "1.1.1": {
-                "en": "FIX: Error reported by sentry",
-                "de": "FIX: Fehler, die von gesendet werden",
-                "ru": "FIX: Ошибка, о которой сообщил часовой",
-                "pt": "FIX: Erro relatado pelo sentinela",
-                "nl": "FIX: Fout gemeld door de wachtdienst",
-                "fr": "FIX : Erreur signalée par sentinelle",
-                "it": "FIX: Errore segnalato dalla sentinella",
-                "es": "FIX: Error reportado por centinela",
-                "pl": "FIX: Błąd zgłaszany przez wartownika",
-                "uk": "FIX: Помилка, що повідомляється відправником",
-                "zh-cn": "FIX:哨兵报告的错误"
-            },
-            "1.1.0": {
-                "en": "FEAT: Activate sentry\nBreaking change: minimal supported node.js version is 20.x\nFEAT: Add typescript",
-                "de": "FEAT: Aktivieren der Sendung\nBreaking change: minimal unterstützt node.js version is 20.x\nFEAT: Typscript hinzufügen",
-                "ru": "Поражение: Активировать часового\nИзменения: минимальная поддержка node.js версии 20.x\nАльбом: Add Typescript",
-                "pt": "FEAT: Ativar sentinela\nQuebrar a alteração: versão mínima suportada do nodo.js é 20.x\nFEAT: Adicionar texto",
-                "nl": "FEAT: Activeer wachters\nBreaking change: minimale ondersteunde node.js versie is 20.x\nFEAT: Voeg typescript toe",
-                "fr": "FEUILLE: Activer la sentinelle\nBreaking change: la version minimale prise en charge node.js est 20.x\nFEUILLE: Ajouter le dactylographic",
-                "it": "ATTENZIONE: Attiva la sentinella\nCambiamento di rottura: versione node.js supportata minima è 20.x\nATTENZIONE: Aggiungi il testo",
-                "es": "FEAT: Activar el centinela\nCambio de ruptura: la versión mínima de node.js es 20.x\nFEAT: Añadir tiposcript",
-                "pl": "FEAT: aktywować wartownik\nZmiana łamania: minimalna obsługiwana wersja node.js to 20.x\nFEAT: Dodaj tekst",
-                "uk": "FEAT: Активувати відправлення\nЗміна розривів: мінімальний підтриманий вузол.js версія 20.x\nFEAT: Додати шаблон",
-                "zh-cn": "FEAT: 启动哨兵\n中断更改:最小支持的节点.js版本为20x\nFEAT: 添加打字符"
-            },
-            "1.0.3": {
-                "en": "CHORE: Migration to ESLint 9 and @iobroker/eslint-config",
-                "de": "CHORE: Migration auf ESLint 9 und @iobroker/eslint-config",
-                "ru": "CHORE: Migration to ESLint 9 and @iobroker/eslint-config",
-                "pt": "CHORE: Migração para ESLint 9 e @iobroker/eslint-config",
-                "nl": "CHORE: migratie naar ESLint 9 en @iobroker/eslint-config",
-                "fr": "CHORE: Migration vers ESLint 9 et @iobroker/eslint-config",
-                "it": "CHORE: Migrazione a ESLint 9 e @iobroker/eslint-config",
-                "es": "CHORE: Migración a ESLint 9 y @iobroker/eslint-config",
-                "pl": "CHORE: Migracja do ESLint 9 i @ iobroker / eslint- config",
-                "uk": "CHORE: Міграція до ESLint 9 і @iobroker/eslint-config",
-                "zh-cn": "CHORE: 迁移到ESLint 9 和 @iobroster/eslint-config"
-            },
-            "1.0.2": {
-                "en": "FIX: #97 Add missing attributes to jsonConfig",
-                "de": "FIX: #97 fehlende Attribute zu jsonConfig hinzufügen",
-                "ru": "#97 Добавить недостающие атрибуты в jsonConfig",
-                "pt": "FIX: #97 Adicionar atributos ausentes ao jsonConfig",
-                "nl": "FIX: #97 Voeg ontbrekende attributen toe aan jsonConfig",
-                "fr": "FIX: #97 Ajouter des attributs manquants à jsonConfig",
-                "it": "FIX: #97 Aggiungi attributi mancanti a jsonConfig",
-                "es": "FIX: #97 Añadir atributos perdidos a jsonConfig",
-                "pl": "FIX: # 97 Dodaj brakujące atrybuty do jsonConfig",
-                "uk": "FIX: #97 Додати відсутні атрибути до jsonConfig",
-                "zh-cn": "FIX: # 97 向 jsonConfig 添加缺失属性"
-            },
-            "1.0.1": {
-                "en": "FEAT: #95 Responsive Design",
-                "de": "FEAT: #95 Responsive Design",
-                "ru": "#95 Ответственный дизайн",
-                "pt": "FEAT: #95 Design responsivo",
-                "nl": "FEAT: #95 Responsive Design",
-                "fr": "NUMÉRO: #95 Conception sensible",
-                "it": "FEAT: #95 Responsive Design",
-                "es": "FEAT: #95 Diseño responsable",
-                "pl": "FEAT: # 95 Responsive Design",
-                "uk": "FEAT: #95 Відповідальний дизайн",
-                "zh-cn": "FEAT: #95 反应设计"
-            }
-        },
-        "titleLang": {
-            "en": "Alexa Shoppinglist",
-            "de": "Alexa Einkaufsliste",
-            "ru": "Алекса список покупок",
-            "pt": "Lista de compras Alexa",
-            "nl": "Alexa-boodschappenlijst",
-            "fr": "Liste de courses Alexa",
-            "it": "Lista della spesa di Alexa",
-            "es": "Lista de la compra de Alexa",
-            "pl": "Lista zakupów Alexa",
-            "zh-cn": "Alexa购物清单",
-            "uk": "Список покупок Alexa"
-        },
-        "desc": {
-            "en": "Generates the Shoppinglist from Alexa",
-            "de": "Erzeugt die Einkaufsliste von Alexa",
-            "ru": "Генерирует список покупок из Alexa",
-            "pt": "Gera a lista de compras do Alexa",
-            "nl": "Genereert de boodschappenlijst van Alexa",
-            "fr": "Génère la liste de courses d'Alexa",
-            "it": "Genera la lista della spesa da Alexa",
-            "es": "Genera la lista de la compra desde Alexa",
-            "pl": "Generuje listę zakupów z Alexa",
-            "zh-cn": "从 Alexa 生成购物清单",
-            "uk": "Створює список покупок з Alexa"
-        },
-        "authors": ["MiRo1310 <michael.roling@gmx.de>"],
-        "keywords": ["Iobroker, Alexa, Shoppinglist, List, Smarthome"],
-        "licenseInformation": {
-            "license": "MIT",
-            "type": "free"
-        },
-        "platform": "Javascript/Node.js",
-        "icon": "alexa-shoppinglist.png",
-        "enabled": true,
-        "extIcon": "https://raw.githubusercontent.com/MiRo1310/ioBroker.alexa-shoppinglist/main/admin/alexa-shoppinglist.png",
-        "readme": "https://github.com/MiRo1310/ioBroker.alexa-shoppinglist/blob/main/README.md",
-        "loglevel": "info",
-        "messagebox": true,
-        "mode": "daemon",
-        "type": "logic",
-        "tier": 3,
-        "compact": true,
-        "connectionType": "local",
-        "dataSource": "poll",
-        "supportCustoms": false,
-        "plugins": {
-            "sentry": {
-                "dsn": "https://9d473b68d00b00d91f1535835592d739@o4508003658498048.ingest.de.sentry.io/4509305083592784"
-            }
-        },
-        "adminUI": {
-            "config": "json"
-        },
-        "dependencies": [
-            {
-                "js-controller": ">=6.0.11"
-            }
-        ],
-        "globalDependencies": [
-            {
-                "alexa2": ">=3.11.2",
-                "admin": ">=7.6.20"
-            }
-        ]
+  "common": {
+    "name": "alexa-shoppinglist",
+    "version": "1.1.4",
+    "news": {
+      "1.1.4": {
+        "en": "CHORE: Add unit tests\nAdapter requires node.js >= 22 now\nCHORE: Update dependencies\nCHORE: #203 Issues reported by repository checker\nCHORE: #193-Repository-Checker",
+        "de": "CHORE: Gerätetests hinzufügen\nAdapter benötigt node.js >= 22 jetzt\nCHORE: Aktualisieren von Abhängigkeiten\nCHORE: #203 Vom Repository-Checker gemeldete Probleme\nCHORE: #193-Repository-Checker",
+        "ru": "Источник: Add Unit Tests\nАдаптер требует node.js >= 22 сейчас\nИзображение: Update Dependencies\nИсточник: #203 Проблемы, о которых сообщает Repository Checker\nИсточник: #193-Repository-Checker",
+        "pt": "CHORE: Adicionar testes unitários\nAdaptador requer nod.js >= 22 agora\nCHORE: Atualizar dependências\nCHORE: #203 Problemas comunicados pelo verificador do repositório\nCHORE: # 193- Verificador de Repositório",
+        "nl": "Toevoegen aan unit tests\nVoor de adapter zijn node.js < 22 nu nodig\nAfhankelijkheden bijwerken\n#203 Door repository-checker gerapporteerde problemen\n#193-Repository-Checker",
+        "fr": "Ajouter les essais unitaires\nAdaptateur nécessite node.js >= 22 maintenant\nCHORE: Mise à jour des dépendances\nN°203 Problèmes signalés par le vérificateur du dépôt\nCHORE: #193-Dépositaire-Vérificateur",
+        "it": "CHORE: Aggiungere test unità\nAdattatore richiede node.js >= 22 ora\nCHORE: dipendenze di aggiornamento\n#203 Problemi segnalati da repository checker\nCHORE: #193-Repository-Checker",
+        "es": "CHORE: Añadir pruebas de unidad\nAdaptador requiere node.js ю= 22 ahora\nCHORE: Actualizar las dependencias\nCHORE: #203 Problemas notificados por el repositorio\nCHORE: #193-Repository-Checker",
+        "pl": "CHORE: Dodaj badania jednostkowe\nAdapter wymaga node.js > = 22\nCHORE: Uaktualnij zależności\nCHORE: # 203 Problemy zgłaszane przez sprawdzacz repozytorium\nCHORE: # 193- Reposity- Checker",
+        "uk": "CHORE: Додати тести\nАдаптер вимагає node.js >= 22 тепер\nCHORE: Оновити залежності\nЧОР: #203 Про це повідомляє репозиторійна перевірка\nЧОР: #193-Репозиторій-Чекер",
+        "zh-cn": "增加单元测试\n适配器需要节点.js 现在22\nCHORE: 更新依赖性\n203号 储存库检查员报告的问题\n# 193-仓库检查器"
+      },
+      "1.1.3": {
+        "en": "CHORE: Update dependencies\nFIX: Error reported by sentry",
+        "de": "CHORE: Aktualisieren von Abhängigkeiten\nFIX: Fehler, die von gesendet werden",
+        "ru": "Изображение: Update Dependencies\nFIX: Ошибка, о которой сообщил часовой",
+        "pt": "CHORE: Atualizar dependências\nFIX: Erro relatado pelo sentinela",
+        "nl": "Afhankelijkheden bijwerken\nFIX: Fout gemeld door de wachtdienst",
+        "fr": "CHORE : Mise à jour des dépendances\nFIX : Erreur signalée par sentinelle",
+        "it": "CHORE: dipendenze di aggiornamento\nFIX: Errore segnalato dalla sentinella",
+        "es": "CHORE: Actualizar las dependencias\nFIX: Error reportado por centinela",
+        "pl": "CHORE: Uaktualnij zależności\nFIX: Błąd zgłaszany przez wartownika",
+        "uk": "CHORE: Оновити залежності\nFIX: Помилка, що повідомляється відправником",
+        "zh-cn": "CHORE: 更新依赖性\nFIX:哨兵报告的错误"
+      },
+      "1.1.2": {
+        "en": "CHORE: #145 Update dependencies",
+        "de": "CHORE: #145 Abhängigkeiten aktualisieren",
+        "ru": "CHORE: #145 Обновление зависимостей",
+        "pt": "TAREFA: #145 Atualizar dependências",
+        "nl": "CHORE: #145 Bijwerken van afhankelijkheden",
+        "fr": "CORVÉE : #145 Mise à jour des dépendances",
+        "it": "COMPLETATO: #145 Aggiornamento delle dipendenze",
+        "es": "TAREA: #145 Actualizar dependencias",
+        "pl": "ZADANIE: #145 Aktualizacja zależności",
+        "uk": "Завдання: #145 Оновлення залежностей",
+        "zh-cn": "任务: #145 更新依赖项"
+      },
+      "1.1.1": {
+        "en": "FIX: Error reported by sentry",
+        "de": "FIX: Fehler, die von gesendet werden",
+        "ru": "FIX: Ошибка, о которой сообщил часовой",
+        "pt": "FIX: Erro relatado pelo sentinela",
+        "nl": "FIX: Fout gemeld door de wachtdienst",
+        "fr": "FIX : Erreur signalée par sentinelle",
+        "it": "FIX: Errore segnalato dalla sentinella",
+        "es": "FIX: Error reportado por centinela",
+        "pl": "FIX: Błąd zgłaszany przez wartownika",
+        "uk": "FIX: Помилка, що повідомляється відправником",
+        "zh-cn": "FIX:哨兵报告的错误"
+      },
+      "1.1.0": {
+        "en": "FEAT: Activate sentry\nBreaking change: minimal supported node.js version is 20.x\nFEAT: Add typescript",
+        "de": "FEAT: Aktivieren der Sendung\nBreaking change: minimal unterstützt node.js version is 20.x\nFEAT: Typscript hinzufügen",
+        "ru": "Поражение: Активировать часового\nИзменения: минимальная поддержка node.js версии 20.x\nАльбом: Add Typescript",
+        "pt": "FEAT: Ativar sentinela\nQuebrar a alteração: versão mínima suportada do nodo.js é 20.x\nFEAT: Adicionar texto",
+        "nl": "FEAT: Activeer wachters\nBreaking change: minimale ondersteunde node.js versie is 20.x\nFEAT: Voeg typescript toe",
+        "fr": "FEUILLE: Activer la sentinelle\nBreaking change: la version minimale prise en charge node.js est 20.x\nFEUILLE: Ajouter le dactylographic",
+        "it": "ATTENZIONE: Attiva la sentinella\nCambiamento di rottura: versione node.js supportata minima è 20.x\nATTENZIONE: Aggiungi il testo",
+        "es": "FEAT: Activar el centinela\nCambio de ruptura: la versión mínima de node.js es 20.x\nFEAT: Añadir tiposcript",
+        "pl": "FEAT: aktywować wartownik\nZmiana łamania: minimalna obsługiwana wersja node.js to 20.x\nFEAT: Dodaj tekst",
+        "uk": "FEAT: Активувати відправлення\nЗміна розривів: мінімальний підтриманий вузол.js версія 20.x\nFEAT: Додати шаблон",
+        "zh-cn": "FEAT: 启动哨兵\n中断更改:最小支持的节点.js版本为20x\nFEAT: 添加打字符"
+      },
+      "1.0.3": {
+        "en": "CHORE: Migration to ESLint 9 and @iobroker/eslint-config",
+        "de": "CHORE: Migration auf ESLint 9 und @iobroker/eslint-config",
+        "ru": "CHORE: Migration to ESLint 9 and @iobroker/eslint-config",
+        "pt": "CHORE: Migração para ESLint 9 e @iobroker/eslint-config",
+        "nl": "CHORE: migratie naar ESLint 9 en @iobroker/eslint-config",
+        "fr": "CHORE: Migration vers ESLint 9 et @iobroker/eslint-config",
+        "it": "CHORE: Migrazione a ESLint 9 e @iobroker/eslint-config",
+        "es": "CHORE: Migración a ESLint 9 y @iobroker/eslint-config",
+        "pl": "CHORE: Migracja do ESLint 9 i @ iobroker / eslint- config",
+        "uk": "CHORE: Міграція до ESLint 9 і @iobroker/eslint-config",
+        "zh-cn": "CHORE: 迁移到ESLint 9 和 @iobroster/eslint-config"
+      },
+      "1.0.2": {
+        "en": "FIX: #97 Add missing attributes to jsonConfig",
+        "de": "FIX: #97 fehlende Attribute zu jsonConfig hinzufügen",
+        "ru": "#97 Добавить недостающие атрибуты в jsonConfig",
+        "pt": "FIX: #97 Adicionar atributos ausentes ao jsonConfig",
+        "nl": "FIX: #97 Voeg ontbrekende attributen toe aan jsonConfig",
+        "fr": "FIX: #97 Ajouter des attributs manquants à jsonConfig",
+        "it": "FIX: #97 Aggiungi attributi mancanti a jsonConfig",
+        "es": "FIX: #97 Añadir atributos perdidos a jsonConfig",
+        "pl": "FIX: # 97 Dodaj brakujące atrybuty do jsonConfig",
+        "uk": "FIX: #97 Додати відсутні атрибути до jsonConfig",
+        "zh-cn": "FIX: # 97 向 jsonConfig 添加缺失属性"
+      }
     },
-    "native": {
-        "alexa": "",
-        "device": "",
-        "shoppinglist": "",
-        "doNotMovetoInactiv": false
+    "titleLang": {
+      "en": "Alexa Shoppinglist",
+      "de": "Alexa Einkaufsliste",
+      "ru": "Алекса список покупок",
+      "pt": "Lista de compras Alexa",
+      "nl": "Alexa-boodschappenlijst",
+      "fr": "Liste de courses Alexa",
+      "it": "Lista della spesa di Alexa",
+      "es": "Lista de la compra de Alexa",
+      "pl": "Lista zakupów Alexa",
+      "zh-cn": "Alexa购物清单",
+      "uk": "Список покупок Alexa"
     },
-    "objects": [],
-    "instanceObjects": [
-        {
-            "_id": "info",
-            "type": "channel",
-            "common": {
-                "name": "Information"
-            },
-            "native": {}
-        },
-        {
-            "_id": "info.connection",
-            "type": "state",
-            "common": {
-                "role": "indicator.connected",
-                "name": "Device or service connected",
-                "type": "boolean",
-                "read": true,
-                "write": false,
-                "def": false
-            },
-            "native": {}
-        },
-        {
-            "_id": "list_activ",
-            "type": "state",
-            "common": {
-                "role": "json",
-                "name": "List active",
-                "type": "string",
-                "read": true,
-                "write": false,
-                "def": ""
-            },
-            "native": {}
-        },
-        {
-            "_id": "list_inactiv",
-            "type": "state",
-            "common": {
-                "role": "json",
-                "name": "List inactive",
-                "type": "string",
-                "read": true,
-                "write": false,
-                "def": ""
-            },
-            "native": {}
-        },
-        {
-            "_id": "list_activ_sort",
-            "type": "state",
-            "common": {
-                "role": "state",
-                "name": "Sorting of List Active",
-                "read": true,
-                "write": true,
-                "type": "string",
-                "states": {
-                    "1": "Time",
-                    "2": "Alphabetical"
-                },
-                "def": "1"
-            },
-            "native": {}
-        },
-        {
-            "_id": "list_inactiv_sort",
-            "type": "state",
-            "common": {
-                "role": "state",
-                "name": "Sorting of List Inactive",
-                "read": true,
-                "write": true,
-                "type": "string",
-                "states": {
-                    "1": "Time",
-                    "2": "Alphabetical"
-                },
-                "def": "1"
-            },
-            "native": {}
-        },
-        {
-            "_id": "add_position",
-            "type": "state",
-            "common": {
-                "role": "text",
-                "name": "Add new Article",
-                "type": "string",
-                "read": true,
-                "write": true,
-                "def": ""
-            },
-            "native": {}
-        },
-        {
-            "_id": "to_inactiv_list",
-            "type": "state",
-            "common": {
-                "role": "button",
-                "name": "Move to inactive",
-                "type": "boolean",
-                "read": false,
-                "write": true,
-                "def": true
-            },
-            "native": {}
-        },
-        {
-            "_id": "to_activ_list",
-            "type": "state",
-            "common": {
-                "role": "button",
-                "name": "Move to active",
-                "type": "boolean",
-                "read": false,
-                "write": true,
-                "def": true
-            },
-            "native": {}
-        },
-        {
-            "_id": "delete_inactiv_list",
-            "type": "state",
-            "common": {
-                "role": "button",
-                "name": "Delete inactive",
-                "type": "boolean",
-                "read": false,
-                "write": true,
-                "def": true
-            },
-            "native": {}
-        },
-        {
-            "_id": "delete_activ_list",
-            "type": "state",
-            "common": {
-                "role": "button",
-                "name": "Move to inactive",
-                "type": "boolean",
-                "read": false,
-                "write": true,
-                "def": true
-            },
-            "native": {}
-        },
-        {
-            "_id": "position_to_shift",
-            "type": "state",
-            "common": {
-                "role": "level",
-                "name": "Position to shift",
-                "type": "number",
-                "read": true,
-                "write": true,
-                "def": 0
-            },
-            "native": {}
-        }
+    "desc": {
+      "en": "Generates the Shoppinglist from Alexa",
+      "de": "Erzeugt die Einkaufsliste von Alexa",
+      "ru": "Генерирует список покупок из Alexa",
+      "pt": "Gera a lista de compras do Alexa",
+      "nl": "Genereert de boodschappenlijst van Alexa",
+      "fr": "Génère la liste de courses d'Alexa",
+      "it": "Genera la lista della spesa da Alexa",
+      "es": "Genera la lista de la compra desde Alexa",
+      "pl": "Generuje listę zakupów z Alexa",
+      "zh-cn": "从 Alexa 生成购物清单",
+      "uk": "Створює список покупок з Alexa"
+    },
+    "authors": [
+      "MiRo1310 <michael.roling@gmx.de>"
+    ],
+    "keywords": [
+      "Iobroker, Alexa, Shoppinglist, List, Smarthome"
+    ],
+    "licenseInformation": {
+      "license": "MIT",
+      "type": "free"
+    },
+    "platform": "Javascript/Node.js",
+    "icon": "alexa-shoppinglist.png",
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/MiRo1310/ioBroker.alexa-shoppinglist/main/admin/alexa-shoppinglist.png",
+    "readme": "https://github.com/MiRo1310/ioBroker.alexa-shoppinglist/blob/main/README.md",
+    "loglevel": "info",
+    "messagebox": true,
+    "mode": "daemon",
+    "type": "logic",
+    "tier": 3,
+    "compact": true,
+    "connectionType": "local",
+    "dataSource": "poll",
+    "supportCustoms": false,
+    "plugins": {
+      "sentry": {
+        "dsn": "https://9d473b68d00b00d91f1535835592d739@o4508003658498048.ingest.de.sentry.io/4509305083592784"
+      }
+    },
+    "adminUI": {
+      "config": "json"
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=6.0.11"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "alexa2": ">=3.11.2",
+        "admin": ">=7.6.20"
+      }
     ]
+  },
+  "native": {
+    "alexa": "",
+    "device": "",
+    "shoppinglist": "",
+    "doNotMovetoInactiv": false
+  },
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "info",
+      "type": "channel",
+      "common": {
+        "name": "Information"
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "role": "indicator.connected",
+        "name": "Device or service connected",
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "list_activ",
+      "type": "state",
+      "common": {
+        "role": "json",
+        "name": "List active",
+        "type": "string",
+        "read": true,
+        "write": false,
+        "def": ""
+      },
+      "native": {}
+    },
+    {
+      "_id": "list_inactiv",
+      "type": "state",
+      "common": {
+        "role": "json",
+        "name": "List inactive",
+        "type": "string",
+        "read": true,
+        "write": false,
+        "def": ""
+      },
+      "native": {}
+    },
+    {
+      "_id": "list_activ_sort",
+      "type": "state",
+      "common": {
+        "role": "state",
+        "name": "Sorting of List Active",
+        "read": true,
+        "write": true,
+        "type": "string",
+        "states": {
+          "1": "Time",
+          "2": "Alphabetical"
+        },
+        "def": "1"
+      },
+      "native": {}
+    },
+    {
+      "_id": "list_inactiv_sort",
+      "type": "state",
+      "common": {
+        "role": "state",
+        "name": "Sorting of List Inactive",
+        "read": true,
+        "write": true,
+        "type": "string",
+        "states": {
+          "1": "Time",
+          "2": "Alphabetical"
+        },
+        "def": "1"
+      },
+      "native": {}
+    },
+    {
+      "_id": "add_position",
+      "type": "state",
+      "common": {
+        "role": "text",
+        "name": "Add new Article",
+        "type": "string",
+        "read": true,
+        "write": true,
+        "def": ""
+      },
+      "native": {}
+    },
+    {
+      "_id": "to_inactiv_list",
+      "type": "state",
+      "common": {
+        "role": "button",
+        "name": "Move to inactive",
+        "type": "boolean",
+        "read": false,
+        "write": true,
+        "def": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "to_activ_list",
+      "type": "state",
+      "common": {
+        "role": "button",
+        "name": "Move to active",
+        "type": "boolean",
+        "read": false,
+        "write": true,
+        "def": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "delete_inactiv_list",
+      "type": "state",
+      "common": {
+        "role": "button",
+        "name": "Delete inactive",
+        "type": "boolean",
+        "read": false,
+        "write": true,
+        "def": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "delete_activ_list",
+      "type": "state",
+      "common": {
+        "role": "button",
+        "name": "Move to inactive",
+        "type": "boolean",
+        "read": false,
+        "write": true,
+        "def": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "position_to_shift",
+      "type": "state",
+      "common": {
+        "role": "level",
+        "name": "Position to shift",
+        "type": "number",
+        "read": true,
+        "write": true,
+        "def": 0
+      },
+      "native": {}
+    }
+  ]
 }
