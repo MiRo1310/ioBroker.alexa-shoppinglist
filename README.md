@@ -120,6 +120,8 @@ function setOnDblClickCustomShop( myvalue) {
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)## License
 
+## License
+
 MIT License
 
 Copyright (c) 2021-2026 MiRo1310 <michael.roling@gmx.de>
