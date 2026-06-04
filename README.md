@@ -87,6 +87,10 @@ function setOnDblClickCustomShop( myvalue) {
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+
+- CHORE: Update dependencies
+
 ### 1.1.4 (2026-06-04)
 
 - CHORE: Add unit tests
