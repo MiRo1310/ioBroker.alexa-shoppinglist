@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alexa-shoppinglist",
-    "version": "1.1.4",
+    "version": "1.1.5",
     "news": {
+      "1.1.5": {
+        "en": "CHORE: Update dependencies",
+        "de": "CHORE: Aktualisieren von Abhängigkeiten",
+        "ru": "Изображение: Update Dependencies",
+        "pt": "CHORE: Atualizar dependências",
+        "nl": "Afhankelijkheden bijwerken",
+        "fr": "CHORE: Mise à jour des dépendances",
+        "it": "CHORE: dipendenze di aggiornamento",
+        "es": "CHORE: Actualizar las dependencias",
+        "pl": "CHORE: Uaktualnij zależności",
+        "uk": "CHORE: Оновити залежності",
+        "zh-cn": "CHORE: 更新依赖性"
+      },
       "1.1.4": {
         "en": "CHORE: Add unit tests\nAdapter requires node.js >= 22 now\nCHORE: Update dependencies\nCHORE: #203 Issues reported by repository checker\nCHORE: #193-Repository-Checker",
         "de": "CHORE: Gerätetests hinzufügen\nAdapter benötigt node.js >= 22 jetzt\nCHORE: Aktualisieren von Abhängigkeiten\nCHORE: #203 Vom Repository-Checker gemeldete Probleme\nCHORE: #193-Repository-Checker",
@@ -80,19 +93,6 @@
         "pl": "CHORE: Migracja do ESLint 9 i @ iobroker / eslint- config",
         "uk": "CHORE: Міграція до ESLint 9 і @iobroker/eslint-config",
         "zh-cn": "CHORE: 迁移到ESLint 9 和 @iobroster/eslint-config"
-      },
-      "1.0.2": {
-        "en": "FIX: #97 Add missing attributes to jsonConfig",
-        "de": "FIX: #97 fehlende Attribute zu jsonConfig hinzufügen",
-        "ru": "#97 Добавить недостающие атрибуты в jsonConfig",
-        "pt": "FIX: #97 Adicionar atributos ausentes ao jsonConfig",
-        "nl": "FIX: #97 Voeg ontbrekende attributen toe aan jsonConfig",
-        "fr": "FIX: #97 Ajouter des attributs manquants à jsonConfig",
-        "it": "FIX: #97 Aggiungi attributi mancanti a jsonConfig",
-        "es": "FIX: #97 Añadir atributos perdidos a jsonConfig",
-        "pl": "FIX: # 97 Dodaj brakujące atrybuty do jsonConfig",
-        "uk": "FIX: #97 Додати відсутні атрибути до jsonConfig",
-        "zh-cn": "FIX: # 97 向 jsonConfig 添加缺失属性"
       }
     },
     "titleLang": {

@@ -87,7 +87,7 @@ function setOnDblClickCustomShop( myvalue) {
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 1.1.5 (2026-06-04)
 
 - CHORE: Update dependencies
 
@@ -111,12 +111,6 @@ function setOnDblClickCustomShop( myvalue) {
 ### 1.1.1 (2025-08-13)
 
 - FIX: Error reported by sentry
-
-### 1.1.0 (2025-07-14)
-
-- FEAT: Activate sentry
-- Breaking change: minimal supported node.js version is 20.x
-- FEAT: Add typescript
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)## License
 

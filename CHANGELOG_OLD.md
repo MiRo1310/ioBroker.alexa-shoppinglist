@@ -1,4 +1,10 @@
 # Older changes
+## 1.1.0 (2025-07-14)
+
+- FEAT: Activate sentry
+- Breaking change: minimal supported node.js version is 20.x
+- FEAT: Add typescript
+
 ## 1.0.3 (2024-12-04)
 
 - CHORE: Migration to ESLint 9 and @iobroker/eslint-config
