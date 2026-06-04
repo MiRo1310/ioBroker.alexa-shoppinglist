@@ -24,15 +24,15 @@ export const updateListsOnChange = async (
 
             let jsonActive: ShoppingList[] = [];
             let jsonInactive: ShoppingList[] = [];
-
-            for (const element of alexaList) {
-                if (!element.completed) {
-                    pushToList(jsonActive, element);
-                } else {
-                    pushToList(jsonInactive, element);
+            if (alexaList && Array.isArray(alexaList)) {
+                for (const element of alexaList) {
+                    if (!element.completed) {
+                        pushToList(jsonActive, element);
+                    } else {
+                        pushToList(jsonInactive, element);
+                    }
                 }
             }
-
             jsonActive = sortList(jsonActive, sortListActive);
             jsonInactive = sortList(jsonInactive, sortListInActive);
             addPositionNumberAndBtn(adapter, jsonActive, 'active');
