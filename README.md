@@ -19,18 +19,14 @@ starts with js-controller 3.0.
 
 ## alexa-shoppingList adapter for ioBroker
 
-This adapter uses Sentry libraries to automatically report exceptions and code errors to the developers. For more
-details and for information how to disable the error reporting see Sentry-Plugin Documentation! Sentry reporting is used
-starting with js-controller 3.0.
+Generates the shopping list from Alexa.
 
-Generates the shoppingList from Alexa
+You can also use other lists from Alexa - configure this in the admin settings.
+Using the new Admin UI makes this much easier.
 
-You can also use other Lists from alexa. Configure it in Admin.
-When you use the new Admin UI, it will be much easier for you.
-
-There is a State to insert new Items. Just write the Text and Enter.
-You can delete active and inactive Lists.
-You can also move only one Item, to both directions.
+There is a state for inserting new items: just enter the text and press Enter.
+You can delete active and inactive lists.
+You can also move individual items in both directions.
 
 I hope you enjoy
 
